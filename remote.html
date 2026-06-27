@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — 원격지원</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2668A3;--blue-bright:#3d8fd4;--dark:#0B1A2E;--text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;--bg:#fff;--tint:#f6f9fc;--radius:10px}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--dark);min-height:100vh}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* NAV */
+.nav.scrolled .nav-logo{filter:none}
+.nav.scrolled .nav-links{color:var(--muted)}
+.nav.scrolled .nav-links a:hover{color:var(--blue)}
+.nav.scrolled .nav-cta{border-color:var(--border);color:var(--text);background:transparent}
+.mega-desc-title{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.mega-desc-text{font-size:14px;line-height:1.75;color:var(--muted)}
+.mega-desc-link{display:inline-flex;margin-top:16px;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;background:rgba(38,104,163,.2);color:var(--blue-bright)}
+
+/* MAIN */
+.remote-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:120px 5% 80px;position:relative;overflow:hidden}
+.remote-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 40%,rgba(38,104,163,.2),transparent)}
+canvas#bgCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.25;pointer-events:none}
+.remote-inner{position:relative;z-index:1;max-width:720px;width:100%;text-align:center}
+.remote-eyebrow{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px}
+.remote-eyebrow::before,.remote-eyebrow::after{content:'';flex:1;max-width:40px;height:1px;background:rgba(255,255,255,.15)}
+.remote-h1{font-size:clamp(36px,5vw,60px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.03em;margin-bottom:14px}
+.remote-h1 em{font-style:normal;background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.remote-sub{font-size:16px;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:48px;word-break:keep-all}
+.remote-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
+.rc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:28px 24px;text-align:left;transition:all .3s;cursor:pointer}
+.rc:hover{background:rgba(38,104,163,.15);border-color:rgba(61,143,212,.4);transform:translateY(-3px)}
+.rc-icon{width:44px;height:44px;background:rgba(61,143,212,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.rc-icon svg{width:22px;height:22px;stroke:var(--blue-bright)}
+.rc-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.rc-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65}
+.rc-badge{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px;background:rgba(61,143,212,.2);color:var(--blue-bright);margin-top:12px}
+.remote-notice{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:18px 22px;display:flex;align-items:flex-start;gap:12px;text-align:left}
+.remote-notice svg{width:18px;height:18px;stroke:var(--blue-bright);flex-shrink:0;margin-top:1px}
+.remote-notice p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7}
+.remote-notice strong{color:rgba(255,255,255,.7)}
+.remote-tel{margin-top:28px;font-size:14px;color:rgba(255,255,255,.4)}
+.remote-tel a{color:var(--blue-bright);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px}
+
+/* FOOTER */
+footer{padding:32px 5%;background:#070f1c;color:rgba(255,255,255,.3);position:relative;z-index:1}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-info,.footer-right{font-size:12px;line-height:1.8}
+.footer-right{text-align:right}
+
+[data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+[data-reveal].revealed{opacity:1;transform:none}
+@media(max-width:640px){.remote-cards{grid-template-columns:1fr}.nav-links{display:none}}
+.nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
+.nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav"></nav>
+
+<!-- REMOTE SUPPORT -->
+<div class="remote-wrap">
+  <canvas id="bgCanvas"></canvas>
+  <div class="remote-inner">
+    <div class="remote-eyebrow" data-reveal>Remote Support · 원격지원</div>
+    <h1 class="remote-h1" data-reveal>언제 어디서나<br><em>즉시 연결</em>합니다</h1>
+    <p class="remote-sub" data-reveal>ESNET 기술팀이 원격으로 직접 접속하여 문제를 신속하게 해결해 드립니다.<br>아래 원격지원 도구를 실행하고 담당자에게 접속 코드를 알려주세요.</p>
+
+    <div class="remote-cards" data-reveal>
+      <div class="rc" onclick="window.open('https://www.teamviewer.com/ko/download/windows/','_blank')">
+        <div class="rc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="rc-title">TeamViewer</div>
+        <div class="rc-desc">가장 널리 사용되는 원격지원 솔루션. 설치 후 ID와 비밀번호를 담당자에게 전달해 주세요.</div>
+        <span class="rc-badge">다운로드</span>
+      </div>
+      <div class="rc" onclick="window.open('https://anydesk.com/ko/downloads','_blank')">
+        <div class="rc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="rc-title">AnyDesk</div>
+        <div class="rc-desc">빠르고 가벼운 원격지원 도구. 설치 없이 실행 가능하며 접속 주소를 담당자에게 알려주세요.</div>
+        <span class="rc-badge">다운로드</span>
+      </div>
+    </div>
+
+    <div class="remote-notice" data-reveal>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <p><strong>원격지원 이용 안내:</strong> 원격지원은 고객이 직접 프로그램을 실행하고 접속 코드를 제공해야만 연결됩니다. ESNET은 고객의 동의 없이 먼저 접속하지 않습니다. 원격지원 전 반드시 기술팀(043-292-1800)에 사전 연락 후 진행해 주세요.</p>
+    </div>
+
+    <div class="remote-tel" data-reveal>
+      기술 문의 및 원격지원 사전 연락 &nbsp;→&nbsp; <a href="tel:0432921800">043-292-1800</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-info">(주)이에스넷 · 대표자 : 최명수 · 사업자등록번호 : 398-87-00795<br>충북 청주시 상당구 용암북로 156, 401호</div>
+    <div class="footer-right">Tel: 043-292-1800 · tech@esnet.co.kr<br>© 2026 ESNET. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+(function(){var nav=document.getElementById('mainNav');function onScroll(){nav.classList.toggle('scrolled',window.scrollY>60);}window.addEventListener('scroll',onScroll,{passive:true});onScroll();})();
+(function(){
+  var navItems=document.querySelectorAll('.nav-item');
+  var hideTimers=new Map();
+  navItems.forEach(function(item){
+    var drop=item.querySelector('.mega-drop');
+    if(!drop)return;
+    var show=function(){clearTimeout(hideTimers.get(item));navItems.forEach(function(o){if(o!==item&&o.querySelector('.mega-drop'))o.querySelector('.mega-drop').classList.remove('mega-open');});drop.classList.add('mega-open');};
+    var hide=function(d){hideTimers.set(item,setTimeout(function(){drop.classList.remove('mega-open');},(d||180)));};
+    item.addEventListener('mouseenter',show);item.addEventListener('mouseleave',function(){hide(180);});
+    drop.addEventListener('mouseenter',function(){clearTimeout(hideTimers.get(item));});drop.addEventListener('mouseleave',function(){hide(80);});
+  });
+})();
+(function(){
+  var canvas=document.getElementById('bgCanvas');if(!canvas)return;
+  var ctx=canvas.getContext('2d');var W,H,nodes=[];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;nodes=[];var n=Math.floor((W*H)/20000);for(var i=0;i<n;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.5+.6});}
+  function draw(){ctx.clearRect(0,0,W,H);nodes.forEach(function(n){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});for(var i=0;i<nodes.length;i++){for(var j=i+1;j<nodes.length;j++){var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<130){ctx.strokeStyle='rgba(61,143,212,'+(1-d/130).toFixed(2)+')';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}}nodes.forEach(function(n){ctx.fillStyle='rgba(61,143,212,.8)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});requestAnimationFrame(draw);}
+  window.addEventListener('resize',resize);resize();draw();
+})();
+document.addEventListener('DOMContentLoaded',function(){
+  var els=document.querySelectorAll('[data-reveal]');
+  setTimeout(function(){els.forEach(function(el,i){setTimeout(function(){el.classList.add('revealed');},i*130);});},200);
+});
+</script>
+<script src="./assets/js/nav.js"></script>
+</body>
+</html>

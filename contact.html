@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — 문의 / Contact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2668A3;--blue-bright:#3d8fd4;--blue-rgb:38,104,163;
+  --dark:#0B1A2E;--dark2:#0f2035;--text:#1d1d2c;--muted:#6b7185;
+  --border:#e2e5ea;--bg:#fff;--tint:#f6f9fc;--radius:10px
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--dark);overflow-x:hidden}
+.en{font-family:'Space Grotesk','Noto Sans KR',sans-serif}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* NAV */
+(function(){var nav=document.getElementById('mainNav');function onScroll(){if(nav)nav.classList.toggle('scrolled',window.scrollY>60);}window.addEventListener('scroll',onScroll,{passive:true});onScroll();})();
+.nav.scrolled .nav-logo{filter:none}
+.nav.scrolled .nav-links{color:var(--muted)}
+.nav.scrolled .nav-links a:hover{color:var(--blue)!important}
+.nav.scrolled .nav-cta{border-color:var(--border);color:var(--text);background:transparent}
+.mega-desc-title{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.mega-desc-text{font-size:14px;line-height:1.75;color:var(--muted)}
+.mega-desc-link{display:inline-flex;margin-top:16px;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;background:rgba(38,104,163,.08);color:var(--blue)}
+
+/* PAGE */
+.contact{position:relative;min-height:100vh;overflow:hidden;display:flex;align-items:center;padding:120px 5% 80px}
+.contact::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 75% 50%,rgba(38,104,163,.16),transparent)}
+canvas#bgCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.3;pointer-events:none}
+.contact-grid{position:relative;z-index:1;max-width:1280px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+
+/* LEFT — editorial */
+.c-left{}
+.c-eyebrow{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:28px;display:flex;align-items:center;gap:12px}
+.c-eyebrow::before{content:'';width:32px;height:1px;background:var(--blue-bright)}
+.c-headline{font-size:clamp(40px,5.5vw,68px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:28px}
+.c-headline em{font-style:normal;background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.c-lead{font-size:16px;color:rgba(255,255,255,.55);line-height:1.9;max-width:440px;margin-bottom:44px;word-break:keep-all}
+.c-quick{display:flex;flex-direction:column;gap:2px}
+.c-quick-row{display:flex;align-items:center;gap:20px;padding:18px 0;border-top:1px solid rgba(255,255,255,.08);transition:padding .3s}
+.c-quick-row:last-child{border-bottom:1px solid rgba(255,255,255,.08)}
+.c-quick-row:hover{padding-left:8px}
+.c-quick-ico{width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s}
+.c-quick-row:hover .c-quick-ico{background:rgba(38,104,163,.2);border-color:var(--blue-bright)}
+.c-quick-ico svg{width:18px;height:18px;stroke:var(--blue-bright)}
+.c-quick-meta{flex:1}
+.c-quick-label{font-family:'Space Grotesk',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:3px}
+.c-quick-val{font-size:17px;font-weight:600;color:#fff}
+.c-quick-val a{color:#fff;transition:color .2s}
+.c-quick-val a:hover{color:var(--blue-bright)}
+.c-quick-arrow{color:rgba(255,255,255,.2);font-size:18px;transition:all .3s}
+.c-quick-row:hover .c-quick-arrow{color:var(--blue-bright);transform:translateX(4px)}
+
+/* RIGHT — 3D business card */
+.c-right{display:flex;justify-content:center;perspective:1400px;min-width:0}
+.c-right>div{width:100%;max-width:360px}
+.bcard{position:relative;width:100%;aspect-ratio:1.0/1.42;border-radius:24px;transform-style:preserve-3d;transition:transform .15s ease-out;will-change:transform}
+.bcard-face{position:absolute;inset:0;border-radius:24px;overflow:hidden;background:linear-gradient(155deg,#16314f 0%,#0b1a2e 60%,#0a1626 100%);border:1px solid rgba(255,255,255,.1);box-shadow:0 50px 100px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);display:flex;flex-direction:column}
+.bcard-shine{position:absolute;inset:0;border-radius:24px;background:radial-gradient(circle at var(--mx,30%) var(--my,20%),rgba(255,255,255,.14),transparent 45%);pointer-events:none;transition:background .15s;z-index:3}
+.bcard-grid-deco{position:absolute;inset:0;background-image:linear-gradient(rgba(61,143,212,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(61,143,212,.06) 1px,transparent 1px);background-size:32px 32px;opacity:.6;z-index:0}
+/* BRAND ANIMATION card */
+.bcard-brand-wrap{padding:32px 36px 16px;position:relative;z-index:2;transform:translateZ(40px);flex-shrink:0}
+.bcard-brand-full{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:800;line-height:1.3;letter-spacing:-.02em}
+.bcard-brand-blue{background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:inline-block;position:relative}
+.bcard-brand-white{color:rgba(255,255,255,.8);display:inline;transition:opacity .7s ease}
+/* card head */
+.bcard-head{position:relative;z-index:2;padding:36px 36px 0;display:flex;align-items:flex-start;justify-content:space-between;transform:translateZ(40px)}
+.bcard-logo{height:30px;filter:brightness(0) invert(1)}
+.bcard-chip{width:42px;height:32px;border-radius:6px;background:linear-gradient(135deg,#d4af37,#b8941f);position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.bcard-chip::before,.bcard-chip::after{content:'';position:absolute;background:rgba(0,0,0,.18)}
+.bcard-chip::before{left:0;right:0;top:50%;height:1.5px}
+.bcard-chip::after{top:0;bottom:0;left:50%;width:1.5px}
+/* card body */
+.bcard-body{position:relative;z-index:2;padding:0 36px;margin-top:auto;margin-bottom:28px;transform:translateZ(30px)}
+.bcard-en{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--blue-bright);font-weight:600;margin-bottom:8px}
+.bcard-name{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1.1}
+.bcard-name .e{color:var(--blue-bright)}
+.bcard-role{font-size:13px;color:rgba(255,255,255,.45);margin-top:8px;line-height:1.6}
+.bcard-dept-list{display:flex;flex-direction:column;gap:0;margin-top:auto;border-top:1px solid rgba(255,255,255,.07)}
+.bcard-dept{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:12px;border-bottom:1px solid rgba(255,255,255,.05);transition:background .2s}
+.bcard-dept:last-child{border-bottom:none}
+.bcard-dept:hover{background:rgba(61,143,212,.08)}
+.bcard-dept-left{}
+.bcard-dept-name{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-bright)}
+.bcard-dept-desc{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;line-height:1.4}
+.bcard-dept-email{font-family:'Space Grotesk',sans-serif;font-size:10px;color:rgba(255,255,255,.5);text-align:right;flex-shrink:0}
+.bcard-dept-email a{color:rgba(255,255,255,.5);transition:color .2s}
+.bcard-dept:hover .bcard-dept-email a{color:var(--blue-bright)}
+.bcard-divider{height:1px;background:linear-gradient(90deg,rgba(61,143,212,.5),transparent);margin:22px 0}
+.bcard-lines{display:flex;flex-direction:column;gap:11px}
+.bcard-line{display:flex;align-items:center;gap:12px;font-size:13px;color:rgba(255,255,255,.75)}
+.bcard-line svg{width:15px;height:15px;stroke:var(--blue-bright);flex-shrink:0}
+.bcard-line .en{font-size:13px}
+/* card foot */
+.bcard-foot{position:relative;z-index:2;padding:16px 36px;background:rgba(0,0,0,.25);border-top:1px solid rgba(255,255,255,.06);display:flex;gap:7px;flex-wrap:wrap;transform:translateZ(20px)}
+.bcard-tag{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;letter-spacing:.06em;padding:4px 11px;border-radius:100px;border:1px solid rgba(61,143,212,.4);color:var(--blue-bright)}
+
+.card-hint{text-align:center;margin-top:22px;font-size:12px;color:rgba(255,255,255,.25);font-family:'Space Grotesk',sans-serif;letter-spacing:.05em}
+
+/* FOOTER */
+footer{padding:32px 5%;background:#070f1c;color:rgba(255,255,255,.3);position:relative;z-index:1}
+.footer-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-info,.footer-right{font-size:12px;line-height:1.8}
+.footer-right{text-align:right}
+
+/* REVEAL */
+[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+[data-reveal].revealed{opacity:1;transform:none}
+
+@media(max-width:960px){
+  .contact-grid{grid-template-columns:1fr;gap:56px}
+  .c-right{order:-1}
+  .c-lead{max-width:none}
+}
+@media(max-width:640px){
+  .bcard{max-width:340px}
+}
+.nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
+.nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav"></nav>
+
+<!-- CONTACT -->
+<section class="contact">
+  <canvas id="bgCanvas"></canvas>
+  <div class="contact-grid">
+
+    <!-- LEFT -->
+    <div class="c-left">
+      <div class="c-eyebrow" data-reveal>Contact Us</div>
+      <h1 class="c-headline" data-reveal>네트워크가<br>필요한 순간,<br><em>이에스넷</em>입니다.</h1>
+      <p class="c-lead" data-reveal>네트워크 구축부터 시스템 통합, 유지보수까지.<br>프로젝트 문의와 견적 상담은 언제든 환영합니다. 전문 담당자가 빠르게 응답해 드립니다.</p>
+
+      <div class="c-quick">
+        <div class="c-quick-row" data-reveal>
+          <div class="c-quick-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="c-quick-meta">
+            <div class="c-quick-label">Tel</div>
+            <div class="c-quick-val en"><a href="tel:0432921800">043-292-1800</a></div>
+          </div>
+          <div class="c-quick-arrow">→</div>
+        </div>
+        <div class="c-quick-row" data-reveal>
+          <div class="c-quick-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg></div>
+          <div class="c-quick-meta">
+            <div class="c-quick-label">Email</div>
+            <div class="c-quick-val en"><a href="mailto:tech@esnet.co.kr">tech@esnet.co.kr</a></div>
+          </div>
+          <div class="c-quick-arrow">→</div>
+        </div>
+        <div class="c-quick-row" data-reveal>
+          <div class="c-quick-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="c-quick-meta">
+            <div class="c-quick-label">Address</div>
+            <div class="c-quick-val" style="font-size:15px">충북 청주시 상당구 용암북로 156, 401호</div>
+          </div>
+          <a href="about/index.html#location" class="c-quick-arrow">→</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — 3D 명함 -->
+    <div class="c-right">
+      <div>
+        <div class="bcard" id="bcard">
+          <div class="bcard-face">
+            <div class="bcard-grid-deco"></div>
+            <div class="bcard-brand-wrap">
+              <div class="bcard-brand-full" id="bcardBrandFull">
+                <span class="bcard-brand-blue" data-letter="E">E</span><span class="bcard-brand-white">nterprise</span><br>
+                <span class="bcard-brand-blue" data-letter="S">S</span><span class="bcard-brand-white">ystems</span><br>
+                <span class="bcard-brand-blue" data-letter="NET">NET</span><span class="bcard-brand-white">work</span>
+              </div>
+            </div>
+            <div class="bcard-dept-list">
+              <div class="bcard-dept">
+                <div class="bcard-dept-left">
+                  <div class="bcard-dept-name">Tech</div>
+                  <div class="bcard-dept-desc">기술문의 · 네트워크 설계 · 장애대응</div>
+                </div>
+                <div class="bcard-dept-email"><a href="mailto:tech@esnet.co.kr">tech@esnet.co.kr</a></div>
+              </div>
+              <div class="bcard-dept">
+                <div class="bcard-dept-left">
+                  <div class="bcard-dept-name">Sales</div>
+                  <div class="bcard-dept-desc">견적 · 구축상담 · 파트너십</div>
+                </div>
+                <div class="bcard-dept-email"><a href="mailto:6911@esnet.co.kr">6911@esnet.co.kr</a></div>
+              </div>
+              <div class="bcard-dept">
+                <div class="bcard-dept-left">
+                  <div class="bcard-dept-name">Management</div>
+                  <div class="bcard-dept-desc">경영지원 · 계약 · 총무</div>
+                </div>
+                <div class="bcard-dept-email"><a href="mailto:sos0119@esnet.co.kr">sos0119@esnet.co.kr</a></div>
+              </div>
+              <div class="bcard-dept">
+                <div class="bcard-dept-left">
+                  <div class="bcard-dept-name">Planning</div>
+                  <div class="bcard-dept-desc">기획 · 제안서 · 입찰전략</div>
+                </div>
+                <div class="bcard-dept-email"><a href="mailto:mhlee@esnet.co.kr">mhlee@esnet.co.kr</a></div>
+              </div>
+            </div>
+            <div class="bcard-foot">
+              <span class="bcard-tag">NI</span>
+              <span class="bcard-tag">SI</span>
+              <span class="bcard-tag">O&amp;M</span>
+              <span class="bcard-tag">ISO 45001</span>
+            </div>
+          </div>
+          <div class="bcard-shine"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-info">(주)이에스넷 · 대표자 : 최명수 · 사업자등록번호 : 398-87-00795<br>충북 청주시 상당구 용암북로 156, 401호</div>
+    <div class="footer-right">Tel: 043-292-1800 · tech@esnet.co.kr<br>© 2026 ESNET. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* NAV */
+(function(){
+  var navItems=document.querySelectorAll('.nav-item');
+  var hideTimers=new Map();
+  navItems.forEach(function(item){
+    var drop=item.querySelector('.mega-drop');
+    if(!drop)return;
+    var show=function(){clearTimeout(hideTimers.get(item));navItems.forEach(function(o){if(o!==item&&o.querySelector('.mega-drop'))o.querySelector('.mega-drop').classList.remove('mega-open');});drop.classList.add('mega-open');};
+    var hide=function(d){hideTimers.set(item,setTimeout(function(){drop.classList.remove('mega-open');},(d||180)));};
+    item.addEventListener('mouseenter',show);
+    item.addEventListener('mouseleave',function(){hide(180);});
+    drop.addEventListener('mouseenter',function(){clearTimeout(hideTimers.get(item));});
+    drop.addEventListener('mouseleave',function(){hide(80);});
+  });
+})();
+
+/* BG PARTICLE */
+(function(){
+  var canvas=document.getElementById('bgCanvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W,H,nodes=[];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;nodes=[];var n=Math.floor((W*H)/20000);for(var i=0;i<n;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3,r:Math.random()*1.6+.6});}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(function(n){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){ctx.strokeStyle='rgba(61,143,212,'+(1-d/130).toFixed(2)+')';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}
+      }
+    }
+    nodes.forEach(function(n){ctx.fillStyle='rgba(61,143,212,.8)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);
+  resize();draw();
+})();
+
+/* BRAND ANIMATION — CARD */
+(function(){
+  var full=document.getElementById('bcardBrandFull');
+  if(!full)return;
+  var blues=full.querySelectorAll('.bcard-brand-blue');
+  var whites=full.querySelectorAll('.bcard-brand-white');
+  var merged=false;
+  var wrap=full.closest('.bcard-brand-wrap');
+  function getCenter(){var r=wrap.getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2};}
+  function calcTargets(){
+    var rects=Array.from(blues).map(function(el){return el.getBoundingClientRect();});
+    var totalW=rects.reduce(function(s,r){return s+r.width;},0);
+    var center=getCenter();
+    var cx=center.x-totalW/2;
+    return rects.map(function(r,i){
+      var offX=rects.slice(0,i).reduce(function(s,r2){return s+r2.width;},0);
+      return {x:cx+offX+r.width/2,y:center.y};
+    });
+  }
+  function doMerge(){
+    whites.forEach(function(w){w.style.transition='opacity .6s ease';w.style.opacity='0';});
+    setTimeout(function(){
+      var targets=calcTargets();
+      blues.forEach(function(el,i){
+        var r=el.getBoundingClientRect();
+        var dx=targets[i].x-(r.left+r.width/2);
+        var dy=targets[i].y-(r.top+r.height/2);
+        el.style.transition='transform 1s cubic-bezier(.25,.46,.45,.94)';
+        el.style.transform='translate('+dx+'px,'+dy+'px)';
+      });
+    },700);
+  }
+  function doExpand(){
+    blues.forEach(function(el){el.style.transition='transform .5s cubic-bezier(.25,.46,.45,.94)';el.style.transform='translate(0,0)';});
+    setTimeout(function(){whites.forEach(function(w){w.style.transition='opacity .4s ease';w.style.opacity='1';});},400);
+  }
+  setTimeout(function(){
+    setInterval(function(){merged=!merged;if(merged)doMerge();else doExpand();},4500);
+  },1800);
+})();
+
+/* 3D CARD TILT */
+(function(){
+  var card=document.getElementById('bcard');
+  if(!card)return;
+  var shine=card.querySelector('.bcard-shine');
+  var rect;
+  function enter(){rect=card.getBoundingClientRect();}
+  function move(e){
+    if(!rect)rect=card.getBoundingClientRect();
+    var px=(e.clientX-rect.left)/rect.width;
+    var py=(e.clientY-rect.top)/rect.height;
+    var rx=(py-.5)*-16;
+    var ry=(px-.5)*16;
+    card.style.transform='rotateX('+rx+'deg) rotateY('+ry+'deg)';
+    if(shine){shine.style.setProperty('--mx',(px*100)+'%');shine.style.setProperty('--my',(py*100)+'%');}
+  }
+  function leave(){card.style.transform='rotateX(0) rotateY(0)';if(shine){shine.style.setProperty('--mx','30%');shine.style.setProperty('--my','20%');}}
+  card.addEventListener('mouseenter',enter);
+  card.addEventListener('mousemove',move);
+  card.addEventListener('mouseleave',leave);
+})();
+
+/* REVEAL */
+document.addEventListener('DOMContentLoaded',function(){
+  var els=document.querySelectorAll('[data-reveal]');
+  setTimeout(function(){els.forEach(function(el,i){setTimeout(function(){el.classList.add('revealed');},i*120);});},250);
+});
+</script>
+<script src="./assets/js/nav.js"></script>
+</body>
+</html>

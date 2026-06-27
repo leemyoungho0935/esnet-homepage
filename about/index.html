@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — 회사소개</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Serif+KR:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2668A3;--blue-bright:#3d8fd4;--blue-light:#edf4fb;
+  --dark:#0B1A2E;--dark2:#0f2035;
+  --text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;
+  --bg:#ffffff;--tint:#f6f9fc;--radius:12px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* ── REVEAL ── */
+[data-reveal]:not(.revealed){opacity:0;transform:translateY(28px)}
+[data-reveal]{transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+[data-reveal-l]:not(.revealed){opacity:0;transform:translateX(-40px)}
+[data-reveal-l]{transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+[data-reveal-r]:not(.revealed){opacity:0;transform:translateX(40px)}
+[data-reveal-r]{transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.revealed{opacity:1!important;transform:none!important}
+
+/* ── NAV ── */
+.nav.scrolled .nav-logo{filter:none}
+.nav:not(.light) .nav-logo{filter:brightness(0) invert(1)}
+.nav:not(.light) .nav-links{color:rgba(255,255,255,.75)}
+
+/* ── DOT NAVIGATION ── */
+.dot-nav{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:14px;align-items:center;padding:10px 8px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border-radius:100px;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.dot-nav a{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none}
+.dot{width:8px;height:8px;border-radius:50%;border:2px solid rgba(100,120,160,.4);background:transparent;transition:all .35s;cursor:pointer;flex-shrink:0}
+.dot-nav a.active .dot{background:var(--blue);border-color:var(--blue);width:10px;height:10px;box-shadow:0 0 0 3px rgba(38,104,163,.2)}
+.dot-nav.on-light .dot{border-color:rgba(38,104,163,.3)}
+.dot-nav.on-light a.active .dot{background:var(--blue);border-color:var(--blue)}
+
+/* ── HERO ── */
+.page-hero{min-height:52vh;background:var(--dark);padding:140px 5% 80px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.page-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,26,46,.55) 0%,rgba(11,26,46,.3) 50%,rgba(11,26,46,.85) 100%);z-index:0}
+.page-hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(.55);z-index:0}
+.hero-bg-text{position:absolute;bottom:-20px;right:3%;font-family:'Space Grotesk',sans-serif;font-size:clamp(100px,18vw,200px);font-weight:800;color:rgba(255,255,255,.03);line-height:1;letter-spacing:-.05em;user-select:none;pointer-events:none}
+.page-hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1}
+.breadcrumb{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.12em;color:rgba(255,255,255,.3);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.breadcrumb a:hover{color:rgba(255,255,255,.7)}
+.page-hero h1{font-size:clamp(44px,7vw,80px);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.03em}
+.page-hero h1 em{color:var(--blue-bright);font-style:normal}
+.page-hero-sub{font-size:16px;color:rgba(255,255,255,.45);margin-top:16px;line-height:1.7;max-width:500px}
+
+/* ── SECTION COMMON ── */
+.sec-num{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.2em;font-weight:600;text-transform:uppercase;margin-bottom:12px}
+.sec-big-num{font-family:'Space Grotesk',sans-serif;font-weight:800;line-height:1;user-select:none;pointer-events:none}
+
+/* ── 01 CEO GREETING — DARK ── */
+#greeting{background:var(--dark);position:relative;overflow:hidden}
+.greeting-bg{position:absolute;top:-20px;left:3%;font-size:clamp(120px,20vw,240px);color:rgba(255,255,255,.02);font-family:'Space Grotesk',sans-serif;font-weight:800;letter-spacing:-.05em;line-height:1}
+.greeting-building{width:100%;height:clamp(260px,38vh,460px);position:relative;overflow:hidden}
+.greeting-building img{width:100%;height:100%;object-fit:cover;object-position:center 35%;display:block;filter:brightness(.5)}
+.greeting-building::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,26,46,.4) 0%,rgba(11,26,46,0) 35%,rgba(11,26,46,0) 55%,rgba(11,26,46,1) 100%)}
+.greeting-content{padding:64px 5% 120px;position:relative;z-index:1}
+.greeting-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:72px;align-items:start}
+.greeting-kpi{display:flex;flex-direction:column;gap:32px}
+.greeting-kpi-item .val{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.greeting-kpi-item .lbl{font-size:12px;color:rgba(255,255,255,.38);margin-top:5px;letter-spacing:.04em}
+.kpi-logos{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:28px}
+.gl-item{height:36px;display:flex;align-items:center;justify-content:center;opacity:.5;transition:opacity .3s}
+.gl-item:hover{opacity:.85}
+.gl-item img{max-width:100%;max-height:100%;object-fit:contain;filter:brightness(0) invert(1);opacity:.55}
+.greeting-quote{font-family:'Noto Serif KR',serif;font-size:clamp(20px,2.4vw,30px);font-weight:700;color:#fff;line-height:1.55;margin-bottom:28px;word-break:keep-all}
+.greeting-quote em{color:var(--blue-bright);font-style:normal}
+.greeting-body{font-size:15px;color:rgba(255,255,255,.52);line-height:2;word-break:keep-all}
+.greeting-body p+p{margin-top:18px}
+.greeting-sig{margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
+.greeting-sig-left{font-size:14px;color:rgba(255,255,255,.32);line-height:1.8}
+.greeting-sig-left strong{color:rgba(255,255,255,.82);font-size:18px;font-weight:700;display:block;margin-top:3px;letter-spacing:.03em}
+.greeting-sig-logo{height:32px;filter:brightness(0) invert(1);opacity:.4}
+.ceo-photo,.ceo-photo-info,.ceo-name,.ceo-title{display:none}
+.greeting-text .sec-num{color:var(--blue-bright)}
+.greeting-quote{font-family:'Noto Serif KR',serif;font-size:clamp(22px,2.8vw,34px);font-weight:700;color:#fff;line-height:1.5;margin:16px 0 32px;word-break:keep-all}
+.greeting-quote em{color:var(--blue-bright);font-style:normal}
+.greeting-body{font-size:15px;color:rgba(255,255,255,.6);line-height:2;word-break:keep-all}
+.greeting-body p+p{margin-top:20px}
+.greeting-sig{margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,.1);font-size:14px;color:rgba(255,255,255,.4)}
+.greeting-sig strong{color:rgba(255,255,255,.8);font-size:16px;display:block;margin-top:4px}
+
+/* ── 02 HISTORY — LIGHT ── */
+#history{background:var(--bg);padding:120px 5%;position:relative;overflow:hidden}
+.history-header{padding:0;max-width:1200px;margin:0 auto 64px}
+.history-header .sec-num{color:var(--blue)}
+.history-header h2{font-size:clamp(32px,4vw,52px);font-weight:900;line-height:1.1}
+.timeline-wrap{overflow-x:auto;overflow-y:visible;cursor:grab;user-select:none;padding:16px 0 40px;margin:0 -5%}
+.timeline-wrap:active{cursor:grabbing}
+.timeline-wrap::-webkit-scrollbar{height:4px}
+.timeline-wrap::-webkit-scrollbar-track{background:var(--border)}
+.timeline-wrap::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+.timeline{display:flex;gap:0;align-items:stretch;width:100%;min-width:max-content}
+.tl-item{flex:1 1 280px;min-width:260px;padding:10px 40px 0;position:relative;flex-shrink:0}
+.tl-item::before{content:'';position:absolute;top:28px;left:0;right:0;height:2px;background:var(--border)}
+.tl-item:first-child::before{left:40px}
+.tl-item:last-child::before{right:40px}
+.tl-dot{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--border);position:relative;z-index:1;margin-bottom:20px;transition:all .35s}
+.tl-item:hover .tl-dot{background:var(--blue);border-color:var(--blue);transform:scale(1.25);box-shadow:0 0 0 4px rgba(38,104,163,.15)}
+.tl-item.featured .tl-dot{background:var(--blue);border-color:var(--blue);box-shadow:0 0 0 4px rgba(38,104,163,.15)}
+.tl-year{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;color:var(--border);margin-bottom:12px;transition:color .35s}
+.tl-item:hover .tl-year{color:var(--blue)}
+.tl-item.featured .tl-year{color:var(--blue)}
+.tl-events{display:flex;flex-direction:column;gap:8px}
+.tl-event{font-size:13px;color:var(--muted);line-height:1.55;padding-left:12px;position:relative}
+.tl-event::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--border);position:absolute;left:0;top:7px}
+.tl-item:hover .tl-event{color:var(--text)}
+.tl-item:hover .tl-event::before{background:var(--blue)}
+.tl-item.featured .tl-event{color:var(--text)}
+.tl-item.featured .tl-event::before{background:var(--blue)}
+.timeline-hint{text-align:center;margin-top:24px;font-size:12px;color:var(--muted);font-family:'Space Grotesk',sans-serif;letter-spacing:.08em}
+
+#location{background:var(--dark);padding:120px 5%;position:relative}
+.location-header{max-width:1200px;margin:0 auto 36px}
+.location-header h2{font-size:clamp(32px,4vw,52px);font-weight:900;line-height:1.1;color:#fff}
+.location-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.location-info .sec-num{color:var(--blue-bright)}
+.location-info h2{font-size:clamp(28px,3.5vw,44px);font-weight:900;color:#fff;margin:12px 0 32px;line-height:1.2}
+.info-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:24px 28px;margin-bottom:16px;transition:border-color .3s}
+.info-card:hover{border-color:rgba(38,104,163,.4)}
+.info-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;color:var(--blue-bright);margin-bottom:6px}
+.info-value{font-size:15px;color:rgba(255,255,255,.85);line-height:1.7}
+.map-wrap{border-radius:16px;overflow:hidden;height:440px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);margin-top:0;align-self:start}
+.map-wrap iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(30%) brightness(.85)}
+
+/* ── 04 SAFETY — LIGHT ── */
+#safety{background:var(--tint);padding:120px 5%}
+.safety-inner{max-width:1200px;margin:0 auto}
+.safety-header{max-width:1200px;margin:0 auto 48px}
+.safety-header .sec-num{color:var(--blue)}
+.safety-header h2{font-size:clamp(32px,4vw,52px);font-weight:900;line-height:1.1}
+.safety-subtitle{font-size:15px;color:var(--muted);line-height:1.75;margin-top:12px;word-break:keep-all;max-width:600px}
+.safety-docs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.safety-doc{background:#fff;border-radius:16px;overflow:hidden;border:1px solid var(--border);transition:all .3s;cursor:pointer}
+.safety-doc:hover{border-color:var(--blue);box-shadow:0 8px 32px rgba(38,104,163,.12);transform:translateY(-4px)}
+.safety-doc-img{width:100%;aspect-ratio:2/3;overflow:hidden;background:#f8f8f8}
+.safety-doc-img img{width:100%;height:100%;object-fit:contain;object-position:center;transition:transform .4s}
+.safety-doc:hover .safety-doc-img img{transform:scale(1.04)}
+.safety-doc-label{padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.safety-doc-label span{font-size:14px;font-weight:600;color:var(--text)}
+
+.policy-list{display:flex;flex-direction:column;gap:12px}
+.policy-item{display:flex;align-items:flex-start;gap:14px;font-size:14px;color:var(--muted);line-height:1.7}
+.policy-num{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:var(--blue);min-width:24px;padding-top:2px}
+
+/* ── FOOTER ── */
+footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
+.footer-info,.footer-right{font-size:12px;line-height:2}
+.footer-right{text-align:right}
+
+@media(max-width:960px){
+  .greeting-inner,.location-inner{grid-template-columns:1fr}
+  .safety-docs{grid-template-columns:1fr}
+  .dot-nav{display:none}
+}
+.nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
+.nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav"></nav>
+
+<!-- DOT NAVIGATION -->
+<nav class="dot-nav" id="dotNav">
+  <a href="#greeting" class="active"><div class="dot"></div></a>
+  <a href="#history"><div class="dot"></div></a>
+  <a href="#location"><div class="dot"></div></a>
+  <a href="#safety"><div class="dot"></div></a>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" id="top">
+  <img src="../uploads/cm08180074.jpg" alt="" class="page-hero-bg-img">
+  <div class="hero-bg-text">ABOUT</div>
+  <div class="page-hero-inner">
+    <div class="breadcrumb" data-reveal></div>
+    <h1 data-reveal>Company<br><em>About</em></h1>
+    <p class="page-hero-sub" data-reveal>고객가치 경영과 인간중심 경영을 모토로<br>성장하는 (주)이에스넷을 소개합니다.</p>
+  </div>
+</section>
+
+<!-- 01 CEO 인사말 -->
+<section id="greeting">
+  <div class="greeting-bg">01</div>
+
+  <div class="greeting-content">
+    <div class="greeting-inner">
+      <div data-reveal-l>
+        <div class="sec-num" style="color:var(--blue-bright);margin-bottom:32px">// 01 · CEO Message</div>
+        <div class="greeting-kpi">
+          <div class="greeting-kpi-item"><div class="val">70+</div><div class="lbl">구축 레퍼런스</div></div>
+        </div>
+        <div class="kpi-logos">
+          <div class="gl-item"><img src="../logos/logo-chungbuk.png" alt="충청북도"></div>
+          <div class="gl-item"><img src="../logos/logo-ibs.png" alt="기초과학연구원"></div>
+          <div class="gl-item"><img src="../logos/logo-kma.png" alt="기상청"></div>
+          <div class="gl-item"><img src="../logos/logo-cbpolice.png" alt="충북경찰청"></div>
+          <div class="gl-item"><img src="../logos/logo-cbedu.png" alt="충북교육청"></div>
+          <div class="gl-item"><img src="../logos/logo-cheongju.png" alt="청주시"></div>
+          <div class="gl-item"><img src="../logos/logo-chungju.png" alt="충주시청"></div>
+          <div class="gl-item"><img src="../logos/logo-kohi.png" alt="보건복지인재원"></div>
+        </div>
+      </div>
+      <div data-reveal-r>
+        <h2 class="greeting-quote">고객과 함께 성장하는<br><em>신뢰받는 파트너</em>가<br>되겠습니다.</h2>
+        <div class="greeting-body">
+          <p>저희 이에스넷은 정보통신공사 전문기업으로서 네트워크 구축(NI), 시스템 통합(SI), 유지보수(O&M) 분야에서 고객과 함께 성장해 왔습니다. 고객가치 경영과 인간중심 경영을 모토로 삼아, 고객과 사회의 삶의 질을 향상시키는 기업으로 발전하고 있습니다.</p>
+          <p>충청북도를 중심으로 공공기관, 연구기관, 민간기업 등 70개 이상의 프로젝트를 성공적으로 수행하였으며, 60개 이상의 비즈니스 파트너와 긴밀한 협력을 통해 최고의 서비스를 제공하고 있습니다. 앞으로도 기술 혁신과 서비스 품질 향상을 통해 더 나은 내일을 만들어 나가겠습니다.</p>
+        </div>
+        <div class="greeting-sig">
+          <img src="../uploads/pasted-1781487699647-0.png" alt="ESNET" class="greeting-sig-logo">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 주요 연혁 -->
+<section id="history">
+  <div class="history-header">
+    <div class="sec-num" data-reveal>// 02 · History</div>
+    <h2 data-reveal>주요 <span style="color:var(--muted);font-weight:400;font-size:.5em;display:inline;font-family:'Space Grotesk',sans-serif">연혁</span></h2>
+  </div>
+  <div class="timeline-wrap" id="timelineWrap">
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2017–2018</div>
+        <div class="tl-events">
+          <div class="tl-event">법인 설립</div>
+          <div class="tl-event">정보통신공사업 면허 취득</div>
+          <div class="tl-event">시스템통합(SI) 사업자 등록</div>
+          <div class="tl-event">한국교통대 네트워크 유지관리</div>
+          <div class="tl-event">국가기상슈퍼컴퓨터 4호기 유지보수</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2019–2020</div>
+        <div class="tl-events">
+          <div class="tl-event">충북지방경찰청 국가정보통신망 구축</div>
+          <div class="tl-event">청주시 스마트시티 통합플랫폼 네트워크 구축</div>
+          <div class="tl-event">국가기상슈퍼컴퓨터 4호기 네트워크 유지보수</div>
+          <div class="tl-event">한국SMC 네트워크·보안시스템 유지관리</div>
+          <div class="tl-event">우정국 신축 우체국 정보통신공사</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2022–2023</div>
+        <div class="tl-events">
+          <div class="tl-event">국가기상슈퍼컴퓨터 4호기 유지보수 총괄</div>
+          <div class="tl-event">충청북도 국가정보통신망 구축 총괄</div>
+          <div class="tl-event">충북교육청 백본·L2스위치 전체 구축</div>
+          <div class="tl-event">IBS 클러스터 시스템 유지보수</div>
+          <div class="tl-event">KISTI 슈퍼컴퓨터센터 유지보수</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2024–2025</div>
+        <div class="tl-events">
+          <div class="tl-event">충북경찰청 경찰정보통신망 구축 총괄</div>
+          <div class="tl-event">청주시 ATMS 네트워크 유지보수</div>
+          <div class="tl-event">국가대표선수촌(진천) ICT인프라 통합유지보수</div>
+          <div class="tl-event">한국보건복지인재원 유무선 네트워크 구축</div>
+          <div class="tl-event">충북교육청 스마트기기 양품화 사업</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="timeline-hint">← 좌우로 드래그하여 연혁을 확인하세요 →</div>
+</section>
+
+<!-- 03 오시는 길 -->
+<section id="location">
+  <div class="location-header" data-reveal>
+    <div class="sec-num" style="color:var(--blue-bright)">// 03 &middot; Location</div>
+    <h2 data-reveal>오시는 <span style="color:rgba(255,255,255,.35);font-weight:400;font-size:.5em;display:inline;font-family:'Space Grotesk',sans-serif">길</span></h2>
+  </div>
+  <div class="location-inner">
+    <div data-reveal-l>
+      <div class="info-card">
+        <div class="info-label">주소</div>
+        <div class="info-value">충청북도 청주시 상당구<br>용암북로 156, 401호</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">대표번호</div>
+        <div class="info-value">043-292-1800</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">FAX</div>
+        <div class="info-value">043-292-1900</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">이메일</div>
+        <div class="info-value">tech@esnet.co.kr</div>
+      </div>
+    </div>
+    <div class="map-wrap" data-reveal-r>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51234.73781550033!2d127.4380365486328!3d36.62226760000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565277adfe3835d%3A0xd333761cf487ae47!2z7J207JeQ7Iqk64S3!5e0!3m2!1sko!2skr!4v1782368888192!5m2!1sko!2skr" style="border:0;width:100%;height:100%" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- 04 안전보건경영 -->
+<section id="safety">
+  <div class="safety-inner">
+    <div class="safety-header">
+      <div class="sec-num" data-reveal>// 04 · Safety &amp; Health</div>
+      <h2 data-reveal>안전보건 <span style="color:var(--muted);font-weight:400;font-size:.5em;display:inline;font-family:'Space Grotesk',sans-serif">경영</span></h2>
+      <p class="safety-subtitle" data-reveal>고객과 종사자의 생명과 안전을 최우선의 가치로,<br>안전보건관리체계 구축 등에 적극 대응하여 지속 가능한 안전보건 기반을 구축합니다.</p>
+    </div>
+    <div class="safety-docs">
+      <div class="safety-doc" data-reveal>
+        <div class="safety-doc-img">
+          <img src="../uploads/safety-iso.png" alt="ISO 45001:2018 인증서">
+        </div>
+        <div class="safety-doc-label">
+          <span>ISO 45001:2018 인증</span>
+          </div>
+      </div>
+      <div class="safety-doc" data-reveal>
+        <div class="safety-doc-img">
+          <img src="../uploads/safety-goal.jpg" alt="안전보건경영목표">
+        </div>
+        <div class="safety-doc-label">
+          <span>안전보건 경영목표</span>
+          </div>
+      </div>
+      <div class="safety-doc" data-reveal>
+        <div class="safety-doc-img">
+          <img src="../uploads/safety-policy.jpg" alt="안전보건 경영방침">
+        </div>
+        <div class="safety-doc-label">
+          <span>안전보건 경영방침</span>
+          </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../uploads/pasted-1781487699647-0.png" alt="ESNET" class="footer-logo">
+      <div class="footer-info">(주)이에스넷 · 대표자 : 최명수<br>사업자등록번호 : 398-87-00795<br>충북 청주시 상당구 용암북로 156, 401호</div>
+    </div>
+    <div class="footer-right">Tel: 043-292-1800 · Fax: 043-292-1900<br>Email: tech@esnet.co.kr<br>© 2026 ESNET. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// ── Reveal
+function initReveal(){
+  const els = document.querySelectorAll('[data-reveal],[data-reveal-l],[data-reveal-r]');
+  const ob = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>{e.target.classList.add('revealed');e.target.style.opacity='1';e.target.style.transform='none';},i*100); ob.unobserve(e.target); } });
+  },{threshold:.1,rootMargin:'30px'});
+  els.forEach(el=>ob.observe(el));
+  setTimeout(()=>els.forEach(el=>{el.classList.add('revealed');el.style.opacity='1';el.style.transform='none';}),3000);
+}
+
+// ── Dot nav + nav bg
+const sections = ['greeting','history','location','safety'];
+const dotLinks = document.querySelectorAll('.dot-nav a');
+const dotNav = document.getElementById('dotNav');
+const nav = document.getElementById('mainNav');
+const lightSections = ['history','safety'];
+
+function updateDots(){
+  let current = sections[0];
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - window.innerHeight/2) current = id;
+  });
+  dotLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href')==='#'+current); });
+  const isLight = lightSections.includes(current);
+  dotNav.classList.toggle('on-light', isLight);
+  // nav bg: dark on dark sections
+  const scrolled = window.scrollY > 100;
+  const heroBottom = document.querySelector('.page-hero').offsetTop + document.querySelector('.page-hero').offsetHeight;
+  if(window.scrollY < heroBottom - 80){
+    nav.classList.remove('light');
+  } else {
+    nav.classList.toggle('scrolled', isLight);
+  }
+}
+window.addEventListener('scroll', updateDots, {passive:true});
+updateDots();
+
+// ── Timeline drag scroll
+const wrap = document.getElementById('timelineWrap');
+let isDragging=false, startX, scrollLeft;
+wrap.addEventListener('mousedown', e=>{ isDragging=true; startX=e.pageX-wrap.offsetLeft; scrollLeft=wrap.scrollLeft; wrap.style.userSelect='none'; });
+window.addEventListener('mouseup', ()=>{ isDragging=false; wrap.style.userSelect=''; });
+window.addEventListener('mousemove', e=>{ if(!isDragging)return; e.preventDefault(); const x=e.pageX-wrap.offsetLeft; wrap.scrollLeft=scrollLeft-(x-startX)*1.5; });
+
+// ── Mega menu
+  const navItems = document.querySelectorAll('.nav-item');
+const hideTimers = new Map();
+navItems.forEach(item => {
+  const drop = item.querySelector('.mega-drop');
+  if(!drop) return;
+  const show = ()=>{ clearTimeout(hideTimers.get(item)); navItems.forEach(o=>{ if(o!==item) o.querySelector('.mega-drop')?.classList.remove('mega-open'); }); drop.classList.add('mega-open'); };
+  const hide = (d=180)=>hideTimers.set(item,setTimeout(()=>drop.classList.remove('mega-open'),d));
+  item.addEventListener('mouseenter',show);
+  item.addEventListener('mouseleave',()=>hide());
+  drop.addEventListener('mouseenter',()=>clearTimeout(hideTimers.get(item)));
+  drop.addEventListener('mouseleave',()=>hide(80));
+});
+
+document.addEventListener('DOMContentLoaded', initReveal);
+</script>
+<script src="../assets/js/nav.js"></script>
+</body>
+</html>

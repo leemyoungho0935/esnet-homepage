@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — 사업영역</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2668A3;--blue-bright:#3d8fd4;--dark:#0B1A2E;--dark2:#0f2035;--text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;--bg:#fff;--tint:#f6f9fc;--radius:10px}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+[data-reveal]:not(.revealed){opacity:0;transform:translateY(24px)}
+[data-reveal]{transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+[data-reveal-l]:not(.revealed){opacity:0;transform:translateX(-28px)}
+[data-reveal-l]{transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+[data-reveal-r]:not(.revealed){opacity:0;transform:translateX(28px)}
+[data-reveal-r]{transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+
+/* NAV */
+.nav.scrolled .nav-logo{filter:none}
+.nav.scrolled .nav-links{color:var(--muted)}
+.nav.scrolled .nav-links a[style]{color:var(--blue)!important}
+.nav.scrolled .nav-cta{border-color:var(--border);color:var(--text)}
+.nav.scrolled .nav-cta:hover{background:var(--tint)}
+.mega-desc-title{font-size:20px;font-weight:700;margin-bottom:8px;color:var(--text)}
+.mega-desc-text{font-size:14px;line-height:1.75;color:var(--muted)}
+.mega-desc-link{display:inline-flex;margin-top:16px;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;background:rgba(38,104,163,.08);color:var(--blue)}
+
+/* DOT NAV */
+.dot-nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:900}
+.dot-nav-inner{display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.dot{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;position:relative}
+.dot span{width:8px;height:8px;border-radius:50%;border:2px solid rgba(38,104,163,.4);background:transparent;transition:all .3s;display:block;flex-shrink:0}
+.dot.active span,.dot:hover span{background:var(--blue);border-color:var(--blue);transform:scale(1.4)}
+.dot::before{content:attr(data-label);font-size:11px;font-weight:600;color:var(--blue);opacity:0;transform:translateX(6px);transition:all .25s;white-space:nowrap;background:rgba(255,255,255,.95);padding:3px 8px;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.dot:hover::before,.dot.active::before{opacity:1;transform:translateX(0)}
+@media(max-width:960px){.dot-nav{display:none}}
+
+/* HERO */
+.hero{background:var(--dark);min-height:60vh;display:flex;align-items:flex-end;padding:130px 5% 72px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 70% 50%,rgba(38,104,163,.18),transparent)}
+canvas#heroCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.28;pointer-events:none}
+.hero-bg-text{position:absolute;bottom:-10px;right:3%;font-family:'Space Grotesk',sans-serif;font-size:clamp(80px,14vw,180px);font-weight:800;color:rgba(255,255,255,.025);line-height:1;user-select:none}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;position:relative;z-index:1}
+.hero-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px}
+.hero-h1{font-size:clamp(42px,6.5vw,76px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.03em}
+.hero-h1 em{font-style:normal;background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.5);margin-top:16px;line-height:1.8;max-width:560px;word-break:keep-all}
+.hero-tabs{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.hero-tab{padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);cursor:pointer;transition:all .2s;font-family:'Space Grotesk',sans-serif;text-decoration:none}
+.hero-tab:hover,.hero-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* SECTION BASE */
+.svc-section{padding:100px 5%;border-bottom:1px solid var(--border)}
+.svc-section:last-of-type{border-bottom:none}
+.svc-section.dark{background:var(--dark);border-bottom:1px solid rgba(255,255,255,.06)}
+.svc-section.tint{background:var(--tint)}
+.svc-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:380px 1fr;gap:80px;align-items:start}
+.svc-section.dark .svc-inner{gap:72px}
+.svc-info{}
+.sec-num{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;font-weight:600;text-transform:uppercase;margin-bottom:12px}
+.svc-section.dark .sec-num{color:var(--blue-bright)}
+.svc-section:not(.dark) .sec-num{color:var(--blue)}
+.svc-h2{font-size:clamp(28px,3.5vw,44px);font-weight:900;line-height:1.15;margin-bottom:6px}
+.svc-section.dark .svc-h2{color:#fff}
+.svc-h2-en{font-family:'Space Grotesk',sans-serif;font-size:.5em;font-weight:400;color:rgba(255,255,255,.3);display:inline}
+.svc-section:not(.dark) .svc-h2-en{color:var(--muted)}
+.svc-desc{font-size:15px;line-height:1.85;margin-top:16px;word-break:keep-all;max-width:360px}
+.svc-section.dark .svc-desc{color:rgba(255,255,255,.55)}
+.svc-section:not(.dark) .svc-desc{color:var(--muted)}
+
+/* FEATURE CARDS */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.feat{border-radius:12px;padding:24px;transition:all .3s}
+.svc-section.dark .feat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+.svc-section.dark .feat:hover{background:rgba(38,104,163,.12);border-color:rgba(61,143,212,.3)}
+.svc-section:not(.dark) .feat{background:#fff;border:1px solid var(--border)}
+.svc-section:not(.dark) .feat:hover{border-color:var(--blue);box-shadow:0 4px 20px rgba(38,104,163,.1)}
+.feat-ico{font-size:22px;margin-bottom:12px}
+.feat-title{font-size:14px;font-weight:700;margin-bottom:6px}
+.svc-section.dark .feat-title{color:#fff}
+.feat-body{font-size:13px;line-height:1.7}
+.svc-section.dark .feat-body{color:rgba(255,255,255,.45)}
+.svc-section:not(.dark) .feat-body{color:var(--muted)}
+
+/* TAGS */
+.svc-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.svc-tag{font-size:12px;padding:5px 14px;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-weight:600}
+.svc-section.dark .svc-tag{border:1px solid rgba(61,143,212,.35);color:var(--blue-bright)}
+.svc-section:not(.dark) .svc-tag{border:1px solid var(--border);color:var(--muted)}
+
+/* KT PARTNER BOX */
+.kt-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:32px;display:flex;align-items:center;gap:28px;margin-bottom:20px}
+.kt-logo-wrap{width:80px;height:80px;background:#fff;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#e60012;letter-spacing:-.02em}
+.kt-info{}
+.kt-badge{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:6px}
+.kt-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.kt-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7}
+
+/* PROCESS */
+.process{display:flex;flex-direction:column;gap:0;counter-reset:proc}
+.proc-item{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.06);position:relative;counter-increment:proc}
+.proc-item:last-child{border-bottom:none}
+.proc-num{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--blue-bright);min-width:24px;padding-top:2px}
+.proc-body{}
+.proc-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.proc-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65}
+.svc-section:not(.dark) .proc-item{border-bottom:1px solid var(--border)}
+.svc-section:not(.dark) .proc-num{color:var(--blue)}
+.svc-section:not(.dark) .proc-title{color:var(--text)}
+.svc-section:not(.dark) .proc-desc{color:var(--muted)}
+
+/* FOOTER */
+footer{padding:40px 5%;background:var(--dark);color:rgba(255,255,255,.4)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
+.footer-info,.footer-right{font-size:12px;line-height:2}
+.footer-right{text-align:right}
+
+@media(max-width:960px){.svc-inner{grid-template-columns:1fr}.feat-grid{grid-template-columns:1fr}.nav-links{display:none}}
+.nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
+.nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav"></nav>
+
+<!-- DOT NAV -->
+<nav class="dot-nav" aria-label="섹션 이동">
+  <div class="dot-nav-inner">
+    <a class="dot" data-label="NI 네트워크구축" href="#ni"><span></span></a>
+    <a class="dot" data-label="SI 시스템통합" href="#si"><span></span></a>
+    <a class="dot" data-label="O&M 유지보수" href="#om"><span></span></a>
+    <a class="dot" data-label="기획/제안" href="#plan"><span></span></a>
+    <a class="dot" data-label="KT SA 대리점" href="#kt"><span></span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-bg-text">BIZ</div>
+  <div class="hero-inner">
+    <div class="hero-label" data-reveal>// Business Areas · 사업영역</div>
+    <h1 class="hero-h1" data-reveal>고객의 IT 인프라,<br><em>처음부터 끝까지</em></h1>
+    <p class="hero-sub" data-reveal>네트워크 설계부터 시스템 통합, 운영 유지보수, 사업 기획, KT 공식 파트너십까지 — ESNET이 고객 곁에서 함께합니다.</p>
+    <div class="hero-tabs" data-reveal>
+      <a class="hero-tab" href="#ni">NI</a>
+      <a class="hero-tab" href="#si">SI</a>
+      <a class="hero-tab" href="#om">O&amp;M</a>
+      <a class="hero-tab" href="#plan">기획/제안</a>
+      <a class="hero-tab" href="#kt">KT 대리점</a>
+    </div>
+  </div>
+</section>
+
+<!-- 01 NI -->
+<section class="svc-section dark" id="ni">
+  <div class="svc-inner">
+    <div class="svc-info" data-reveal-l>
+      <div class="sec-num">// 01 · NI</div>
+      <h2 class="svc-h2">네트워크 구축 <span class="svc-h2-en">Integration</span></h2>
+      <p class="svc-desc">고객의 요구시스템 분석을 통해 안정적이고 신뢰성이 검증된 솔루션 제안부터 최적의 성능을 갖는 네트워크 구축 및 운영 서비스를 제공합니다.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">LAN / WAN</span>
+        <span class="svc-tag">국가정보통신망</span>
+        <span class="svc-tag">무선망(Wi-Fi)</span>
+        <span class="svc-tag">VPN</span>
+        <span class="svc-tag">SDN</span>
+      </div>
+    </div>
+    <div class="feat-grid" data-reveal-r>
+      <div class="feat">
+        <div class="feat-ico">🏗</div>
+        <div class="feat-title">설계 & 컨설팅</div>
+        <div class="feat-body">현장 분석 및 트래픽 예측을 기반으로 최적의 네트워크 구조를 설계합니다.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">⚡</div>
+        <div class="feat-title">고속 코어 구축</div>
+        <div class="feat-body">10G/100G 고속 백본 및 엣지 스위칭 환경 구성으로 안정적인 트래픽 처리.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">📡</div>
+        <div class="feat-title">무선 네트워크</div>
+        <div class="feat-body">Wi-Fi 6/6E 기반 고밀도 무선망 설계, 공공기관 스마트시티 무선 인프라 특화.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">🔒</div>
+        <div class="feat-title">보안 통합</div>
+        <div class="feat-body">방화벽, IDS/IPS, VPN 등 보안 장비를 네트워크 설계 단계부터 통합 반영합니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 SI -->
+<section class="svc-section" id="si">
+  <div class="svc-inner">
+    <div class="svc-info" data-reveal-l>
+      <div class="sec-num">// 02 · SI</div>
+      <h2 class="svc-h2">시스템 통합 <span class="svc-h2-en">Integration</span></h2>
+      <p class="svc-desc">기업 및 공공기관 분야에 축적된 노하우와 기술을 바탕으로 급변하는 환경에 대응할 수 있는 시스템 통합 서비스를 제공합니다.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">서버 구축</span>
+        <span class="svc-tag">스토리지</span>
+        <span class="svc-tag">가상화</span>
+        <span class="svc-tag">클라우드 연계</span>
+        <span class="svc-tag">HPC</span>
+      </div>
+    </div>
+    <div class="feat-grid" data-reveal-r>
+      <div class="feat">
+        <div class="feat-ico">🖥</div>
+        <div class="feat-title">서버 & 스토리지</div>
+        <div class="feat-body">고가용성 서버 클러스터 및 SAN/NAS 스토리지 환경 구축으로 데이터 안정성 확보.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">☁️</div>
+        <div class="feat-title">가상화 & 클라우드</div>
+        <div class="feat-body">VMware, KVM 기반 가상화 환경 구성 및 퍼블릭 클라우드 하이브리드 연계 지원.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">🔗</div>
+        <div class="feat-title">시스템 통합</div>
+        <div class="feat-body">이기종 시스템 간 연동 및 레거시 마이그레이션, 단계별 전환 전략을 지원합니다.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-ico">📊</div>
+        <div class="feat-title">HPC 인프라</div>
+        <div class="feat-body">슈퍼컴퓨터·연구 클러스터 특화 고성능 컴퓨팅 인프라 구축 및 유지보수.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 O&M -->
+<section class="svc-section dark" id="om">
+  <div class="svc-inner">
+    <div class="svc-info" data-reveal-l>
+      <div class="sec-num">// 03 · O&amp;M</div>
+      <h2 class="svc-h2">유지보수 <span class="svc-h2-en">Operations &amp; Maintenance</span></h2>
+      <p class="svc-desc">다양한 장비와 시스템 환경에 대한 자체 전문인력을 통한 체계적인 통합 유지보수 서비스로 급변하는 IT 환경 변화에 안정적이고 효율적인 IT 자산운영을 지원합니다.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">365일 장애대응</span>
+        <span class="svc-tag">원격 모니터링</span>
+        <span class="svc-tag">현장출동</span>
+        <span class="svc-tag">정기점검</span>
+      </div>
+    </div>
+    <div class="process" data-reveal-r>
+      <div class="proc-item">
+        <div class="proc-num">01</div>
+        <div class="proc-body">
+          <div class="proc-title">통합 모니터링</div>
+          <div class="proc-desc">네트워크·서버·보안 장비를 통합 관제 시스템으로 24시간 실시간 모니터링합니다.</div>
+        </div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-num">02</div>
+        <div class="proc-body">
+          <div class="proc-title">장애 접수 & 즉시 대응</div>
+          <div class="proc-desc">장애 발생 시 원격 조치 우선, 현장 출동이 필요한 경우 신속하게 엔지니어를 파견합니다.</div>
+        </div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-num">03</div>
+        <div class="proc-body">
+          <div class="proc-title">정기 점검 & 예방정비</div>
+          <div class="proc-desc">월 1회 이상 정기 현장 점검을 통해 장애를 사전에 예방하고 장비 수명을 연장합니다.</div>
+        </div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-num">04</div>
+        <div class="proc-body">
+          <div class="proc-title">유지보수 보고서 제공</div>
+          <div class="proc-desc">월간·분기별 운영 현황 리포트를 제공하여 고객이 IT 자산 상태를 한눈에 파악할 수 있습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 기획/제안 -->
+<section class="svc-section tint" id="plan">
+  <div class="svc-inner">
+    <div class="svc-info" data-reveal-l>
+      <div class="sec-num">// 04 · Planning</div>
+      <h2 class="svc-h2">기획 / 제안 <span class="svc-h2-en">Proposal</span></h2>
+      <p class="svc-desc">공공 및 민간 ICT 사업의 기획 단계부터 제안서 작성, 입찰 전략 수립까지 전 과정을 지원합니다. 축적된 수주 경험을 바탕으로 차별화된 제안 경쟁력을 제공합니다.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">사업 기획</span>
+        <span class="svc-tag">제안서 작성</span>
+        <span class="svc-tag">입찰 전략</span>
+        <span class="svc-tag">컨소시엄 구성</span>
+        <span class="svc-tag">원가 분석</span>
+      </div>
+    </div>
+    <div class="process" data-reveal-r>
+      <div class="proc-item">
+        <div class="proc-num">01</div>
+        <div class="proc-body">
+          <div class="proc-title">사업 타당성 분석</div>
+          <div class="proc-desc">공고 분석, 경쟁사 동향, 예산 구조 검토를 통해 참여 타당성을 판단합니다.</div>
+        </div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-num">02</div>
+        <div class="proc-body">
+          <div class="proc-title">제안서 전략 수립</div>
+          <div class="proc-desc">발주처 요구사항 분석을 기반으로 핵심 차별화 전략과 평가 점수 극대화 방안을 도출합니다.</div>
+        </div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-num">03</div>
+        <div class="proc-body">
+          <div class="proc-title">제안서 작성 & 검수</div>
+          <div class="proc-desc">기술 제안서, 가격 입찰, 발표 자료 등 전 문서를 전문인력이 작성·검수합니다.</div>
+        </div>
+      </div>
+      <div class="proc-item">
+        <div class="proc-num">04</div>
+        <div class="proc-body">
+          <div class="proc-title">컨소시엄 & 파트너 연계</div>
+          <div class="proc-desc">대형 사업의 경우 최적 컨소시엄 구성을 지원하고 협력사 연계를 통해 수주 경쟁력을 높입니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 KT SA 대리점 -->
+<section class="svc-section dark" id="kt">
+  <div class="svc-inner">
+    <div class="svc-info" data-reveal-l>
+      <div class="sec-num">// 05 · Partnership</div>
+      <h2 class="svc-h2">KT SA <span class="svc-h2-en">대리점</span></h2>
+      <p class="svc-desc">KT의 공식 서비스 대리점(SA)으로서 기업·공공기관에 최적화된 KT 통신 솔루션을 공급합니다. KT와의 긴밀한 파트너십을 통해 고객에게 신속하고 안정적인 서비스를 제공합니다.</p>
+      <div class="svc-tags">
+        <span class="svc-tag">인터넷 전용회선</span>
+        <span class="svc-tag">기업 모바일</span>
+        <span class="svc-tag">클라우드(KT Cloud)</span>
+        <span class="svc-tag">AI·IoT 솔루션</span>
+      </div>
+    </div>
+    <div data-reveal-r>
+      <div class="kt-box">
+        <div class="kt-logo-wrap">KT</div>
+        <div class="kt-info">
+          <div class="kt-badge">Official SA Partner</div>
+          <div class="kt-name">KT 공식 서비스 대리점</div>
+          <div class="kt-desc">기업 전용회선, 클라우드, 모바일 등 KT 법인 상품 전 라인업을 공급·지원합니다. 별도 대리점 방문 없이 ESNET을 통해 계약·개통·AS 원스톱 처리 가능합니다.</div>
+        </div>
+      </div>
+      <div class="feat-grid">
+        <div class="feat">
+          <div class="feat-ico">🌐</div>
+          <div class="feat-title">인터넷 전용회선</div>
+          <div class="feat-body">기업·공공기관용 고속 전용 인터넷회선 공급 및 개통 지원.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-ico">📱</div>
+          <div class="feat-title">기업 모바일</div>
+          <div class="feat-body">법인 단말기·회선 일괄 계약, 대수 관계없이 편리하게 관리.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-ico">☁️</div>
+          <div class="feat-title">KT Cloud</div>
+          <div class="feat-body">KT 클라우드 도입 컨설팅 및 마이그레이션 지원 서비스.</div>
+        </div>
+        <div class="feat">
+          <div class="feat-ico">🤝</div>
+          <div class="feat-title">원스톱 처리</div>
+          <div class="feat-body">계약·개통·장애·AS까지 ESNET 담당자를 통해 원스톱 처리.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../uploads/pasted-1781487699647-0.png" alt="ESNET" class="footer-logo">
+      <div class="footer-info">(주)이에스넷 · 대표자 : 최명수<br>사업자등록번호 : 398-87-00795<br>충북 청주시 상당구 용암북로 156, 401호</div>
+    </div>
+    <div class="footer-right">Tel: 043-292-1800 · Fax: 043-292-1900<br>Email: tech@esnet.co.kr<br>© 2026 ESNET. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+/* NAV */
+(function(){
+  var nav=document.getElementById('mainNav');
+  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>60);}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  var navItems=document.querySelectorAll('.nav-item');
+  var hideTimers=new Map();
+  navItems.forEach(function(item){
+    var drop=item.querySelector('.mega-drop');
+    if(!drop)return;
+    var show=function(){clearTimeout(hideTimers.get(item));navItems.forEach(function(o){if(o!==item&&o.querySelector('.mega-drop'))o.querySelector('.mega-drop').classList.remove('mega-open');});drop.classList.add('mega-open');};
+    var hide=function(d){hideTimers.set(item,setTimeout(function(){drop.classList.remove('mega-open');},(d||180)));};
+    item.addEventListener('mouseenter',show);
+    item.addEventListener('mouseleave',function(){hide(180);});
+    drop.addEventListener('mouseenter',function(){clearTimeout(hideTimers.get(item));});
+    drop.addEventListener('mouseleave',function(){hide(80);});
+  });
+})();
+
+/* HERO PARTICLE */
+(function(){
+  var canvas=document.getElementById('heroCanvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W,H,nodes=[];
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;nodes=[];var n=Math.floor((W*H)/18000);for(var i=0;i<n;i++)nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*2+.8});}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(function(n){n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    for(var i=0;i<nodes.length;i++){for(var j=i+1;j<nodes.length;j++){var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<140){ctx.strokeStyle='rgba(61,143,212,'+(1-d/140).toFixed(2)+')';ctx.lineWidth=.6;ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}}}
+    nodes.forEach(function(n){ctx.fillStyle='rgba(61,143,212,.9)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);
+  resize();draw();
+})();
+
+/* REVEAL */
+(function(){
+  var allReveal=document.querySelectorAll('[data-reveal],[data-reveal-l],[data-reveal-r]');
+  var ob=new IntersectionObserver(function(entries){
+    entries.forEach(function(e,i){if(e.isIntersecting){setTimeout(function(){e.target.classList.add('revealed');e.target.style.opacity='1';e.target.style.transform='none';},i*100);ob.unobserve(e.target);}});
+  },{threshold:.1,rootMargin:'20px'});
+  allReveal.forEach(function(el){ob.observe(el);});
+  setTimeout(function(){allReveal.forEach(function(el){el.classList.add('revealed');el.style.opacity='1';el.style.transform='none';});},4000);
+})();
+
+/* DOT NAV */
+(function(){
+  var dots=document.querySelectorAll('.dot');
+  var secs=['ni','si','om','plan','kt'].map(function(id){return document.getElementById(id);}).filter(Boolean);
+  function update(){
+    var mid=window.scrollY+window.innerHeight*.5;
+    var cur=0;
+    secs.forEach(function(s,i){if(s.offsetTop<=mid)cur=i;});
+    dots.forEach(function(d,i){d.classList.toggle('active',i===cur);});
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  dots.forEach(function(d,i){
+    d.addEventListener('click',function(e){e.preventDefault();if(secs[i])window.scrollTo({top:secs[i].offsetTop-80,behavior:'smooth'});});
+  });
+  update();
+})();
+</script>
+<script src="../assets/js/nav.js"></script>
+</body>
+</html>

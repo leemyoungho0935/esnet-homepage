@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — Enterprise Systems Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2668A3;--blue-bright:#3d8fd4;--blue-rgb:38,104,163;--dark:#0B1A2E;--dark2:#0f2035;--text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;--bg:#ffffff;--radius:10px}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
+.en{font-family:'Space Grotesk','Noto Sans KR',sans-serif}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* Reveal — dynamic variants */
+[data-reveal]{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+[data-reveal="left"]{opacity:0;transform:translateX(-60px)}
+[data-reveal="right"]{opacity:0;transform:translateX(60px)}
+[data-reveal="scale"]{opacity:0;transform:scale(.85)}
+[data-reveal="up"]{opacity:0;transform:translateY(60px)}
+[data-reveal].revealed{opacity:1;transform:none}
+
+/* Numbers wipe-in */
+.numbers{clip-path:inset(6% 3% 6% 3% round 16px);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1)}
+.numbers.section-visible{clip-path:inset(0% 0% 0% 0% round 0px)}
+
+/* Preloader */
+#preloader{position:fixed;inset:0;z-index:10000;background:var(--dark);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .6s}
+#preloader img{width:180px;filter:brightness(0) invert(1);animation:pulse 1.5s ease-in-out infinite}
+.pre-line{width:140px;height:3px;background:rgba(255,255,255,.1);border-radius:3px;margin-top:28px;overflow:hidden}
+.pre-line span{display:block;width:100%;height:100%;background:var(--blue-bright);animation:lineLoad 1s ease-out forwards}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes lineLoad{0%{transform:translateX(-100%)}100%{transform:translateX(0)}}
+
+/* Nav */
+.nav.scrolled .nav-links{color:var(--muted)!important}
+.nav.scrolled .nav-links a{color:var(--muted)!important}
+.nav.scrolled .nav-links a:hover{color:var(--blue)!important}
+
+/* Mega Dropdown — full-width panel */
+.nav.scrolled .mega-drop{
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(28px);
+  border-top:1px solid rgba(0,0,0,.06);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  box-shadow:0 16px 48px rgba(0,0,0,.1);
+}
+/* Description layout for single pages */
+.mega-desc-title{
+  font-size:22px;font-weight:700;
+  margin-bottom:10px;
+  letter-spacing:-.02em;
+}
+.mega-desc-text{
+  font-size:15px;line-height:1.75;
+  max-width:520px;
+}
+.mega-desc-link{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:18px;font-size:14px;font-weight:600;
+  padding:10px 20px;border-radius:8px;
+  transition:all .2s;
+  text-decoration:none;
+}
+.mega-desc-title{color:var(--text)!important}
+.mega-desc-text{color:var(--muted)!important}
+.mega-desc-link{background:rgba(38,104,163,.08)!important;color:var(--blue)!important}
+.mega-desc-link:hover{background:rgba(38,104,163,.15)!important}
+/* Stagger reveal when dropdown opens */
+/* Description block animation */
+/* connector */
+
+/* Hero — Dark */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 5% 80px;position:relative;overflow:hidden;background:var(--dark)}
+.hero::before{content:'';position:absolute;inset:0;background:rgba(11,26,46,.65);z-index:1}
+.hero-video-bg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.hero-video-bg video{width:100%;height:100%;object-fit:cover;display:block}
+.hero-canvas-wrap{position:absolute;inset:0;z-index:1}
+.hero-canvas-wrap canvas{width:100%;height:100%}
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-label{font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
+.hero h1{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.1;color:#fff;margin-bottom:24px}
+.hero h1 em{font-style:normal}
+/* Brand text animation — letters fly to merge */
+.brand-container{position:relative;min-height:2.4em;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
+.brand-full{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.15;text-align:center}
+.brand-blue{background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block}
+.brand-white{color:#fff;display:inline;transition:opacity .7s ease}
+.hero-desc{font-size:16px;color:rgba(255,255,255,.85);line-height:1.8;margin-bottom:28px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.hero-tags{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.hero-tags span{font-size:12px;padding:6px 16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:100px;color:rgba(255,255,255,.6)}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-size:15px;font-weight:700;border-radius:var(--radius);transition:all .3s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(38,104,163,.4)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.3);font-size:12px;letter-spacing:.15em;display:flex;flex-direction:column;align-items:center;gap:8px}
+.hero-scroll .line{width:1px;height:32px;background:rgba(255,255,255,.2);animation:scrollLine 2s ease-in-out infinite}
+@keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:.2}50%{transform:scaleY(.5);opacity:.6}}
+
+/* Section */
+.sec-label{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;font-weight:600}
+
+/* Business Areas — Sticky Z-depth Stack */
+.biz{position:relative;height:500vh;background:var(--bg)}
+.biz-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.biz-stack-header{position:absolute;top:clamp(80px,9vh,104px);left:0;right:0;text-align:center;z-index:10}
+.biz-stack-header h2{font-size:clamp(24px,3vw,36px);font-weight:900;color:var(--text)}
+.biz-stack-header h2 span{color:var(--muted);font-weight:400;font-size:.48em;font-family:'Noto Sans KR',sans-serif}
+.biz-cards{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;perspective:1400px;padding-top:140px}
+.biz-wcard{position:absolute;width:calc(100vw - clamp(24px,3vw,60px));max-width:1440px;will-change:transform,opacity}
+/* data-state initial visibility only */
+.biz-wcard[data-state='waiting']{opacity:0;transform:scale(0.88) translateY(10%)}
+.biz-wcard[data-state='behind']{opacity:0;transform:scale(0.72) translateY(-8%)}
+.biz-wcard-inner{display:grid;grid-template-columns:1fr 1fr;background:#0b0f18;border-radius:20px;overflow:hidden;min-height:clamp(380px,72vh,720px)}
+.biz-wcard.reverse .biz-wcard-inner{direction:rtl}
+.biz-wcard.reverse .biz-wcard-text{direction:ltr}
+.biz-wcard-img{position:relative;overflow:hidden}
+.biz-wcard-img img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.78)}
+.biz-wcard-text{padding:clamp(28px,4vw,52px);display:flex;flex-direction:column;justify-content:center;gap:10px;background:#0b0f18}
+.biz-wcard-code{font-family:'Space Grotesk',sans-serif;font-size:clamp(56px,8vw,90px);font-weight:700;color:rgba(255,255,255,.05);line-height:1;margin-bottom:-12px;user-select:none}
+.biz-wcard-title{font-size:clamp(24px,3vw,38px);font-weight:900;color:#fff;line-height:1.2}
+.biz-wcard-en{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.15em;color:var(--blue-bright);font-weight:600;text-transform:uppercase}
+.biz-wcard-text p{font-size:clamp(13px,1.1vw,15px);color:rgba(255,255,255,.5);line-height:1.85;margin-top:4px}
+.biz-progress{position:absolute;right:clamp(16px,2.5vw,40px);top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:18px;align-items:center}
+.biz-pdot{width:9px;height:9px;border-radius:50%;border:2px solid rgba(0,0,0,.2);background:transparent;transition:all .4s;cursor:pointer;position:relative}
+.biz-pdot.active{background:var(--blue);border-color:var(--blue);transform:scale(1.5);box-shadow:0 0 12px rgba(38,104,163,.5)}
+.biz-pdot-label{position:absolute;right:20px;top:50%;transform:translateY(-50%);font-size:10px;font-family:'Space Grotesk',sans-serif;letter-spacing:.08em;color:rgba(0,0,0,.3);white-space:nowrap}
+.biz-pdot.active .biz-pdot-label{color:var(--blue)}
+@media(max-width:768px){.biz-wcard-inner{grid-template-columns:1fr;grid-template-rows:40% 1fr}.biz-wcard.reverse .biz-wcard-inner{direction:ltr}.biz{height:400vh}}
+
+/* Numbers — Dark */
+.numbers{padding:100px 5%;background:var(--dark);color:#fff}
+.numbers-inner{max-width:1200px;margin:0 auto}
+.numbers .sec-label{color:var(--blue-bright)}
+.numbers h2{font-size:clamp(28px,3.5vw,42px);font-weight:900;margin-bottom:56px}
+.num-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.num-item{padding:40px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius)}
+.num-val{font-family:'Space Grotesk',sans-serif;font-size:clamp(48px,7vw,80px);font-weight:700;background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.num-label{font-size:14px;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.6}
+
+/* Partners — Logo Marquee (produx style) */
+.partners{padding:clamp(60px,8vh,100px) 0;overflow:hidden;background:var(--bg)}
+.partners-title{text-align:center;margin-bottom:clamp(32px,5vh,56px)}
+.logo-marquee{position:relative;overflow:hidden;padding:clamp(24px,3vw,48px) 0}
+.logo-marquee::before,.logo-marquee::after{content:'';position:absolute;top:0;bottom:0;width:clamp(60px,10vw,180px);z-index:2;pointer-events:none}
+.logo-marquee::before{left:0;background:linear-gradient(90deg,var(--bg),transparent)}
+.logo-marquee::after{right:0;background:linear-gradient(270deg,var(--bg),transparent)}
+.logo-track{display:flex;gap:clamp(40px,5vw,80px);align-items:center;width:max-content;animation:logoScroll 35s linear infinite}
+.logo-track:hover{animation-play-state:paused}
+.logo-card{flex-shrink:0;display:flex;align-items:center;justify-content:center;height:56px;width:160px;padding:8px 16px;background:#fff;border-radius:10px;border:1px solid #eee;opacity:.55;filter:grayscale(100%);transition:opacity .4s,filter .4s;cursor:default}
+.logo-card:hover{opacity:1;filter:grayscale(0%)}
+.logo-card img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.logo-row-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);padding:0 5%;max-width:1400px;margin:0 auto 12px}
+.logo-marquee.reverse .logo-track{animation-name:logoScrollReverse}
+@keyframes logoScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes logoScrollReverse{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+
+/* CTA */
+.cta-section{padding:100px 5%}
+.cta-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.cta-section h2{font-size:clamp(28px,4vw,46px);font-weight:900;line-height:1.2;margin-bottom:16px}
+.cta-section h2 em{color:var(--blue);font-style:normal}
+.cta-section .desc{font-size:14px;color:var(--muted);line-height:1.8}
+.cta-right{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:18px 40px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-size:15px;font-weight:700;border-radius:var(--radius);transition:all .3s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(38,104,163,.3)}
+.cta-info{font-size:14px;color:var(--muted);line-height:2}
+.cta-info strong{color:var(--text)}
+
+/* Footer */
+footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
+.footer-info{font-size:12px;line-height:2}
+.footer-right{font-size:12px;text-align:right;line-height:2}
+
+/* Responsive */
+/* biz-card-wrap for grid placement */
+.biz-card-wrap{display:flex;flex-direction:column}
+.biz-card-wrap:first-child{grid-row:1/3}
+.biz-card-wrap:first-child .biz-card{flex:1}
+.biz-card-wrap:not(:first-child) .biz-card{flex:1}
+.biz-card-wrap .biz-card{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;flex:1}
+@media(max-width:900px){
+  .biz-grid{grid-template-columns:1fr;grid-template-rows:auto;height:auto;gap:12px}
+  .biz-card-wrap,.biz-card-wrap:first-child{grid-row:auto}
+  .biz-card-wrap .biz-card{height:280px}
+  .biz-grid:hover .biz-card .biz-card-img{filter:none}
+  .biz-grid:hover .biz-card .biz-card-overlay{background:rgba(11,26,46,.35)}
+  .biz-grid:hover .biz-card .biz-card-label{opacity:1}
+  .num-grid{grid-template-columns:1fr}
+  .cta-inner{grid-template-columns:1fr}
+}
+.nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
+.nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <img src="uploads/pasted-1781487699647-0.png" alt="ESNET">
+  <div class="pre-line"><span></span></div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav"></nav>
+
+<!-- HERO — DARK -->
+<section class="hero">
+  <div class="hero-video-bg">
+    <video autoplay muted loop playsinline id="heroVideo">
+      <source src="uploads/K0137332-Cloud_computing,_conceptual_animation.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-canvas-wrap"><canvas id="hero-canvas"></canvas></div>
+  <div class="hero-content" data-reveal style="position:relative;z-index:2">
+    <div class="hero-label">정보통신공사 전문기업</div>
+    <div class="brand-container" id="brandContainer">
+      <div class="brand-full" id="brandFull"><span class="brand-blue" data-letter="E">E</span><span class="brand-white">nterprise</span><br><span class="brand-blue" data-letter="S">S</span><span class="brand-white">ystems </span><span class="brand-blue" data-letter="NET">NET</span><span class="brand-white">work</span></div>
+    </div>
+    <p class="hero-desc">(주)이에스넷은 고객가치 경영과 인간중심 경영을 모토로 삼아 기업을 경영하고 있으며,<br>고객과 사회에 대하여 삶의 질을 향상시키는데 이바지 할 수 있는 기업으로 성장하고 있습니다.</p>
+    <div class="hero-tags">
+      <span>정보통신공사</span><span>네트워크구축</span><span>시스템통합</span><span>유지보수</span>
+    </div>
+    <div class="hero-slogan" data-reveal style="position:relative;z-index:2;margin-top:12px;font-family:'Noto Sans KR',sans-serif;font-size:clamp(15px,1.8vw,22px);font-weight:600;letter-spacing:.02em;color:rgba(255,255,255,.75)">네트워크로 연결하는 비즈니스의 미래</div>
+  </div>
+  <div class="hero-scroll"><span>SCROLL</span><div class="line"></div></div>
+</section>
+
+<!-- BUSINESS AREAS — Z-depth Stack -->
+<section class="biz" id="biz">
+  <div class="biz-sticky">
+    <div class="biz-stack-header" data-reveal="up">
+      <div class="sec-label">// 01 Business Areas</div>
+      <h2>ESNET 사업분야 <span>What We Do</span></h2>
+    </div>
+    <div class="biz-cards">
+      <div class="biz-wcard" data-idx="0" data-state="active">
+        <div class="biz-wcard-inner">
+          <div class="biz-wcard-img"><img src="uploads/NI이미지.jpg" alt="NI"></div>
+          <div class="biz-wcard-text">
+            <div class="biz-wcard-code">NI</div>
+            <div class="biz-wcard-title">네트워크 구축</div>
+            <div class="biz-wcard-en">Network Integration</div>
+            <p>고객의 요구시스템 분석을 통해 안정적이고 신뢰성이 검증된 솔루션 제안부터 최적의 성능을 갖는 네트워크 구축 및 운영 서비스를 제공합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="biz-wcard reverse" data-idx="1" data-state="waiting">
+        <div class="biz-wcard-inner">
+          <div class="biz-wcard-img"><img src="uploads/SI이미지.jpg" alt="SI"></div>
+          <div class="biz-wcard-text">
+            <div class="biz-wcard-code">SI</div>
+            <div class="biz-wcard-title">시스템 통합</div>
+            <div class="biz-wcard-en">System Integration</div>
+            <p>기업 및 공공기관 분야에 축적된 노하우와 기술을 바탕으로 급변하는 환경에 대응할 수 있는 시스템 통합 서비스를 제공합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="biz-wcard" data-idx="2" data-state="waiting">
+        <div class="biz-wcard-inner">
+          <div class="biz-wcard-img"><img src="uploads/om-image.jpg" alt="O&amp;M"></div>
+          <div class="biz-wcard-text">
+            <div class="biz-wcard-code">O&amp;M</div>
+            <div class="biz-wcard-title">유지보수</div>
+            <div class="biz-wcard-en">Quality &amp; Maintenance</div>
+            <p>다양한 장비와 시스템환경에 대한 자체 전문인력을 통한 체계적이 통합 유지보수 서비스로 급변하는 IT환경변화에 안정적이고 효율적인 IT 자산운영을 지원합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="biz-wcard reverse" data-idx="3" data-state="waiting">
+        <div class="biz-wcard-inner">
+          <div class="biz-wcard-img"><img src="uploads/기획제안.jpg" alt="기획/제안"></div>
+          <div class="biz-wcard-text">
+            <div class="biz-wcard-code">기획</div>
+            <div class="biz-wcard-title">기획 / 제안</div>
+            <div class="biz-wcard-en">Planning &amp; Proposal</div>
+            <p>공공 및 민간 ICT 사업의 기획 단계부터 제안서 작성, 입샊h 전략 수립까지 전 과정을 지원합니다. 축적된 수주 경험을 바탕으로 차별화된 제안 경쟁력을 제공합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="biz-wcard" data-idx="4" data-state="waiting">
+        <div class="biz-wcard-inner">
+          <div class="biz-wcard-img"><img src="uploads/KTSA대리점.jpg" alt="KT SA"></div>
+          <div class="biz-wcard-text">
+            <div class="biz-wcard-code">KT</div>
+            <div class="biz-wcard-title">KT SA 대리점</div>
+            <div class="biz-wcard-en">KT Official SA Partner</div>
+            <p>KT 공식 서비스 대리점으로서 기업·공공기관에 최적화된 KT 통신 솔루션을 공급합니다. 인터넷 전용회선, 기업 모바일, KT Cloud를 계약·개통·AS까지 원스톱 지원합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="biz-progress">
+      <div class="biz-pdot active" data-idx="0"><span class="biz-pdot-label">NI</span></div>
+      <div class="biz-pdot" data-idx="1"><span class="biz-pdot-label">SI</span></div>
+      <div class="biz-pdot" data-idx="2"><span class="biz-pdot-label">O&amp;M</span></div>
+      <div class="biz-pdot" data-idx="3"><span class="biz-pdot-label">기획/제안</span></div>
+      <div class="biz-pdot" data-idx="4"><span class="biz-pdot-label">KT SA</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS — DARK -->
+<section class="numbers" id="numbers">
+  <div class="numbers-inner">
+    <div data-reveal="left">
+      <div class="sec-label">// 02 Numbers</div>
+      <h2>ESNET Numbers</h2>
+    </div>
+    <div class="num-grid">
+      <div class="num-item" data-reveal="scale">
+        <div class="num-val" data-count="66" data-suffix="억">0억</div>
+        <div class="num-label">시공능력평가액<br><span style="font-size:11px;opacity:.5">2025년 기준</span></div>
+      </div>
+      <div class="num-item" data-reveal="scale">
+        <div class="num-val" data-count="60" data-suffix="억+">0억</div>
+        <div class="num-label">연간 매출액<br><span style="font-size:11px;opacity:.5">2025년 기준</span></div>
+      </div>
+      <div class="num-item" data-reveal="scale">
+        <div class="num-val" data-count="70" data-suffix="+">0</div>
+        <div class="num-label">구축 레퍼런스<br><span style="font-size:11px;opacity:.5">누적 기준</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="partners-title" data-reveal="up">
+    <div class="sec-label" style="text-align:center">// 03 Partners & Clients</div>
+    <div style="font-size:clamp(24px,3vw,36px);font-weight:900;text-align:center;margin-top:4px">With ESNET</div>
+  </div>
+  <!-- Row 1: Trusted Clients → (전체 24개) -->
+  <div class="logo-row-label" data-reveal="left">Trusted Clients</div>
+  <div class="logo-marquee">
+    <div class="logo-track">
+      <div class="logo-card"><img src="logos/logo-chungbuk.png" alt="충청북도"></div>
+      <div class="logo-card"><img src="logos/logo-kma.png" alt="기상청"></div>
+      <div class="logo-card"><img src="logos/logo-kisti.png" alt="KISTI"></div>
+      <div class="logo-card"><img src="logos/logo-ibs.png" alt="기초과학연구원"></div>
+      <div class="logo-card"><img src="logos/logo-cbpolice.png" alt="충북경찰청"></div>
+      <div class="logo-card"><img src="logos/logo-cbedu.png" alt="충북교육청"></div>
+      <div class="logo-card"><img src="logos/logo-kats.png" alt="국가기술표준원"></div>
+      <div class="logo-card"><img src="logos/logo-cbu.png" alt="충북대학교"></div>
+      <div class="logo-card"><img src="logos/logo-konkuk.png" alt="건국대학교"></div>
+      <div class="logo-card"><img src="logos/logo-ecopro.png" alt="에코프로"></div>
+      <div class="logo-card"><img src="logos/logo-ksoc.png" alt="대한체육회"></div>
+      <div class="logo-card"><img src="logos/logo-kice.png" alt="한국교육과정평가원"></div>
+      <div class="logo-card"><img src="logos/logo-cheongju.png" alt="청주시"></div>
+      <div class="logo-card"><img src="logos/logo-chungju.png" alt="충주시청"></div>
+      <div class="logo-card"><img src="logos/logo-goesan.png" alt="괴산군"></div>
+      <div class="logo-card"><img src="logos/logo-yeongdong.png" alt="영동군청"></div>
+      <div class="logo-card"><img src="logos/logo-boeun.png" alt="보은군"></div>
+      <div class="logo-card"><img src="logos/logo-cha.png" alt="문화재청"></div>
+      <div class="logo-card"><img src="logos/logo-kgs.png" alt="한국가스안전공사"></div>
+      <div class="logo-card"><img src="logos/logo-kohi.png" alt="보건복지인재원"></div>
+      <div class="logo-card"><img src="logos/logo-sdbio.png" alt="SD바이오센서"></div>
+      <div class="logo-card"><img src="logos/SMC.png" alt="SMC"></div>
+      <div class="logo-card"><img src="logos/logo-jsr.png" alt="JSR"></div>
+      <div class="logo-card"><img src="logos/logo-cheongjullc.png" alt="청주시평생학습관"></div>
+      <!-- duplicate for seamless loop -->
+      <div class="logo-card"><img src="logos/logo-chungbuk.png" alt="충청북도"></div>
+      <div class="logo-card"><img src="logos/logo-kma.png" alt="기상청"></div>
+      <div class="logo-card"><img src="logos/logo-kisti.png" alt="KISTI"></div>
+      <div class="logo-card"><img src="logos/logo-ibs.png" alt="기초과학연구원"></div>
+      <div class="logo-card"><img src="logos/logo-cbpolice.png" alt="충북경찰청"></div>
+      <div class="logo-card"><img src="logos/logo-cbedu.png" alt="충북교육청"></div>
+      <div class="logo-card"><img src="logos/logo-kats.png" alt="국가기술표준원"></div>
+      <div class="logo-card"><img src="logos/logo-cbu.png" alt="충북대학교"></div>
+      <div class="logo-card"><img src="logos/logo-konkuk.png" alt="건국대학교"></div>
+      <div class="logo-card"><img src="logos/logo-ecopro.png" alt="에코프로"></div>
+      <div class="logo-card"><img src="logos/logo-ksoc.png" alt="대한체육회"></div>
+      <div class="logo-card"><img src="logos/logo-kice.png" alt="한국교육과정평가원"></div>
+      <div class="logo-card"><img src="logos/logo-cheongju.png" alt="청주시"></div>
+      <div class="logo-card"><img src="logos/logo-chungju.png" alt="충주시청"></div>
+      <div class="logo-card"><img src="logos/logo-goesan.png" alt="괴산군"></div>
+      <div class="logo-card"><img src="logos/logo-yeongdong.png" alt="영동군청"></div>
+      <div class="logo-card"><img src="logos/logo-boeun.png" alt="보은군"></div>
+      <div class="logo-card"><img src="logos/logo-cha.png" alt="문화재청"></div>
+      <div class="logo-card"><img src="logos/logo-kgs.png" alt="한국가스안전공사"></div>
+      <div class="logo-card"><img src="logos/logo-kohi.png" alt="보건복지인재원"></div>
+      <div class="logo-card"><img src="logos/logo-sdbio.png" alt="SD바이오센서"></div>
+      <div class="logo-card"><img src="logos/SMC.png" alt="SMC"></div>
+      <div class="logo-card"><img src="logos/logo-jsr.png" alt="JSR"></div>
+      <div class="logo-card"><img src="logos/logo-cheongjullc.png" alt="청주시평생학습관"></div>
+    </div>
+  </div>
+  <!-- Row 2: Technology Partners ← 실제 로고 -->
+  <div class="logo-row-label" data-reveal="right">Technology Partners</div>
+  <div class="logo-marquee reverse">
+    <div class="logo-track">
+      <div class="logo-card"><img src="logos/logo-p-cisco.png" alt="Cisco"></div>
+      <div class="logo-card"><img src="logos/logo-p-juniper.png" alt="Juniper Networks"></div>
+      <div class="logo-card"><img src="logos/logo-p-hpe.png" alt="HPE"></div>
+      <div class="logo-card"><img src="logos/logo-p-fortinet.png" alt="Fortinet"></div>
+      <div class="logo-card"><img src="logos/logo-p-arista.png" alt="Arista"></div>
+      <div class="logo-card"><img src="logos/logo-p-ahnlab.png" alt="AhnLab"></div>
+      <div class="logo-card"><img src="logos/logo-p-piolink.png" alt="Piolink"></div>
+      <div class="logo-card"><img src="logos/logo-p-secui.png" alt="SECUI"></div>
+      <div class="logo-card"><img src="logos/logo-p-wins.png" alt="WINS"></div>
+      <div class="logo-card"><img src="logos/logo-p-ubiquoss.png" alt="ubiQuoss"></div>
+      <div class="logo-card"><img src="logos/logo-p-naonworks.png" alt="NaonWorks"></div>
+      <div class="logo-card"><img src="logos/logo-p-netgear.png" alt="Netgear"></div>
+      <div class="logo-card"><img src="logos/logo-p-axgate.png" alt="AXGATE"></div>
+      <div class="logo-card"><img src="logos/logo-p-genians.png" alt="Genians"></div>
+      <div class="logo-card"><img src="logos/logo-p-coreedge.png" alt="Core Edge"></div>
+      <div class="logo-card"><img src="logos/logo-p-handreamnet.png" alt="Handreamnet"></div>
+      <div class="logo-card"><img src="logos/logo-p-davolink.png" alt="Davolink"></div>
+      <div class="logo-card"><img src="logos/logo-p-somansa.png" alt="Somansa"></div>
+      <div class="logo-card"><img src="logos/logo-p-scop.png" alt="스콥정보통신"></div>
+      <div class="logo-card"><img src="logos/logo-p-hansak.png" alt="한싹시스템"></div>
+      <!-- duplicate for seamless loop -->
+      <div class="logo-card"><img src="logos/logo-p-cisco.png" alt="Cisco"></div>
+      <div class="logo-card"><img src="logos/logo-p-juniper.png" alt="Juniper Networks"></div>
+      <div class="logo-card"><img src="logos/logo-p-hpe.png" alt="HPE"></div>
+      <div class="logo-card"><img src="logos/logo-p-fortinet.png" alt="Fortinet"></div>
+      <div class="logo-card"><img src="logos/logo-p-arista.png" alt="Arista"></div>
+      <div class="logo-card"><img src="logos/logo-p-ahnlab.png" alt="AhnLab"></div>
+      <div class="logo-card"><img src="logos/logo-p-piolink.png" alt="Piolink"></div>
+      <div class="logo-card"><img src="logos/logo-p-secui.png" alt="SECUI"></div>
+      <div class="logo-card"><img src="logos/logo-p-wins.png" alt="WINS"></div>
+      <div class="logo-card"><img src="logos/logo-p-ubiquoss.png" alt="ubiQuoss"></div>
+      <div class="logo-card"><img src="logos/logo-p-naonworks.png" alt="NaonWorks"></div>
+      <div class="logo-card"><img src="logos/logo-p-netgear.png" alt="Netgear"></div>
+      <div class="logo-card"><img src="logos/logo-p-axgate.png" alt="AXGATE"></div>
+      <div class="logo-card"><img src="logos/logo-p-genians.png" alt="Genians"></div>
+      <div class="logo-card"><img src="logos/logo-p-coreedge.png" alt="Core Edge"></div>
+      <div class="logo-card"><img src="logos/logo-p-handreamnet.png" alt="Handreamnet"></div>
+      <div class="logo-card"><img src="logos/logo-p-davolink.png" alt="Davolink"></div>
+      <div class="logo-card"><img src="logos/logo-p-somansa.png" alt="Somansa"></div>
+      <div class="logo-card"><img src="logos/logo-p-scop.png" alt="스콥정보통신"></div>
+      <div class="logo-card"><img src="logos/logo-p-hansak.png" alt="한싹시스템"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-inner">
+    <div data-reveal>
+      <div class="sec-label">// 04 Contact</div>
+      <h2>궁금하신 것이<br>있으신가요?</h2>
+      <p class="desc">네트워크, 시스템, 컨설팅, 유지보수, 장비 및 솔루션 관련<br>전문 담당자 확인 후 빠르게 답변 드리겠습니다.</p>
+    </div>
+    <div class="cta-right" data-reveal>
+      <a href="contact.html" class="cta-btn">문의하기 →</a>
+      <div class="cta-info">
+        <strong>대표번호</strong> 043-292-1800<br>
+        <strong>FAX</strong> 043-292-1900<br>
+        <strong>Email</strong> tech@esnet.co.kr
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="uploads/pasted-1781487699647-0.png" alt="ESNET" class="footer-logo">
+      <div class="footer-info">
+        (주)이에스넷 · 대표자 : 최명수<br>
+        사업자등록번호 : 398-87-00795<br>
+        충북 청주시 상당구 용암북로 156, 401호
+      </div>
+    </div>
+    <div class="footer-right">
+      Tel: 043-292-1800 · Fax: 043-292-1900<br>
+      Email: tech@esnet.co.kr<br>
+      © 2026 ESNET. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/effects.js"></script>
+<script>
+  // Dark hero particles (lighter color for dark bg)
+  new NetworkParticles('hero-canvas', { rgb: '100,170,220', maxDist: 160, count: window.innerWidth < 768 ? 20 : 60 });
+  new CableCursor({ rgb: '80,160,220', hex: '#50a0dc' });
+
+  // Brand merge animation — letters fly to center
+  (function() {
+    const container = document.getElementById('brandContainer');
+    const full = document.getElementById('brandFull');
+    if (!container || !full) return;
+    const blues = full.querySelectorAll('.brand-blue');
+    const whites = full.querySelectorAll('.brand-white');
+    let merged = false;
+
+    function getCenter() {
+      const r = container.getBoundingClientRect();
+      return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    }
+
+    function calcMergedPositions() {
+      // Measure where each letter would be if they were side by side as "ESNET"
+      const letters = Array.from(blues);
+      const rects = letters.map(el => el.getBoundingClientRect());
+      const totalW = rects.reduce((s, r) => s + r.width, 0);
+      const center = getCenter();
+      let cx = center.x - totalW / 2;
+      const targets = [];
+      rects.forEach((r, i) => {
+        targets.push({ x: cx + (rects.slice(0, i).reduce((s, r2) => s + r2.width, 0)) + r.width / 2, y: center.y });
+      });
+      return targets;
+    }
+
+    function doMerge() {
+      // Fade out white text
+      whites.forEach(w => w.style.opacity = '0');
+      // After white fades, move blue letters
+      setTimeout(() => {
+        const targets = calcMergedPositions();
+        blues.forEach((el, i) => {
+          const r = el.getBoundingClientRect();
+          const fromX = r.left + r.width / 2;
+          const fromY = r.top + r.height / 2;
+          const dx = targets[i].x - fromX;
+          const dy = targets[i].y - fromY;
+          el.style.transition = 'transform 1s cubic-bezier(.25,.46,.45,.94)';
+          el.style.transform = `translate(${dx}px, ${dy}px)`;
+        });
+      }, 700);
+    }
+
+    function doExpand() {
+      // Move letters back (faster)
+      blues.forEach(el => {
+        el.style.transition = 'transform .5s cubic-bezier(.25,.46,.45,.94)';
+        el.style.transform = 'translate(0, 0)';
+      });
+      // After letters return, fade in white (faster)
+      setTimeout(() => {
+        whites.forEach(w => {
+          w.style.transition = 'opacity .4s ease';
+          w.style.opacity = '1';
+        });
+      }, 400);
+    }
+
+    setInterval(() => {
+      merged = !merged;
+      if (merged) doMerge(); else doExpand();
+    }, 4500);
+  })();
+
+  // Mega menu hover with delay
+  const navItems = document.querySelectorAll('.nav-item');
+  const hideTimers = new Map();
+  navItems.forEach(item => {
+    const drop = item.querySelector('.mega-drop');
+    if (!drop) return;
+    const show = () => {
+      clearTimeout(hideTimers.get(item));
+      navItems.forEach(other => {
+        if (other !== item) other.querySelector('.mega-drop')?.classList.remove('mega-open');
+      });
+      drop.classList.add('mega-open');
+    };
+    const hide = (delay = 180) => {
+      hideTimers.set(item, setTimeout(() => drop.classList.remove('mega-open'), delay));
+    };
+    item.addEventListener('mouseenter', show);
+    item.addEventListener('mouseleave', () => hide());
+    drop.addEventListener('mouseenter', () => clearTimeout(hideTimers.get(item)));
+    drop.addEventListener('mouseleave', () => hide(80));
+  });
+
+  // Nav: switch from dark to light on scroll
+  const nav = document.getElementById('mainNav');
+  const hero = document.querySelector('.hero');
+  const ob = new IntersectionObserver(([e]) => {
+    nav.classList.toggle('dark-mode', e.isIntersecting);
+    nav.classList.toggle('scrolled', !e.isIntersecting);
+  }, { threshold: 0.1 });
+  ob.observe(hero);
+  // Section wipe-in on scroll
+  // Biz sticky scroll — smooth scrub
+  (function(){
+    const bizSection = document.getElementById('biz');
+    if(!bizSection) return;
+    const cards = Array.from(bizSection.querySelectorAll('.biz-wcard'));
+    const pdots = Array.from(bizSection.querySelectorAll('.biz-pdot'));
+    let cur = 0, rafId = null;
+
+    function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v));}
+    function lerp(a,b,t){return a+(b-a)*t;}
+    function ease(t){return t<.5?2*t*t:-1+(4-2*t)*t;} // ease in-out
+
+    function update(){
+      const scrolled = window.scrollY - bizSection.offsetTop;
+      const total = bizSection.offsetHeight - window.innerHeight;
+      const p = clamp(scrolled/total, 0, 1);
+
+      // Card centers: 0, 0.5, 1.0
+      // Each card has: enter zone (0~0.12), hold zone (0.12~0.38), exit zone (0.38~0.50)
+      const holdHalf = 0.14;  // card is fully visible within ±this of its center
+      const fadeHalf = 0.36;  // card starts fading beyond ±this
+
+      cards.forEach((card, i) => {
+        const center = i / (cards.length - 1);
+        const dist = p - center;
+        const absD = Math.abs(dist);
+
+        let opacity, scale, ty, rotX, zi;
+
+        if (absD <= holdHalf) {
+          // HOLD ZONE — fully visible, locked
+          opacity = 1; scale = 1; ty = 0; rotX = 0;
+          zi = 3;
+        } else {
+          // FADE ZONE — gradual transition beyond hold
+          const fadeProgress = clamp((absD - holdHalf) / (fadeHalf - holdHalf), 0, 1);
+          const t = ease(fadeProgress);
+
+          if (dist > 0) {
+            // behind (scrolled past)
+            opacity = 1 - t;
+            scale   = lerp(1, 0.70, t);
+            ty      = lerp(0, -10, t);
+            rotX    = lerp(0, 5, t);
+            zi = 1;
+          } else {
+            // waiting (coming up)
+            opacity = 1 - t;
+            scale   = lerp(1, 0.86, t);
+            ty      = lerp(0, 12, t);
+            rotX    = lerp(0, -4, t);
+            zi = 2;
+          }
+        }
+
+        card.style.transform = `perspective(1400px) scale(${scale.toFixed(4)}) translateY(${ty.toFixed(2)}%) rotateX(${rotX.toFixed(2)}deg)`;
+        card.style.opacity   = opacity.toFixed(3);
+        card.style.zIndex    = zi;
+      });
+
+      // dots — dynamic based on card count
+      const idx = Math.min(Math.round(p * (cards.length - 1)), cards.length - 1);
+      if(idx!==cur){
+        pdots[cur]?.classList.remove('active');
+        pdots[idx]?.classList.add('active');
+        cur=idx;
+      }
+      rafId=null;
+    }
+
+    window.addEventListener('scroll',()=>{
+      if(!rafId) rafId=requestAnimationFrame(update);
+    },{passive:true});
+    update();
+  })();
+  const wipeSections = document.querySelectorAll('.numbers');
+  if (wipeSections.length) {
+    const wipeOb = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('section-visible');
+          wipeOb.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    wipeSections.forEach(s => wipeOb.observe(s));
+    // Fallback
+    setTimeout(() => wipeSections.forEach(s => s.classList.add('section-visible')), 3500);
+  }
+</script>
+<script src="./assets/js/nav.js"></script>
+</html>
