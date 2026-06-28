@@ -68,7 +68,7 @@ function animateCounter(el,target,suffix,duration){
   requestAnimationFrame(step);
 }
 
-/* ─── REVEAL + STAGGER ─── */
+/* ─── STABLE REVEAL ─── */
 function initReveal(){
   var revEls=document.querySelectorAll('[data-reveal]');
   var revOb=new IntersectionObserver(function(entries){
@@ -76,26 +76,7 @@ function initReveal(){
   },{threshold:.1});
   revEls.forEach(function(el){revOb.observe(el);});
 
-  /* hero stats stagger */
-  setTimeout(function(){
-    document.querySelectorAll('.hero-stats .stat').forEach(function(el,i){setTimeout(function(){el.classList.add('stat-in');},400+i*150);});
-  },200);
-
-  /* counter on hero stats */
-  var statCfg=[{v:70,s:'+'},{v:5,s:''},{v:8,s:'년+'}];
-  var statEls=document.querySelectorAll('.stat .v');
-  var heroStats=document.querySelector('.hero-stats');
-  if(heroStats){
-    var heroOb=new IntersectionObserver(function(entries){
-      if(entries[0].isIntersecting){
-        statEls.forEach(function(el,i){if(statCfg[i])setTimeout(function(){animateCounter(el,statCfg[i].v,statCfg[i].s,1200);},500);});
-        heroOb.disconnect();
-      }
-    },{threshold:.5});
-    heroOb.observe(heroStats);
-  }
-
-  /* logo stagger + project line draw per section */
+  /* logo + project per section */
   document.querySelectorAll('.cat-section').forEach(function(sec){
     var logos=sec.querySelectorAll('.cat-logo');
     var projs=sec.querySelectorAll('.cat-project');
@@ -107,16 +88,16 @@ function initReveal(){
         projs.forEach(function(el,i){setTimeout(function(){el.classList.add('proj-in');},200+i*90);});
         ob.disconnect();
       }
-    },{threshold:.15});
+    },{threshold:.1,rootMargin:'0px 0px -40px 0px'});
     ob.observe(sec);
   });
 
-  /* fallback */
+  /* fallback - show everything after 4s */
   setTimeout(function(){
-    document.querySelectorAll('.cat-logo:not(.logo-in)').forEach(function(el){el.classList.add('logo-in');});
-    document.querySelectorAll('.cat-project:not(.proj-in)').forEach(function(el){el.classList.add('proj-in');});
+    document.querySelectorAll('.cat-logo').forEach(function(el){el.classList.add('logo-in');});
+    document.querySelectorAll('.cat-project').forEach(function(el){el.classList.add('proj-in');});
     revEls.forEach(function(el){el.classList.add('revealed');});
-  },5000);
+  },4000);
 }
 
 /* ─── LOGO HOVER → PROJECT HIGHLIGHT ─── */
@@ -153,4 +134,24 @@ function initDotNav(){
   update();
 }
 
-document.addEventListener('DOMContentLoaded',function(){initReveal();initLogoHighlight();initDotNav();});
+/* ─── HERO STATS (stagger + counter) ─── */
+function initHeroStats(){
+  setTimeout(function(){
+    document.querySelectorAll('.hero-stats .stat').forEach(function(el,i){setTimeout(function(){el.classList.add('stat-in');},400+i*150);});
+  },200);
+  var statCfg=[{v:70,s:'+'},{v:5,s:''},{v:8,s:'년+'}];
+  var statEls=document.querySelectorAll('.stat .v');
+  var heroStats=document.querySelector('.hero-stats');
+  if(heroStats){
+    var heroOb=new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){
+        statEls.forEach(function(el,i){if(statCfg[i])setTimeout(function(){animateCounter(el,statCfg[i].v,statCfg[i].s,1200);},500);});
+        heroOb.disconnect();
+      }
+    },{threshold:.5});
+    heroOb.observe(heroStats);
+  }
+}
+
+function runInit(){initReveal();initHeroStats();initLogoHighlight();initDotNav();}
+runInit();
