@@ -49,9 +49,10 @@ canvas#bgCanvas{position:absolute;inset:0;width:100%;height:100%;opacity:.25;poi
 .remote-tel a{color:var(--blue-bright);font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px}
 
 /* FOOTER */
-footer{padding:32px 5%;background:#070f1c;color:rgba(255,255,255,.3);position:relative;z-index:1}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer-info,.footer-right{font-size:12px;line-height:1.8}
+footer{padding:48px 5%;background:#060f1a;color:rgba(255,255,255,.5);position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.08)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
+.footer-info,.footer-right{font-size:12px;line-height:2}
 .footer-right{text-align:right}
 
 [data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
@@ -59,6 +60,34 @@ footer{padding:32px 5%;background:#070f1c;color:rgba(255,255,255,.3);position:re
 @media(max-width:640px){.remote-cards{grid-template-columns:1fr}.nav-links{display:none}}
 .nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
 .nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+
+/* DOWNLOAD BUTTON */
+.dl-btn{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;
+  background:linear-gradient(135deg,#2668A3,#3d8fd4);color:#fff;font-size:16px;
+  font-weight:700;border-radius:12px;text-decoration:none;transition:all .25s;
+  box-shadow:0 8px 28px rgba(38,104,163,.35);margin-bottom:12px}
+.dl-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(38,104,163,.45)}
+.dl-btn svg{width:22px;height:22px;flex-shrink:0}
+.dl-version{font-size:12px;color:rgba(255,255,255,.35);margin-bottom:40px;font-family:'Space Grotesk',sans-serif}
+
+/* STEP 3 PREVIEW */
+.step-preview{position:relative;margin-left:auto;flex-shrink:0}
+.preview-ico{width:40px;height:40px;border-radius:10px;background:rgba(61,143,212,.15);border:1px solid rgba(61,143,212,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s}
+.preview-ico:hover{background:rgba(61,143,212,.28);border-color:var(--blue-bright);transform:scale(1.08)}
+.preview-ico svg{width:20px;height:20px;stroke:var(--blue-bright)}
+.preview-overlay{position:absolute;right:0;bottom:calc(100% + 12px);width:380px;background:#1e2d3d;border-radius:14px;overflow:hidden;border:1px solid rgba(61,143,212,.3);box-shadow:0 20px 60px rgba(0,0,0,.6);opacity:0;pointer-events:none;transform:translateY(8px) scale(.97);transition:opacity .25s,transform .25s;z-index:100}
+.step-preview:hover .preview-overlay{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+.pv-img{width:100%;display:block;border-radius:14px}
+.pv-caption{padding:8px 12px;font-size:11px;color:rgba(255,255,255,.45);text-align:center;font-family:'Space Grotesk',sans-serif;background:#162130}
+.steps{display:flex;flex-direction:column;gap:0;margin-bottom:32px;width:100%;max-width:720px;text-align:left;background:rgba(255,255,255,.04);border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.step{display:flex;gap:20px;padding:18px 24px;border-bottom:1px solid rgba(255,255,255,.07);align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-num{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;
+  color:var(--blue-bright);width:28px;flex-shrink:0;margin-top:2px}
+.step-body{}
+.step-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.step-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65}
+
 </style>
 </head>
 <body>
@@ -71,40 +100,75 @@ footer{padding:32px 5%;background:#070f1c;color:rgba(255,255,255,.3);position:re
   <canvas id="bgCanvas"></canvas>
   <div class="remote-inner">
     <div class="remote-eyebrow" data-reveal>Remote Support · 원격지원</div>
-    <h1 class="remote-h1" data-reveal>언제 어디서나<br><em>즉시 연결</em>합니다</h1>
-    <p class="remote-sub" data-reveal>ESNET 기술팀이 원격으로 직접 접속하여 문제를 신속하게 해결해 드립니다.<br>아래 원격지원 도구를 실행하고 담당자에게 접속 코드를 알려주세요.</p>
+    <h1 class="remote-h1" data-reveal>원격에서<br><em>직접 해결</em>합니다</h1>
+    <p class="remote-sub" data-reveal>ESNET 기술팀이 원격으로 직접 접속하여 문제를 신속하게 해결해 드립니다.<br>아래 절차에 따라 프로그램 설치 후 ID를 알려주세요.</p>
 
-    <div class="remote-cards" data-reveal>
-      <div class="rc" onclick="window.open('https://www.teamviewer.com/ko/download/windows/','_blank')">
-        <div class="rc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div class="rc-title">TeamViewer</div>
-        <div class="rc-desc">가장 널리 사용되는 원격지원 솔루션. 설치 후 ID와 비밀번호를 담당자에게 전달해 주세요.</div>
-        <span class="rc-badge">다운로드</span>
+    <a href="https://github.com/jaeilyou/rustdesk/releases/download/nightly/rustdesk-1.4.1-x86_64.msi"
+       class="dl-btn" data-reveal download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      원격지원 프로그램 다운로드
+    </a>
+
+    <div style="height:32px"></div>
+
+    <div class="steps" data-reveal>
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <div class="step-title">파일 다운로드</div>
+          <div class="step-desc">상단 다운로드 버튼을 클릭하여 설치 파일(.msi)을 저장합니다.</div>
+        </div>
       </div>
-      <div class="rc" onclick="window.open('https://anydesk.com/ko/downloads','_blank')">
-        <div class="rc-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div class="rc-title">AnyDesk</div>
-        <div class="rc-desc">빠르고 가벼운 원격지원 도구. 설치 없이 실행 가능하며 접속 주소를 담당자에게 알려주세요.</div>
-        <span class="rc-badge">다운로드</span>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <div class="step-title">프로그램 설치</div>
+          <div class="step-desc">다운로드한 파일을 더블클릭하여 실행합니다. 보안 경고 창이 표시되면 무시하고 설치를 진행합니다.</div>
+        </div>
+      </div>
+      <div class="step" style="position:relative">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <div class="step-title">프로그램 실행 후 ID 확인</div>
+          <div class="step-desc">설치 완료 후 RustDesk를 실행하면 화면에 <strong style="color:var(--blue-bright)">고유 ID</strong>가 표시됩니다.</div>
+        </div>
+        <div class="step-preview">
+          <div class="preview-ico" title="예시 화면 보기">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="2" fill="currentColor" stroke="none" opacity=".5"/></svg>
+          </div>
+          <div class="preview-overlay">
+            <img src="uploads/pasted-1782605014635-0.png" alt="RustDesk ID 확인" class="pv-img">
+            <div class="pv-caption">파란 박스 안의 ID를 담당자에게 알려주세요</div>
+          </div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-body">
+          <div class="step-title">담당자에게 ID 전달</div>
+          <div class="step-desc">표시된 ID를 ESNET 기술 담당자에게 전화 또는 메시지로 알려주시면 원격 접속이 시작됩니다.</div>
+        </div>
       </div>
     </div>
 
     <div class="remote-notice" data-reveal>
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-      <p><strong>원격지원 이용 안내:</strong> 원격지원은 고객이 직접 프로그램을 실행하고 접속 코드를 제공해야만 연결됩니다. ESNET은 고객의 동의 없이 먼저 접속하지 않습니다. 원격지원 전 반드시 기술팀(043-292-1800)에 사전 연락 후 진행해 주세요.</p>
-    </div>
-
-    <div class="remote-tel" data-reveal>
-      기술 문의 및 원격지원 사전 연락 &nbsp;→&nbsp; <a href="tel:0432921800">043-292-1800</a>
-    </div>
-  </div>
+      <p><strong>보안 안내:</strong> ESNET은 고객의 사전 동의 없이 원격 접속을 시도하지 않습니다.<br>반드시 기술팀(<a href="tel:0432921800" style="color:var(--blue-bright)">043-292-1800</a>)에 먼저 연락 후 진행해 주세요.</p>
+    </div></div>
 </div>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-info">(주)이에스넷 · 대표자 : 최명수 · 사업자등록번호 : 398-87-00795<br>충북 청주시 상당구 용암북로 156, 401호</div>
-    <div class="footer-right">Tel: 043-292-1800 · tech@esnet.co.kr<br>© 2026 ESNET. All rights reserved.</div>
+    <div>
+      <img src="uploads/pasted-1781487699647-0.png" alt="ESNET" class="footer-logo">
+      <div class="footer-info">(주)이에스넷 · 대표자 : 최명수<br>사업자등록번호 : 398-87-00795<br>충북 청주시 상당구 용암북로 156, 401호</div>
+    </div>
+    <div class="footer-right">Tel: 043-292-1800 · Fax: 043-292-1900<br>Email: tech@esnet.co.kr<br>© 2026 ESNET. All rights reserved.</div>
   </div>
 </footer>
 
@@ -134,6 +198,7 @@ document.addEventListener('DOMContentLoaded',function(){
   setTimeout(function(){els.forEach(function(el,i){setTimeout(function(){el.classList.add('revealed');},i*130);});},200);
 });
 </script>
+<script src="assets/js/effects.js"></script>
 <script src="./assets/js/nav.js"></script>
 </body>
 </html>

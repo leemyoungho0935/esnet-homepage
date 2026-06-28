@@ -219,9 +219,18 @@ function initCounters() {
 
 /* ===== AUTO-INIT ===== */
 (function autoInit() {
+  function init(){
+    initReveal();
+    initCounters();
+    // CableCursor: 중복 방지 (index.html에서 직접 초기화하는 경우 제외)
+    if(!window.__cableCursorInit){
+      window.__cableCursorInit = true;
+      new CableCursor();
+    }
+  }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { initReveal(); initCounters(); });
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initReveal(); initCounters();
+    init();
   }
 })();
