@@ -13,15 +13,14 @@ html{scroll-behavior:smooth}
 body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg)}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
-[data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+[data-reveal]:not(.revealed){opacity:0;transform:translateY(24px)}
+[data-reveal]{transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
 [data-reveal].revealed{opacity:1;transform:none}
 
 .nav.scrolled .nav-logo{filter:none}
 .nav.scrolled .nav-links{color:var(--muted)}
-.nav.scrolled .nav-links a:hover,.nav.scrolled .nav-links>a:hover{color:var(--blue)}
-.nav.scrolled .nav-links a[style]{color:var(--blue)!important}
+.nav.scrolled .nav-links a:hover{color:var(--blue)}
 .nav.scrolled .nav-cta{border-color:var(--border);color:var(--text);background:transparent}
-.nav.scrolled .nav-cta:hover{background:var(--tint)}
 .mega-desc-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
 .mega-desc-text{font-size:14px;line-height:1.75;color:var(--muted)}
 .mega-desc-link{display:inline-flex;margin-top:16px;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;background:rgba(38,104,163,.08);color:var(--blue)}
@@ -43,34 +42,46 @@ a{text-decoration:none;color:inherit}
 .cat-section:last-of-type{border-bottom:none}
 .cat-section:nth-child(even){background:var(--tint)}
 .cat-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:320px 1fr;gap:80px;align-items:start}
-/* Left: info */
 .cat-info{}
 .cat-num{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;color:var(--blue);font-weight:600;margin-bottom:10px}
 .cat-title{font-size:clamp(22px,2.5vw,30px);font-weight:900;line-height:1.3;margin-bottom:12px}
-.cat-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:24px}
+.cat-desc{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:24px;word-break:keep-all}
 .cat-count{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--blue);padding:6px 14px;background:rgba(38,104,163,.07);border-radius:100px}
 .cat-count .n{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700}
-/* Right: logos + projects */
 .cat-content{}
 .cat-logos{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}
-.cat-logo{height:40px;width:120px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 12px;transition:all .25s}
+.cat-logo{height:44px;width:130px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 12px;transition:all .25s;overflow:hidden}
 .cat-section:nth-child(even) .cat-logo{background:var(--bg)}
 .cat-logo:hover{border-color:var(--blue);box-shadow:0 2px 12px rgba(38,104,163,.1)}
-.cat-logo img{max-width:100%;max-height:100%;object-fit:contain}
-.cat-projects{display:flex;flex-direction:column;gap:8px}
-.cat-project{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--border)}
+.cat-logo img{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;object-position:center}
+.cat-logo.wide{width:160px}
+.cat-projects{display:flex;flex-direction:column;gap:0}
+.cat-project{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:10px 0;border-bottom:1px solid var(--border)}
 .cat-project:last-child{border-bottom:none}
 .cat-project::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0}
 .cat-project .yr{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--blue);font-weight:600;margin-left:auto;white-space:nowrap}
+.cat-more{margin-top:14px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.cat-more .more-badge{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:2px 10px;background:rgba(38,104,163,.08);color:var(--blue);border-radius:100px}
+
+
+/* PROPOSAL LIST */
+.proposal-list{display:flex;flex-direction:column;gap:0}
+.pl-item{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 0;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.pl-item:last-child{border-bottom:none}
+.pl-left{display:flex;align-items:flex-start;gap:14px;flex:1;min-width:0;position:relative;z-index:1}
+.pl-num{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:var(--blue);min-width:22px;padding-top:2px;flex-shrink:0}
+.pl-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.pl-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.pl-logos{position:absolute;right:0;top:50%;transform:translateY(-50%);display:flex;gap:0;align-items:center;pointer-events:none}
+.pl-logos img{width:72px;height:44px;object-fit:contain;object-position:center;opacity:.08;filter:grayscale(1);padding:4px}
+.pl-item:hover .pl-logos img{opacity:.13}
 
 /* FOOTER */
-footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
+footer{padding:40px 5%;background:#070f1c;color:rgba(255,255,255,.4)}
 .footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
 .footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
 .footer-info,.footer-right{font-size:12px;line-height:2}
 .footer-right{text-align:right}
-
-@media(max-width:960px){.cat-inner{grid-template-columns:1fr}.nav-links{display:none}}
 
 /* DOT NAV */
 .dot-nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:900}
@@ -80,25 +91,18 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
 .dot.active span,.dot:hover span{background:var(--blue);border-color:var(--blue);transform:scale(1.4)}
 .dot::before{content:attr(data-label);font-size:11px;font-weight:600;color:var(--blue);opacity:0;transform:translateX(6px);transition:all .25s;white-space:nowrap;background:rgba(255,255,255,.95);padding:3px 8px;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .dot:hover::before,.dot.active::before{opacity:1;transform:translateX(0)}
-@media(max-width:960px){.dot-nav{display:none}}
 
-/* LOGO STAGGER */
+/* ANIMATIONS */
 .cat-logo{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s,border-color .25s,box-shadow .25s}
 .cat-logo.logo-in{opacity:1;transform:none}
-.cat-logo.logo-highlighted{border-color:var(--blue)!important;box-shadow:0 0 0 3px rgba(38,104,163,.15)!important;background:rgba(38,104,163,.05)!important}
-
-/* PROJECT LINE DRAW */
-.cat-project{opacity:0;transform:translateX(-12px);transition:opacity .45s,transform .45s,color .2s,background .2s,padding .2s}
+.cat-project{opacity:0;transform:translateX(-12px);transition:opacity .45s,transform .45s}
 .cat-project.proj-in{opacity:1;transform:none}
-.cat-project.proj-highlighted{color:var(--blue)!important;background:rgba(38,104,163,.06);padding-left:10px;border-radius:6px}
-.cat-project.proj-highlighted::before{background:var(--blue)!important;transform:scale(1.5)}
-
-/* HERO STATS reveal */
+.cat-more{opacity:0;transition:opacity .5s .4s}
+.cat-more.proj-in{opacity:1}
 .hero-stats .stat{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s}
 .hero-stats .stat.stat-in{opacity:1;transform:none}
 
-.nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
-.nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
+@media(max-width:960px){.cat-inner{grid-template-columns:1fr}.dot-nav{display:none}}
 </style>
 </head>
 <body>
@@ -114,140 +118,253 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
     <div class="hero-label" data-reveal>// Reference · 구축 레퍼런스</div>
     <h1 class="hero-h1" data-reveal>구축 레퍼런스 <span>Reference</span></h1>
     <div class="hero-stats" data-reveal>
-      <div class="stat"><div class="v">70+</div><div class="l">누적 프로젝트</div></div>
-      <div class="stat"><div class="v">5</div><div class="l">전문 분야</div></div>
+      <div class="stat"><div class="v">120+</div><div class="l">누적 계약 건수</div></div>
+      <div class="stat"><div class="v">6</div><div class="l">전문 분야</div></div>
       <div class="stat"><div class="v">8년+</div><div class="l">구축 경력</div></div>
     </div>
   </div>
 </section>
 
-<!-- 01 국가정보통신망 -->
-<section class="cat-section" id="sec1">
+<!-- 01 네트워크 구축 -->
+<section class="cat-section" id="sec1" data-screen-label="01 네트워크 구축">
   <div class="cat-inner">
     <div class="cat-info" data-reveal>
       <div class="cat-num">// 01</div>
-      <h2 class="cat-title">국가정보통신망<br>구축</h2>
-      <p class="cat-desc">공공기관의 국가정보통신망 설계·구축을 총괄 수행합니다. 충청북도를 중심으로 지자체, 경찰청, 공공기관의 신뢰성 높은 통신 인프라를 구현합니다.</p>
-      <div class="cat-count"><span class="n">15+</span>건 수행</div>
+      <h2 class="cat-title">네트워크<br>구축</h2>
+      <p class="cat-desc">국가정보통신망, 무선망, 전용망, 회선 등 공공·민간 ICT 네트워크 인프라를 설계하고 구축합니다. 충청북도를 중심으로 지자체·공공기관·기업의 통신 기반을 만들어 왔습니다.</p>
+      <div class="cat-count"><span class="n">33</span>+ 건 수행</div>
     </div>
     <div class="cat-content" data-reveal>
       <div class="cat-logos">
-        <div class="cat-logo" data-logo="충청북도"><img src="logos/logo-chungbuk.png" alt="충청북도"></div>
-        <div class="cat-logo" data-logo="충북경찰청"><img src="logos/logo-cbpolice.png" alt="충북경찰청"></div>
-        <div class="cat-logo" data-logo="충주시청"><img src="logos/logo-chungju.png" alt="충주시청"></div>
-        <div class="cat-logo"><img src="logos/logo-kgs.png" alt="한국가스안전공사"></div>
+        <div class="cat-logo"><img src="uploads/충청북도.jpg" alt="충청북도"></div>
+        <div class="cat-logo"><img src="uploads/충북경찰청 로고.jpg" alt="충북경찰청"></div>
+        <div class="cat-logo"><img src="uploads/logo-chungju.png" alt="충주시"></div>
+        <div class="cat-logo"><img src="uploads/logo-goesan.jpg" alt="괴산군"></div>
+        <div class="cat-logo"><img src="uploads/logo-yeongdong.jpg" alt="영동군"></div>
+        <div class="cat-logo" style="padding:5px 8px"><img src="uploads/logo-kgs-cropped.png" alt="한국가스안전공사"></div>
       </div>
       <div class="cat-projects">
-        <div class="cat-project" data-org="충청북도">충청북도 국가정보통신망 구축 사업 총괄<span class="yr">2022–2023</span></div>
-        <div class="cat-project" data-org="충북경찰청">충북경찰청 경찰정보통신망 구축 총괄<span class="yr">2024–2025</span></div>
-        <div class="cat-project" data-org="충주시청">충주시청 국가정보통신망 구축 (전승망)<span class="yr">2024–2025</span></div>
-        <div class="cat-project">충북지방경찰청 국가정보통신망 구축<span class="yr">2019–2020</span></div>
-        <div class="cat-project">국가대표선수촌(진천) 국가정보통신망 구축<span class="yr">2022–2023</span></div>
+        <div class="cat-project">충청북도 국가정보통신망 구축 사업<span class="yr">2022</span></div>
+        <div class="cat-project">충북경찰청 경찰정보통신망 4차 구축 사업<span class="yr">2024</span></div>
+        <div class="cat-project">충주시 국가정보통신망 구축 사업<span class="yr">2023</span></div>
+        <div class="cat-project">괴산군 국가정보통신망 및 무선망 구축<span class="yr">2025</span></div>
+        <div class="cat-project">영동군 국가정보통신망 구축 사업<span class="yr">2024</span></div>
       </div>
+      <div class="cat-more"><span class="more-badge">+28건</span> 보은군, 단양군, 충북대학교, 건국대학교, 한국가스안전공사 외</div>
     </div>
   </div>
 </section>
 
-<!-- 02 슈퍼컴퓨터 & 연구 인프라 -->
-<section class="cat-section" id="sec2">
+<!-- 02 시스템 통합 -->
+<section class="cat-section" id="sec2" data-screen-label="02 시스템 통합">
   <div class="cat-inner">
     <div class="cat-info" data-reveal>
       <div class="cat-num">// 02</div>
-      <h2 class="cat-title">슈퍼컴퓨터 &amp;<br>연구 인프라</h2>
-      <p class="cat-desc">국가 핵심 연구기관의 HPC·슈퍼컴퓨터 네트워크 및 클러스터 시스템을 구축·유지보수합니다. 고가용성과 보안성이 요구되는 연구 환경을 지원합니다.</p>
-      <div class="cat-count"><span class="n">10+</span>건 수행</div>
+      <h2 class="cat-title">시스템<br>통합</h2>
+      <p class="cat-desc">슈퍼컴퓨터·HPC 클러스터, ITS 교통시스템, DR재해복구센터, IP-PBX 등 복잡한 IT 시스템을 설계·구축합니다. 고가용성이 요구되는 국가 연구·공공 인프라를 안정적으로 구현합니다.</p>
+      <div class="cat-count"><span class="n">9</span>+ 건 수행</div>
     </div>
     <div class="cat-content" data-reveal>
       <div class="cat-logos">
-        <div class="cat-logo"><img src="logos/logo-kma.png" alt="기상청"></div>
-        <div class="cat-logo"><img src="logos/logo-kisti.png" alt="KISTI"></div>
-        <div class="cat-logo"><img src="logos/logo-ibs.png" alt="IBS"></div>
+        <div class="cat-logo"><img src="uploads/기상청 로고.png" alt="기상청"></div>
+        <div class="cat-logo" style="padding:6px 10px"><img src="uploads/logo-ibs-cropped.png" alt="기초과학연구원"></div>
+        <div class="cat-logo"><img src="uploads/logo-chungju.png" alt="충주시"></div>
+        <div class="cat-logo"><img src="uploads/logo-kats.png" alt="국가기술표준원"></div>
       </div>
       <div class="cat-projects">
-        <div class="cat-project">국가기상슈퍼컴퓨터 4호기 유지보수 총괄<span class="yr">2022–2025</span></div>
-        <div class="cat-project">KISTI 슈퍼컴퓨터센터 네트워크·보안시스템 유지보수<span class="yr">2022–2025</span></div>
-        <div class="cat-project">IBS 클러스터 시스템 유지보수<span class="yr">2022–2025</span></div>
-        <div class="cat-project">국가기상슈퍼컴퓨터 4호기 네트워크 유지보수<span class="yr">2019–2021</span></div>
+        <div class="cat-project">기상청 슈퍼컴퓨터 5호기 운영 및 유지보수관리 용역<span class="yr">2025</span></div>
+        <div class="cat-project">IBS 본원 공동활용 클러스터 시스템 운영 및 유지보수 용역<span class="yr">2023</span></div>
+        <div class="cat-project">충주시 재해복구(DR) 센터 구축<span class="yr">2026</span></div>
+        <div class="cat-project">청주시 지능형교통체계(ITS) 확대구축 사업<span class="yr">2021</span></div>
+        <div class="cat-project">국가기술표준원 IP-PBX 구축사업<span class="yr">2022</span></div>
       </div>
+      <div class="cat-more"><span class="more-badge">+4건</span> 기상청 슈퍼컴퓨터 4호기, 농협충북유통 백본스위치 외</div>
     </div>
   </div>
 </section>
 
-<!-- 03 스마트시티 & 교육 네트워크 -->
-<section class="cat-section" id="sec3">
+<!-- 03 유지보수·운영 -->
+<section class="cat-section" id="sec3" data-screen-label="03 유지보수·운영">
   <div class="cat-inner">
     <div class="cat-info" data-reveal>
       <div class="cat-num">// 03</div>
-      <h2 class="cat-title">스마트시티 &amp;<br>교육 네트워크</h2>
-      <p class="cat-desc">도심 교통관리, 공공와이파이, 교육청 백본 구축 등 시민 생활과 직결된 스마트 인프라를 설계·구현합니다.</p>
-      <div class="cat-count"><span class="n">12+</span>건 수행</div>
+      <h2 class="cat-title">유지보수<br>O&amp;M</h2>
+      <p class="cat-desc">구축 이후에도 자체 전문인력이 365일 안정적인 네트워크·시스템 운영을 보장합니다. 공공기관부터 기업·연구기관까지 다양한 환경의 IT 자산을 지속 관리합니다.</p>
+      <div class="cat-count"><span class="n">21</span>+ 건 수행</div>
     </div>
     <div class="cat-content" data-reveal>
       <div class="cat-logos">
-        <div class="cat-logo"><img src="logos/logo-cheongju.png" alt="청주시"></div>
-        <div class="cat-logo"><img src="logos/logo-cbedu.png" alt="충북교육청"></div>
-        <div class="cat-logo"><img src="logos/logo-kohi.png" alt="보건복지인재원"></div>
-        <div class="cat-logo"><img src="logos/logo-kice.png" alt="교육과정평가원"></div>
+        <div class="cat-logo"><img src="uploads/logo-ecopro.png" alt="에코프로"></div>
+        <div class="cat-logo"><img src="logos/SMC.png" alt="한국SMC"></div>
+        <div class="cat-logo"><img src="uploads/대한체육회.png" alt="국가대표선수촌"></div>
+        <div class="cat-logo"><img src="uploads/충북교육청.jpg" alt="충북교육청"></div>
+        <div class="cat-logo"><img src="uploads/logo-konkuk.png" alt="건국대학교"></div>
       </div>
       <div class="cat-projects">
-        <div class="cat-project">청주시 스마트시티 통합플랫폼 네트워크 구축<span class="yr">2019–2020</span></div>
-        <div class="cat-project">청주시 ATMS 네트워크 유지보수<span class="yr">2024–2025</span></div>
-        <div class="cat-project">청주시 스마트관광도시 공공와이파이 구축<span class="yr">2024–2025</span></div>
-        <div class="cat-project">충북교육청 백본·L2스위치 전체 구축<span class="yr">2022–2023</span></div>
-        <div class="cat-project">한국보건복지인재원 유무선 네트워크 구축<span class="yr">2024–2025</span></div>
+        <div class="cat-project">에코프로 그룹 3사 네트워크 시스템 유지보수<span class="yr">2025</span></div>
+        <div class="cat-project">진천국가대표선수촌 ICT 통합유지보수 용역<span class="yr">2022</span></div>
+        <div class="cat-project">충북경찰청 정보통신시스템 유지보수 용역<span class="yr">2019</span></div>
+        <div class="cat-project">충청북도교육청 네트워크 유지관리 용역<span class="yr">2023</span></div>
+        <div class="cat-project">JEMK 네트워크시스템 유지보수<span class="yr">2017</span></div>
       </div>
+      <div class="cat-more"><span class="more-badge">+16건</span> 한국교통대학교, 영동군, 문화재청, 첨단문화산업단지 외</div>
     </div>
   </div>
 </section>
 
-<!-- 04 보안 & 시스템 통합 -->
-<section class="cat-section" id="sec4">
+<!-- 04 CCTV·보안 -->
+<section class="cat-section" id="sec4" data-screen-label="04 CCTV·보안">
   <div class="cat-inner">
     <div class="cat-info" data-reveal>
       <div class="cat-num">// 04</div>
-      <h2 class="cat-title">보안 &amp;<br>시스템 통합</h2>
-      <p class="cat-desc">네트워크 보안장비 도입·구축부터 기업 IT 시스템 통합까지, 안전하고 효율적인 IT 환경을 설계합니다.</p>
-      <div class="cat-count"><span class="n">15+</span>건 수행</div>
+      <h2 class="cat-title">CCTV<br>보안</h2>
+      <p class="cat-desc">CCTV 구축·유지보수, 방재시스템, 보안장비 도입까지 물리보안과 네트워크 보안을 통합 지원합니다. 공공시설, 문화시설, 산업시설의 보안 환경을 체계적으로 관리합니다.</p>
+      <div class="cat-count"><span class="n">20</span>+ 건 수행</div>
     </div>
     <div class="cat-content" data-reveal>
       <div class="cat-logos">
-        <div class="cat-logo"><img src="logos/logo-ecopro.png" alt="에코프로"></div>
-        <div class="cat-logo"><img src="logos/SMC.png" alt="SMC"></div>
-        <div class="cat-logo"><img src="logos/logo-sdbio.png" alt="SD바이오센서"></div>
-        <div class="cat-logo"><img src="logos/logo-jsr.png" alt="JSR"></div>
+        <div class="cat-logo"><img src="uploads/logo-cheongju.jpg" alt="청주시"></div>
+        <div class="cat-logo"><img src="uploads/logo-yeongdong.jpg" alt="영동군"></div>
+        <div class="cat-logo"><img src="uploads/농협유통.png" alt="농협유통"></div>
+        <div class="cat-logo"><img src="uploads/logo-cltd-cropped.png" alt="첨단문화산업단지"></div>
       </div>
       <div class="cat-projects">
-        <div class="cat-project">에코프로 네트워크 및 보안시스템 구축<span class="yr">2022–2023</span></div>
-        <div class="cat-project">한국SMC 네트워크 및 보안시스템 유지관리<span class="yr">계속</span></div>
-        <div class="cat-project">건국대학교 글로벌캠퍼스 네트워크 구축<span class="yr">2022–2023</span></div>
-        <div class="cat-project">제천시청 국가정보통신서비스 사업 구축<span class="yr">2022–2023</span></div>
+        <div class="cat-project">청주시 CCTV통합관제센터 시스템 유지보수 용역<span class="yr">2019</span></div>
+        <div class="cat-project">청주시립미술관 CCTV 관제 및 주차차단기 원격장치 설치<span class="yr">2025</span></div>
+        <div class="cat-project">영동군청 CCTV 관제센터 구축용 물자 구매<span class="yr">2023</span></div>
+        <div class="cat-project">농협충북유통 CCTV시스템 유지보수 계약<span class="yr">2021</span></div>
+        <div class="cat-project">청주 첨단문화산업단지 방화벽 교체<span class="yr">2024</span></div>
       </div>
+      <div class="cat-more"><span class="more-badge">+15건</span> 청주랜드, 비술창작스튜디오, 대청호미술관 외</div>
     </div>
   </div>
 </section>
 
-<!-- 05 통합 유지보수 -->
-<section class="cat-section" id="sec5">
+<!-- 05 통신공사·설치 -->
+<section class="cat-section" id="sec5" data-screen-label="05 통신공사·설치">
   <div class="cat-inner">
     <div class="cat-info" data-reveal>
       <div class="cat-num">// 05</div>
-      <h2 class="cat-title">통합<br>유지보수 O&amp;M</h2>
-      <p class="cat-desc">구축 이후에도 365일 안정적인 운영을 보장합니다. 자체 전문인력이 네트워크·보안·서버 장비를 지속 관리합니다.</p>
-      <div class="cat-count"><span class="n">20+</span>개 기관</div>
+      <h2 class="cat-title">통신공사<br>설치</h2>
+      <p class="cat-desc">구내통신, 랜케이블, 통신선로 정비, 장비 이전·설치까지 현장 중심의 통신공사를 수행합니다. 공공기관, 우체국, 법무기관, 산업시설 등 다양한 환경에 대응합니다.</p>
+      <div class="cat-count"><span class="n">35</span>+ 건 수행</div>
     </div>
     <div class="cat-content" data-reveal>
       <div class="cat-logos">
-        <div class="cat-logo"><img src="logos/logo-cheongju.png" alt="청주시"></div>
-        <div class="cat-logo"><img src="logos/logo-yeongdong.png" alt="영동군청"></div>
-        <div class="cat-logo"><img src="logos/logo-kisti.png" alt="KISTI"></div>
-        <div class="cat-logo"><img src="logos/logo-ibs.png" alt="IBS"></div>
+        <div class="cat-logo wide"><img src="uploads/충북지방우정청-removebg-preview.png" alt="충청지방우정청"></div>
+        <div class="cat-logo wide"><img src="uploads/법무연수원-removebg-preview.png" alt="법무연수원"></div>
+        <div class="cat-logo"><img src="uploads/logo-sdbio-cropped.png" alt="SD바이오센서"></div>
+        <div class="cat-logo wide"><img src="uploads/충북소방본부-removebg-preview.png" alt="충북소방본부"></div>
       </div>
       <div class="cat-projects">
-        <div class="cat-project">청주시 인터넷망 네트워크 유지보수<span class="yr">계속</span></div>
-        <div class="cat-project">충북경찰청 정보통신시스템 유지보수<span class="yr">계속</span></div>
-        <div class="cat-project">영동군청 정보통신망 시스템 유지관리<span class="yr">계속</span></div>
-        <div class="cat-project">국가대표선수촌(진천) ICT인프라 통합유지보수<span class="yr">2024–2025</span></div>
-        <div class="cat-project">JEMK 네트워크 유지보수<span class="yr">계속</span></div>
+        <div class="cat-project">SD바이오센서 오송 공장 랜케이블 공사<span class="yr">2025</span></div>
+        <div class="cat-project">법무연수원 행복관 구내통신망 구축 공사<span class="yr">2021</span></div>
+        <div class="cat-project">충청지방우정청 우체국 창구환경개선 통신공사<span class="yr">2018</span></div>
+        <div class="cat-project">충북소방본부 행정인터넷전화 시설 공급<span class="yr">2023</span></div>
+        <div class="cat-project">충주교육지원청 노후 네트워크 스위치 교체<span class="yr">2025</span></div>
+      </div>
+      <div class="cat-more"><span class="more-badge">+30건</span> 청주시, 진천우체국, 충북시청자미디어센터 외</div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 기획·제안 -->
+<section class="cat-section" id="sec6" data-screen-label="06 기획·제안">
+  <div class="cat-inner">
+    <div class="cat-info" data-reveal>
+      <div class="cat-num">// 06</div>
+      <h2 class="cat-title">기획<br>제안</h2>
+      <p class="cat-desc">국가정보통신망, 전용회선 등 지자체 주요 공공입찰 사업의 제안작업부터, 로봇 및 AX 등 공모 사업 제안자료까지 차별화된 제안 경쟁력을 지원합니다.</p>
+      <div class="cat-count"><span class="n">30</span>+ 제안 참여</div>
+
+    </div>
+    <div class="cat-content" data-reveal>
+      <div class="proposal-list">
+        <div class="pl-item">
+          <div class="pl-left">
+            <span class="pl-num">01</span>
+            <div class="pl-info">
+              <div class="pl-name">국가정보통신망 구축</div>
+              <div class="pl-desc">지자체·공공기관 국가정보통신망 구축 사업 제안서 및 발표자료 참여</div>
+            </div>
+          </div>
+          <div class="pl-logos">
+            <img src="uploads/충청북도.jpg" alt="충청북도">
+            <img src="uploads/충북소방본부-removebg-preview.png" alt="충북소방본부">
+            <img src="uploads/충북경찰청 로고.jpg" alt="충북경찰청">
+            <img src="uploads/logo-boeun.jpg" alt="보은군">
+            <img src="uploads/단양군-removebg-preview.png" alt="단양군">
+            <img src="uploads/logo-goesan.jpg" alt="괴산군">
+          </div>
+        </div>
+        <div class="pl-item">
+          <div class="pl-left">
+            <span class="pl-num">02</span>
+            <div class="pl-info">
+              <div class="pl-name">공공기관 전용회선 구축</div>
+              <div class="pl-desc">공공기관·교육기관 대상 전용회선 인프라 구축 사업 제안</div>
+            </div>
+          </div>
+          <div class="pl-logos">
+            <img src="uploads/logo-chungju.png" alt="충주시">
+            <img src="uploads/logo-konkuk.png" alt="건국대학교">
+          </div>
+        </div>
+        <div class="pl-item">
+          <div class="pl-left">
+            <span class="pl-num">03</span>
+            <div class="pl-info">
+              <div class="pl-name">무선인터넷 구축</div>
+              <div class="pl-desc">무선망 구축 사업 제안서 및 발표자료 작성</div>
+            </div>
+          </div>
+          <div class="pl-logos">
+            <img src="uploads/충청북도.jpg" alt="충청북도">
+            <img src="uploads/충북소방본부-removebg-preview.png" alt="충북소방본부">
+            <img src="uploads/logo-yeongdong.jpg" alt="영동군">
+            <img src="uploads/logo-goesan.jpg" alt="괴산군">
+            <img src="uploads/대한체육회.png" alt="대한체육회">
+          </div>
+        </div>
+        <div class="pl-item">
+          <div class="pl-left">
+            <span class="pl-num">04</span>
+            <div class="pl-info">
+              <div class="pl-name">대규모 융합로봇 실증</div>
+              <div class="pl-desc">대규모 융합 로봇 실증 사업계획서 및 발표자료 작성 참여</div>
+            </div>
+          </div>
+          <div class="pl-logos">
+            <img src="uploads/충청북도.jpg" alt="충청북도">
+            <img src="uploads/logo-cheongju.jpg" alt="청주시">
+          </div>
+        </div>
+        <div class="pl-item">
+          <div class="pl-left">
+            <span class="pl-num">05</span>
+            <div class="pl-info">
+              <div class="pl-name">AX 실증 / 전환</div>
+              <div class="pl-desc">AI·디지털 전환(AX) 실증 및 공모 사업 사업계획서 &amp; 발표자료</div>
+            </div>
+          </div>
+          <div class="pl-logos">
+            <img src="uploads/logo-cheongju.jpg" alt="청주시">
+          </div>
+        </div>
+        <div class="pl-item">
+          <div class="pl-left">
+            <span class="pl-num">06</span>
+            <div class="pl-info">
+              <div class="pl-name">교육기관 스마트패드 보급</div>
+              <div class="pl-desc">교육청 스마트 단말기 보급사업 제안서 및 발표자료 참여</div>
+            </div>
+          </div>
+          <div class="pl-logos">
+            <img src="uploads/충북교육청.jpg" alt="충북교육청">
+            <img src="uploads/충남교육청-removebg-preview.png" alt="충남교육청">
+            <img src="uploads/대전교육청-removebg-preview.png" alt="대전교육청">
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -256,13 +373,15 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
 <!-- DOT NAV -->
 <nav class="dot-nav" id="dotNav" aria-label="섹션 이동">
   <div class="dot-nav-inner">
-    <a class="dot" data-label="국가정보통신망" href="#sec1"><span></span></a>
-    <a class="dot" data-label="슈퍼컴퓨터" href="#sec2"><span></span></a>
-    <a class="dot" data-label="스마트시티" href="#sec3"><span></span></a>
-    <a class="dot" data-label="보안·SI" href="#sec4"><span></span></a>
-    <a class="dot" data-label="O&M 유지보수" href="#sec5"><span></span></a>
+    <a class="dot" data-label="네트워크 구축" href="#sec1"><span></span></a>
+    <a class="dot" data-label="시스템 통합" href="#sec2"><span></span></a>
+    <a class="dot" data-label="유지보수·운영" href="#sec3"><span></span></a>
+    <a class="dot" data-label="CCTV·보안" href="#sec4"><span></span></a>
+    <a class="dot" data-label="통신공사·설치" href="#sec5"><span></span></a>
+    <a class="dot" data-label="기획·제안" href="#sec6"><span></span></a>
   </div>
 </nav>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -276,14 +395,113 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
     </div>
     <div class="footer-right">
       Tel: 043-292-1800 · Fax: 043-292-1900<br>
-      Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c58494f446c495f424958024f4302475e">[email&#160;protected]</a><br>
+      Email: tech@esnet.co.kr<br>
       © 2026 ESNET. All rights reserved.
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/reference.js"></script>
+<script>
+/* ── Hero 파티클 ── */
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [];
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    nodes = [];
+    const n = Math.floor((W*H)/18000);
+    for(let i=0;i<n;i++) nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,r:Math.random()*1.8+.6});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{n.x+=n.vx;n.y+=n.vy;if(n.x<0||n.x>W)n.vx*=-1;if(n.y<0||n.y>H)n.vy*=-1;});
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){ctx.strokeStyle='rgba(61,143,212,'+(1-d/130).toFixed(2)+')';ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}
+      }
+    }
+    nodes.forEach(n=>{ctx.fillStyle='rgba(61,143,212,.85)';ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);ctx.fill();});
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',resize);
+  resize(); draw();
+})();
+
+/* ── Reveal ── */
+(function(){
+  const els = document.querySelectorAll('[data-reveal]');
+  const ob = new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{
+      if(e.isIntersecting){
+        setTimeout(()=>{e.target.classList.add('revealed');e.target.style.opacity='1';e.target.style.transform='none';},i*80);
+        ob.unobserve(e.target);
+      }
+    });
+  },{threshold:.1,rootMargin:'20px'});
+  els.forEach(el=>ob.observe(el));
+  setTimeout(()=>els.forEach(el=>{el.classList.add('revealed');el.style.opacity='1';el.style.transform='none';}),4000);
+})();
+
+/* ── Section Animations (logos + projects) ── */
+(function(){
+  const sections = document.querySelectorAll('.cat-section');
+  const ob = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting) return;
+      const sec = entry.target;
+      // logos
+      sec.querySelectorAll('.cat-logo').forEach((logo,i)=>{
+        setTimeout(()=>logo.classList.add('logo-in'), 200 + i*80);
+      });
+      // projects
+      sec.querySelectorAll('.cat-project, .cat-more').forEach((proj,i)=>{
+        setTimeout(()=>proj.classList.add('proj-in'), 300 + i*70);
+      });
+      ob.unobserve(sec);
+    });
+  },{threshold:.15});
+  sections.forEach(s=>ob.observe(s));
+})();
+
+/* ── Hero Stats ── */
+(function(){
+  const stats = document.querySelectorAll('.hero-stats .stat');
+  const ob = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        stats.forEach((s,i)=>setTimeout(()=>s.classList.add('stat-in'),100+i*120));
+        ob.unobserve(entry.target);
+      }
+    });
+  },{threshold:.2});
+  const wrap = document.querySelector('.hero-stats');
+  if(wrap) ob.observe(wrap);
+  setTimeout(()=>stats.forEach(s=>s.classList.add('stat-in')),3000);
+})();
+
+/* ── Dot Nav ── */
+(function(){
+  const dots = document.querySelectorAll('.dot');
+  const secs = ['sec1','sec2','sec3','sec4','sec5','sec6'].map(id=>document.getElementById(id)).filter(Boolean);
+  function update(){
+    const mid = window.scrollY + window.innerHeight * .5;
+    let cur = 0;
+    secs.forEach((s,i)=>{if(s.offsetTop<=mid) cur=i;});
+    dots.forEach((d,i)=>d.classList.toggle('active',i===cur));
+  }
+  window.addEventListener('scroll',update,{passive:true});
+  dots.forEach((d,i)=>{
+    d.addEventListener('click',e=>{e.preventDefault();if(secs[i])window.scrollTo({top:secs[i].offsetTop-80,behavior:'smooth'});});
+  });
+  update();
+})();
+</script>
+
 <script src="assets/js/effects.js"></script>
-<script src="./assets/js/nav.js"></script>
+<script src="assets/js/nav.js"></script>
 </body>
 </html>
