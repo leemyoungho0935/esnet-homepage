@@ -8,6 +8,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@font-face{font-family:'Paperozi';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2');font-weight:300;font-display:swap}
+@font-face{font-family:'Paperozi';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Paperozi';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+@font-face{font-family:'Paperozi';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Paperozi';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2');font-weight:800;font-display:swap}
+@font-face{font-family:'Paperozi';src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2');font-weight:900;font-display:swap}
 :root{--blue:#2668A3;--blue-bright:#3d8fd4;--blue-rgb:38,104,163;--dark:#0B1A2E;--dark2:#0f2035;--text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;--bg:#ffffff;--radius:10px}
 html{scroll-behavior:smooth}
 body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg);overflow-x:hidden}
@@ -86,7 +92,7 @@ a{text-decoration:none;color:inherit}
 .hero h1 em{font-style:normal}
 /* Brand text animation — letters fly to merge */
 .brand-container{position:relative;min-height:2.4em;display:flex;align-items:center;justify-content:center;margin-bottom:24px}
-.brand-full{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.15;text-align:center}
+.brand-full{font-size:clamp(36px,6vw,72px);font-weight:900;line-height:1.15;text-align:center;font-family:'Paperozi',sans-serif}
 .brand-blue{background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;display:inline-block}
 .brand-white{color:#fff;display:inline;transition:opacity .7s ease}
 .hero-desc{font-size:16px;color:rgba(255,255,255,.85);line-height:1.8;margin-bottom:28px;text-shadow:0 1px 8px rgba(0,0,0,.4)}
@@ -320,7 +326,7 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
         <div class="num-label">연간 매출액<br><span style="font-size:11px;opacity:.5">2025년 기준</span></div>
       </div>
       <div class="num-item" data-reveal="scale">
-        <div class="num-val" data-count="70" data-suffix="+">0</div>
+        <div class="num-val" data-count="120" data-suffix="+">0</div>
         <div class="num-label">구축 레퍼런스<br><span style="font-size:11px;opacity:.5">누적 기준</span></div>
       </div>
     </div>
