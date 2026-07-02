@@ -34,12 +34,13 @@ a{text-decoration:none;color:inherit}
 .nav:not(.light) .nav-links{color:rgba(255,255,255,.75)}
 
 /* ── DOT NAVIGATION ── */
-.dot-nav{position:fixed;right:20px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:14px;align-items:center;padding:10px 8px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border-radius:100px;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 10px rgba(0,0,0,.07)}
-.dot-nav a{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none}
-.dot{width:8px;height:8px;border-radius:50%;border:2px solid rgba(100,120,160,.4);background:transparent;transition:all .35s;cursor:pointer;flex-shrink:0}
-.dot-nav a.active .dot{background:var(--blue);border-color:var(--blue);width:10px;height:10px;box-shadow:0 0 0 3px rgba(38,104,163,.2)}
-.dot-nav.on-light .dot{border-color:rgba(38,104,163,.3)}
-.dot-nav.on-light a.active .dot{background:var(--blue);border-color:var(--blue)}
+.dot-nav{position:fixed;right:28px;top:50%;transform:translateY(-50%);z-index:900}
+.dot-nav-inner{display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.dot{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;position:relative}
+.dot span{width:8px;height:8px;border-radius:50%;border:2px solid rgba(38,104,163,.4);background:transparent;transition:all .3s;display:block;flex-shrink:0}
+.dot.active span,.dot:hover span{background:var(--blue);border-color:var(--blue);transform:scale(1.4)}
+.dot::before{content:attr(data-label);font-size:11px;font-weight:600;color:var(--blue);opacity:0;transform:translateX(6px);transition:all .25s;white-space:nowrap;background:rgba(255,255,255,.95);padding:3px 8px;border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.dot:hover::before,.dot.active::before{opacity:1;transform:translateX(0)}
 
 /* ── HERO ── */
 .page-hero{min-height:52vh;background:var(--dark);padding:140px 5% 80px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
@@ -80,7 +81,11 @@ a{text-decoration:none;color:inherit}
 .greeting-sig-left{font-size:14px;color:rgba(255,255,255,.32);line-height:1.8}
 .greeting-sig-left strong{color:rgba(255,255,255,.82);font-size:18px;font-weight:700;display:block;margin-top:3px;letter-spacing:.03em}
 .greeting-sig-logo{height:32px;filter:brightness(0) invert(1);opacity:.4}
-.ceo-photo,.ceo-photo-info,.ceo-name,.ceo-title{display:none}
+.ceo-photo-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:32px;gap:12px}
+.ceo-photo-img{width:200px;object-fit:contain;object-position:top;border-bottom:2px solid rgba(255,255,255,.1);padding-bottom:16px}
+.ceo-photo-info{text-align:center}
+.ceo-name{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:#fff;letter-spacing:.08em}
+.ceo-title{font-size:11px;color:var(--blue-bright);letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
 .greeting-text .sec-num{color:var(--blue-bright)}
 .greeting-quote{font-family:'Noto Serif KR',serif;font-size:clamp(22px,2.8vw,34px);font-weight:700;color:#fff;line-height:1.5;margin:16px 0 32px;word-break:keep-all}
 .greeting-quote em{color:var(--blue-bright);font-style:normal}
@@ -163,6 +168,7 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
   .greeting-inner,.location-inner{grid-template-columns:1fr}
   .safety-docs{grid-template-columns:1fr}
   .dot-nav{display:none}
+  @media(max-width:960px){.dot-nav{display:none}}
 }
 .nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
 .nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
@@ -174,11 +180,13 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
 <nav id="mainNav"></nav>
 
 <!-- DOT NAVIGATION -->
-<nav class="dot-nav" id="dotNav">
-  <a href="#greeting" class="active"><div class="dot"></div></a>
-  <a href="#history"><div class="dot"></div></a>
-  <a href="#location"><div class="dot"></div></a>
-  <a href="#safety"><div class="dot"></div></a>
+<nav class="dot-nav" id="dotNav" aria-label="섹션 이동">
+  <div class="dot-nav-inner">
+    <a class="dot active" data-label="CEO 인사말" href="#greeting"><span></span></a>
+    <a class="dot" data-label="주요 연혁" href="#history"><span></span></a>
+    <a class="dot" data-label="오시는 길" href="#location"><span></span></a>
+    <a class="dot" data-label="안전보건" href="#safety"><span></span></a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -193,36 +201,45 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
 </section>
 
 <!-- 01 CEO 인사말 -->
-<section id="greeting">
-  <div class="greeting-bg">01</div>
-
-  <div class="greeting-content">
-    <div class="greeting-inner">
-      <div data-reveal-l>
-        <div class="sec-num" style="color:var(--blue-bright);margin-bottom:32px">// 01 · CEO Message</div>
-        <div class="greeting-kpi">
-          <div class="greeting-kpi-item"><div class="val">120+</div><div class="lbl">구축 레퍼런스</div></div>
+<!-- ── TYPE B-2: CEO 사진 배경 흰색 ── -->
+<section id="greeting" style="background:var(--dark);padding:80px 5% 48px;position:relative;overflow:hidden">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:64px;align-items:stretch;margin-bottom:40px">
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:40px;gap:16px;height:100%">
+        <div style="background:#fff;border-radius:8px;padding:8px 0 0;width:258px;height:266px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start">
+          <img src="../uploads/최명수.png" alt="대표이사 최명수" style="width:258px;display:block">
         </div>
-        <div class="kpi-logos">
-          <div class="gl-item"><img src="../logos/logo-chungbuk.png" alt="충청북도"></div>
-          <div class="gl-item"><img src="../logos/logo-ibs.png" alt="기초과학연구원"></div>
-          <div class="gl-item"><img src="../logos/logo-kma.png" alt="기상청"></div>
-          <div class="gl-item"><img src="../logos/logo-cbpolice.png" alt="충북경찰청"></div>
-          <div class="gl-item"><img src="../logos/logo-cbedu.png" alt="충북교육청"></div>
-          <div class="gl-item"><img src="../logos/logo-cheongju.png" alt="청주시"></div>
-          <div class="gl-item"><img src="../logos/logo-chungju.png" alt="충주시청"></div>
-          <div class="gl-item"><img src="../logos/logo-kohi.png" alt="보건복지인재원"></div>
+        <div style="text-align:center;width:100%">
+          <div style="font-size:13px;color:var(--blue-bright);letter-spacing:.1em;display:inline">대표이사 CEO&nbsp;&nbsp;</div><div style="font-size:18px;font-weight:700;color:#fff;letter-spacing:.06em;display:inline">최 명 수</div>
         </div>
       </div>
-      <div data-reveal-r>
-        <h2 class="greeting-quote">고객과 함께 성장하는<br><em>신뢰받는 파트너</em>가<br>되겠습니다.</h2>
+      <div>
+        <div style="color:var(--blue-bright);font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:.2em;margin-bottom:24px">// 01 · CEO Message</div>
+        <h2 class="greeting-quote" style="margin-bottom:28px">AI 대전환 시대, 기술과 신뢰로<br><em>고객과 함께 성장하는 파트너</em>가 되겠습니다.</h2>
         <div class="greeting-body">
           <p>저희 이에스넷은 정보통신공사 전문기업으로서 네트워크 구축(NI), 시스템 통합(SI), 유지보수(O&M) 분야에서 고객과 함께 성장해 왔습니다. 고객가치 경영과 인간중심 경영을 모토로 삼아, 고객과 사회의 삶의 질을 향상시키는 기업으로 발전하고 있습니다.</p>
           <p>충청북도를 중심으로 공공기관, 연구기관, 민간기업 등 다수의 프로젝트를 성공적으로 수행하였으며, 국내외 전문 기업 및 제조사와 긴밀한 협력 체계를 구축하여 최고의 서비스를 제공하고 있습니다. 앞으로도 기술 혁신과 서비스 품질 향상을 통해 더 나은 내일을 만들어 나가겠습니다.</p>
         </div>
-        <div class="greeting-sig">
-          <img src="../uploads/pasted-1781487699647-0.png" alt="ESNET" class="greeting-sig-logo">
-        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:48px;padding-top:40px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap">
+      <div style="flex-shrink:0">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;background:linear-gradient(135deg,var(--blue-bright),#60b4f0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">120+</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.38);margin-top:4px;letter-spacing:.04em">구축 레퍼런스</div>
+      </div>
+      <div style="width:1px;height:48px;background:rgba(255,255,255,.1);flex-shrink:0"></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;flex:1">
+        <img src="../uploads/logo-chungbuk.png" alt="충북도청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/logo-cbpolice.png" alt="충북경찰청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/충북소방본부-removebg-preview.png" alt="충북소방본부" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/logo-cbedu.png" alt="충북교육청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/logo-cheongju.png" alt="청주시" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/logo-kma-23ba4faa.png" alt="기상청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/logo-chungju-2ff97c35.png" alt="충주시청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/단양군-removebg-preview-cbf2e086.png" alt="영동군청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/괴산군.png" alt="괴산군청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/증평군.png" alt="증평군청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
+        <img src="../uploads/logo-boeun.png" alt="보은군청" style="height:22px;object-fit:contain;filter:brightness(0) invert(1);opacity:.45">
       </div>
     </div>
   </div>
@@ -338,7 +355,7 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
         <div class="tl-year">2017–2018</div>
         <div class="tl-events">
           <div class="tl-event">법인 설립 (주식회사 이에스넷)</div>
-          <div class="tl-event">JEMK 네트워크시스템 유지보수 (첫 수주)</div>
+          <div class="tl-event">JEMK 네트워크시스템 유지보수</div>
           <div class="tl-event">기상청 국가기상슈퍼컴퓨터센터 유지보수 용역</div>
           <div class="tl-event">한국교통대학교 네트워크 및 구내정보통신시설 유지보수</div>
           <div class="tl-event">영동군 정보통신망시스템 유지보수 용역</div>
@@ -450,7 +467,7 @@ function initReveal(){
 
 // ── Dot nav + nav bg
 const sections = ['greeting','history','location','safety'];
-const dotLinks = document.querySelectorAll('.dot-nav a');
+const dotLinks = document.querySelectorAll('.dot');
 const dotNav = document.getElementById('dotNav');
 const nav = document.getElementById('mainNav');
 const lightSections = ['history','safety'];
@@ -462,6 +479,7 @@ function updateDots(){
     if(el && window.scrollY >= el.offsetTop - window.innerHeight/2) current = id;
   });
   dotLinks.forEach(a => { a.classList.toggle('active', a.getAttribute('href')==='#'+current); });
+  dotNav.classList.remove('on-light');
   const isLight = lightSections.includes(current);
   dotNav.classList.toggle('on-light', isLight);
   // nav bg: dark on dark sections
