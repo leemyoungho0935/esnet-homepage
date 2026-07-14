@@ -113,11 +113,11 @@
   display:flex;flex-direction:column;
   transition:transform .3s,visibility 0s .3s;padding:0 6%}
 .nav-mobile-panel.mobile-open{visibility:visible;transform:translateY(0);transition:transform .3s,visibility 0s}
-.mob-link{display:flex;align-items:center;justify-content:space-between;flex:1;
-  font-size:22px;font-weight:700;color:#1d1d2c;text-decoration:none;border-bottom:1px solid rgba(0,0,0,.07)}
+.mob-link{display:flex;align-items:center;justify-content:space-between;padding:22px 4px;
+  font-size:21px;font-weight:700;color:#1d1d2c;text-decoration:none;border-bottom:1px solid rgba(0,0,0,.08)}
 .mob-link svg{width:16px;height:16px;opacity:.4;transform:rotate(-90deg)}
-.mob-remote{flex:1;display:flex;align-items:center;justify-content:center;gap:10px;
-  border-radius:0;background:#2668A3;color:#fff;font-size:18px;font-weight:600;text-decoration:none}
+.mob-remote{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;
+  height:60px;border-radius:12px;background:#2668A3;color:#fff;font-size:18px;font-weight:600;text-decoration:none}
 
 @media(max-width:960px){
   .nav-links{display:none}.nav-remote{display:none}.nav-burger{display:flex}
@@ -222,8 +222,8 @@
       var h = (window.innerHeight - nav.offsetHeight);
       mobilePanel.style.cssText =
         'position:fixed;left:0;right:0;top:' + nav.offsetHeight + 'px;height:' + h + 'px;'
-        + 'background:#fff;z-index:1001;display:flex;flex-direction:column;'
-        + 'visibility:visible;opacity:1;transform:translateY(0);padding:0 6%;overflow:hidden';
+        + 'background:#fff;z-index:1001;display:flex;flex-direction:column;justify-content:flex-start;'
+        + 'visibility:visible;opacity:1;transform:translateY(0);padding:20px 8% 32px;overflow-y:auto';
     }
     function closePanel(){
       mobilePanel.classList.remove('mobile-open');
@@ -244,6 +244,16 @@
   function onScroll(){nav.classList.toggle('scrolled', window.scrollY > 60);}
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
+
+  /* ── Mobile: logo always dark (header bg is white on mobile) ── */
+  var navLogo = nav.querySelector('.nav-logo');
+  function syncLogo(){
+    if(!navLogo) return;
+    if(window.innerWidth <= 960){ navLogo.style.filter = 'none'; }
+    else { navLogo.style.filter = ''; }
+  }
+  syncLogo();
+  window.addEventListener('resize', syncLogo);
 
   /* ── Mega-drop hover ── */
   var navItems = nav.querySelectorAll('.nav-item');
