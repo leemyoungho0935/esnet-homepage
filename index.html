@@ -456,7 +456,7 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
       <div class="cta-info">
         <strong>대표번호</strong> 043-292-1800<br>
         <strong>FAX</strong> 043-292-1900<br>
-        <strong>Email</strong> tech@esnet.co.kr
+        <strong>Email</strong> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1f6b7a7c775f7a6c717a6b317c7031746d">[email&#160;protected]</a>
       </div>
     </div>
   </div>
@@ -475,13 +475,13 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
     </div>
     <div class="footer-right">
       Tel: 043-292-1800 · Fax: 043-292-1900<br>
-      Email: tech@esnet.co.kr<br>
+      Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8acbdbbb098bdabb6bdacf6bbb7f6b3aa">[email&#160;protected]</a><br>
       © 2026 ESNET. All rights reserved.
     </div>
   </div>
 </footer>
 
-<script src="assets/js/effects.js"></script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/js/effects.js"></script>
 <script>
   // Dark hero particles (lighter color for dark bg)
   new NetworkParticles('hero-canvas', { rgb: '100,170,220', maxDist: 160, count: window.innerWidth < 768 ? 20 : 60 });
@@ -578,11 +578,11 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
   });
 
   // Nav: switch from dark to light on scroll
-  const nav = document.getElementById('mainNav');
+  const mainNavEl = document.getElementById('mainNav');
   const hero = document.querySelector('.hero');
   const ob = new IntersectionObserver(([e]) => {
-    nav.classList.toggle('dark-mode', e.isIntersecting);
-    nav.classList.toggle('scrolled', !e.isIntersecting);
+    mainNavEl.classList.toggle('dark-mode', e.isIntersecting);
+    mainNavEl.classList.toggle('scrolled', !e.isIntersecting);
   }, { threshold: 0.1 });
   ob.observe(hero);
   // Section wipe-in on scroll

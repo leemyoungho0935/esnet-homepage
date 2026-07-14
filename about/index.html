@@ -389,7 +389,7 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
       </div>
       <div class="info-card">
         <div class="info-label">이메일</div>
-        <div class="info-value">tech@esnet.co.kr</div>
+        <div class="info-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b3f2e28230b2e38252e3f652824652039">[email&#160;protected]</a></div>
       </div>
     </div>
     <div class="map-wrap" data-reveal-r>
@@ -448,13 +448,13 @@ footer{padding:48px 5%;background:var(--dark);color:rgba(255,255,255,.5)}
     </div>
     <div class="footer-right">
       Tel: 043-292-1800 · Fax: 043-292-1900<br>
-      Email: tech@esnet.co.kr<br>
+      Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b4c0d1d7dcf4d1c7dad1c09ad7db9adfc6">[email&#160;protected]</a><br>
       © 2026 ESNET. All rights reserved.
     </div>
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Reveal
 function initReveal(){
   const els = document.querySelectorAll('[data-reveal],[data-reveal-l],[data-reveal-r]');
@@ -469,7 +469,7 @@ function initReveal(){
 const sections = ['greeting','history','location','safety'];
 const dotLinks = document.querySelectorAll('.dot');
 const dotNav = document.getElementById('dotNav');
-const nav = document.getElementById('mainNav');
+const mainNavEl = document.getElementById('mainNav');
 const lightSections = ['history','safety'];
 
 function updateDots(){
@@ -486,9 +486,9 @@ function updateDots(){
   const scrolled = window.scrollY > 100;
   const heroBottom = document.querySelector('.page-hero').offsetTop + document.querySelector('.page-hero').offsetHeight;
   if(window.scrollY < heroBottom - 80){
-    nav.classList.remove('light');
+    mainNavEl.classList.remove('light');
   } else {
-    nav.classList.toggle('scrolled', isLight);
+    mainNavEl.classList.toggle('scrolled', isLight);
   }
 }
 window.addEventListener('scroll', updateDots, {passive:true});
