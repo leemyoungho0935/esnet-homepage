@@ -28,6 +28,8 @@
 .nav-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;
   justify-content:space-between;height:72px;gap:24px}
 .nav-logo{height:30px;filter:brightness(0) invert(1);transition:filter .3s;flex-shrink:0}
+.nav.burger-open{background:#fff;border-bottom:1px solid rgba(0,0,0,.06)}
+.nav.burger-open .nav-logo{filter:none!important}
 .nav.scrolled .nav-logo{filter:none}
 
 /* NAV LINKS */
@@ -121,6 +123,7 @@
   .nav-links{display:none}.nav-remote{display:none}.nav-burger{display:flex}
   .nav-burger span{background:#1d1d2c!important}
   .nav:not(.scrolled):not(.burger-open){background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)}
+  .nav-logo{filter:none!important}
 }
 @media(min-width:961px){.nav-mobile-panel{display:none!important}}
   `;
@@ -210,20 +213,30 @@
   var burger = document.getElementById('navBurger');
   var mobilePanel = document.getElementById('navMobilePanel');
   if(burger && mobilePanel){
+    function openPanel(){
+      mobilePanel.classList.add('mobile-open');
+      burger.classList.add('burger-open');
+      nav.classList.add('burger-open');
+      document.body.style.overflow = 'hidden';
+      /* bulletproof inline styles — beat any stale/cached CSS or z-index trap */
+      var h = (window.innerHeight - nav.offsetHeight);
+      mobilePanel.style.cssText =
+        'position:fixed;left:0;right:0;top:' + nav.offsetHeight + 'px;height:' + h + 'px;'
+        + 'background:#fff;z-index:1001;display:flex;flex-direction:column;'
+        + 'visibility:visible;opacity:1;transform:translateY(0);padding:0 6%;overflow:hidden';
+    }
+    function closePanel(){
+      mobilePanel.classList.remove('mobile-open');
+      burger.classList.remove('burger-open');
+      nav.classList.remove('burger-open');
+      document.body.style.overflow = '';
+      mobilePanel.style.cssText = '';
+    }
     burger.addEventListener('click', function(){
-      var isOpen = mobilePanel.classList.toggle('mobile-open');
-      burger.classList.toggle('burger-open', isOpen);
-      nav.classList.toggle('burger-open', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-      if(isOpen){ mobilePanel.style.height = (window.innerHeight - nav.offsetHeight) + 'px'; }
+      if(mobilePanel.classList.contains('mobile-open')) closePanel(); else openPanel();
     });
     mobilePanel.querySelectorAll('a').forEach(function(a){
-      a.addEventListener('click', function(){
-        mobilePanel.classList.remove('mobile-open');
-        burger.classList.remove('burger-open');
-        nav.classList.remove('burger-open');
-        document.body.style.overflow = '';
-      });
+      a.addEventListener('click', closePanel);
     });
   }
 
