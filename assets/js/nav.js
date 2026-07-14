@@ -105,21 +105,14 @@
 .nav-burger.burger-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 .nav.burger-open .nav-burger span{background:#1d1d2c!important}
 
-/* MOBILE PANEL */
+/* MOBILE PANEL — flat links, no accordion */
 .nav-mobile-panel{position:fixed;top:72px;left:0;right:0;bottom:0;background:#fff;z-index:998;
-  opacity:0;visibility:hidden;transform:translateY(-12px);overflow-y:auto;
-  transition:opacity .3s,transform .3s,visibility .3s;padding:8px 6% 40px}
-.nav-mobile-panel.mobile-open{opacity:1;visibility:visible;transform:translateY(0)}
-.mob-group{border-bottom:1px solid rgba(0,0,0,.07)}
-.mob-group-head{display:flex;align-items:center;justify-content:space-between;padding:20px 4px;
-  font-size:17px;font-weight:700;color:#1d1d2c;cursor:pointer}
-.mob-group-head svg{width:16px;height:16px;transition:transform .3s;color:#6b7185}
-.mob-group.open .mob-group-head svg{transform:rotate(180deg)}
-.mob-sub{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.mob-group.open .mob-sub{max-height:400px}
-.mob-sub a{display:flex;align-items:center;gap:10px;padding:12px 4px 12px 8px;font-size:15px;
-  color:#5a6070;text-decoration:none}
-.mob-sub a .num{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;color:#2668A3;min-width:24px}
+  visibility:hidden;transform:translateY(-12px);overflow-y:auto;
+  transition:transform .3s,visibility 0s .3s;padding:8px 6% 40px}
+.nav-mobile-panel.mobile-open{visibility:visible;transform:translateY(0);transition:transform .3s,visibility 0s}
+.mob-link{display:flex;align-items:center;justify-content:space-between;padding:22px 4px;
+  font-size:18px;font-weight:700;color:#1d1d2c;text-decoration:none;border-bottom:1px solid rgba(0,0,0,.07)}
+.mob-link svg{width:16px;height:16px;opacity:.4;transform:rotate(-90deg)}
 .mob-remote{display:flex;align-items:center;gap:8px;margin-top:20px;padding:14px 16px;
   border-radius:10px;background:#2668A3;color:#fff;font-size:15px;font-weight:600;text-decoration:none;justify-content:center}
 
@@ -205,31 +198,10 @@
       '<button class="nav-burger" id="navBurger" aria-label="메뉴 열기"><span></span><span></span><span></span></button>' +
     '</div>' +
     '<div class="nav-mobile-panel" id="navMobilePanel">' +
-      '<div class="mob-group">' +
-        '<div class="mob-group-head">회사소개' + arrowSvg + '</div>' +
-        '<div class="mob-sub">' +
-          '<a href="' + base + '/about/index.html#greeting"><span class="num">01</span>인사말</a>' +
-          '<a href="' + base + '/about/index.html#history"><span class="num">02</span>주요 연혁</a>' +
-          '<a href="' + base + '/about/index.html#location"><span class="num">03</span>오시는 길</a>' +
-          '<a href="' + base + '/about/index.html#safety"><span class="num">04</span>안전보건경영</a>' +
-        '</div>' +
-      '</div>' +
-      '<div class="mob-group">' +
-        '<div class="mob-group-head">사업영역' + arrowSvg + '</div>' +
-        '<div class="mob-sub">' +
-          '<a href="' + base + '/service/index.html#ni"><span class="num">NI</span>네트워크 구축</a>' +
-          '<a href="' + base + '/service/index.html#si"><span class="num">SI</span>시스템 통합</a>' +
-          '<a href="' + base + '/service/index.html#om"><span class="num">O&M</span>유지보수</a>' +
-          '<a href="' + base + '/service/index.html#plan"><span class="num">기획</span>기획/제안</a>' +
-          '<a href="' + base + '/service/index.html#kt"><span class="num">KT</span>SA 대리점</a>' +
-        '</div>' +
-      '</div>' +
-      '<div class="mob-group">' +
-        '<div class="mob-group-head"><a href="' + base + '/reference.html" style="color:inherit;text-decoration:none;flex:1">레퍼런스</a></div>' +
-      '</div>' +
-      '<div class="mob-group">' +
-        '<div class="mob-group-head"><a href="' + base + '/contact.html" style="color:inherit;text-decoration:none;flex:1">문의</a></div>' +
-      '</div>' +
+      '<a href="' + base + '/about/index.html" class="mob-link">회사소개' + arrowSvg + '</a>' +
+      '<a href="' + base + '/service/index.html" class="mob-link">사업영역' + arrowSvg + '</a>' +
+      '<a href="' + base + '/reference.html" class="mob-link">레퍼런스' + arrowSvg + '</a>' +
+      '<a href="' + base + '/contact.html" class="mob-link">문의' + arrowSvg + '</a>' +
       '<a href="' + base + '/remote.html" class="mob-remote">' + remoteIcon + '원격지원</a>' +
     '</div>';
 
@@ -243,10 +215,12 @@
       nav.classList.toggle('burger-open', isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
-    mobilePanel.querySelectorAll('.mob-group-head').forEach(function(head){
-      head.addEventListener('click', function(e){
-        if(e.target.closest('a')) return;
-        head.parentElement.classList.toggle('open');
+    mobilePanel.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        mobilePanel.classList.remove('mobile-open');
+        burger.classList.remove('burger-open');
+        nav.classList.remove('burger-open');
+        document.body.style.overflow = '';
       });
     });
   }
