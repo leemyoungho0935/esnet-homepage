@@ -4,14 +4,19 @@
  */
 
 /* ===== PRELOADER ===== */
-window.addEventListener('load', () => {
+(() => {
   const el = document.getElementById('preloader');
   if (!el) return;
-  setTimeout(() => {
+  let done = false;
+  function hide() {
+    if (done) return;
+    done = true;
     el.style.opacity = '0';
     setTimeout(() => el.remove(), 700);
-  }, 1000);
-});
+  }
+  window.addEventListener('load', () => setTimeout(hide, 1000));
+  setTimeout(hide, 4000); // 리소스 로딩이 지연되어도 최대 4초 후 강제 진행
+})();
 
 /* ===== NETWORK PARTICLES ===== */
 class NetworkParticles {
