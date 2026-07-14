@@ -123,7 +123,11 @@
 .mob-remote{display:flex;align-items:center;gap:8px;margin-top:20px;padding:14px 16px;
   border-radius:10px;background:#2668A3;color:#fff;font-size:15px;font-weight:600;text-decoration:none;justify-content:center}
 
-@media(max-width:960px){.nav-links{display:none}.nav-remote{display:none}.nav-burger{display:flex}}
+@media(max-width:960px){
+  .nav-links{display:none}.nav-remote{display:none}.nav-burger{display:flex}
+  .nav-burger span{background:#1d1d2c!important}
+  .nav:not(.scrolled):not(.burger-open){background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)}
+}
 @media(min-width:961px){.nav-mobile-panel{display:none!important}}
   `;
   var styleEl = document.createElement('style');
