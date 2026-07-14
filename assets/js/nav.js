@@ -106,7 +106,7 @@
 .nav.burger-open .nav-burger span{background:#1d1d2c!important}
 
 /* MOBILE PANEL — flat links, no accordion, fills viewport, no scroll */
-.nav-mobile-panel{position:fixed;top:72px;left:0;right:0;bottom:0;background:#fff;z-index:998;
+.nav-mobile-panel{position:fixed;top:72px;left:0;right:0;height:calc(100vh - 72px);background:#fff;z-index:998;
   visibility:hidden;transform:translateY(-12px);overflow:hidden;
   display:flex;flex-direction:column;
   transition:transform .3s,visibility 0s .3s;padding:0 6%}
@@ -215,6 +215,7 @@
       burger.classList.toggle('burger-open', isOpen);
       nav.classList.toggle('burger-open', isOpen);
       document.body.style.overflow = isOpen ? 'hidden' : '';
+      if(isOpen){ mobilePanel.style.height = (window.innerHeight - nav.offsetHeight) + 'px'; }
     });
     mobilePanel.querySelectorAll('a').forEach(function(a){
       a.addEventListener('click', function(){
