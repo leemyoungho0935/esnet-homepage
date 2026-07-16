@@ -131,6 +131,61 @@ footer{padding:40px 5%;background:var(--dark);color:rgba(255,255,255,.4)}
 .nav.scrolled .nav-remote{color:var(--muted);border-color:var(--border)}
 .nav.scrolled .nav-remote:hover{color:var(--blue);border-color:var(--blue);background:rgba(38,104,163,.06)}
 </style>
+<style>
+.svc-cards-section{padding:40px 5% 120px;background:var(--dark)}
+.svc-cards-section>*{max-width:1300px;margin-left:auto;margin-right:auto}
+.svc-cards-header{margin-bottom:0}
+.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;align-items:start}
+.service-card{background:var(--dark2);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;backdrop-filter:blur(16px);
+  cursor:pointer;transition:all .5s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;position:relative}
+.close-btn{position:absolute;top:1.4rem;right:1.4rem;background:rgba(11,26,46,.8);border:1px solid rgba(255,255,255,.1);color:#fff;width:38px;height:38px;
+  border-radius:50%;font-size:1.3rem;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;z-index:10;transition:opacity .3s ease,background .3s ease}
+.close-btn:hover{background:var(--blue-bright)}
+.service-card:not(.expanded):hover{transform:translateY(-6px);border-color:rgba(61,143,212,.4);box-shadow:0 20px 40px rgba(0,0,0,.4)}
+.card-image-wrapper{width:100%;height:220px;position:relative;overflow:hidden;transition:height .5s cubic-bezier(.4,0,.2,1),width .5s cubic-bezier(.4,0,.2,1)}
+.card-image{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s ease;filter:brightness(.85)}
+.service-card:not(.expanded):hover .card-image{transform:scale(1.08)}
+.card-image-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(11,26,46,0) 0%,rgba(11,26,46,.85) 100%)}
+.card-content{padding:1.75rem;display:flex;flex-direction:column;flex-grow:1;transition:padding .5s ease}
+.card-tag{font-size:.78rem;font-weight:700;color:var(--blue-bright);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.6rem;font-family:'Space Grotesk',sans-serif}
+.card-title{font-size:1.35rem;font-weight:900;margin-bottom:.85rem;display:flex;align-items:center;justify-content:space-between;color:#fff;letter-spacing:-.01em}
+.expand-icon{font-weight:300;color:var(--blue-bright);transition:transform .3s}
+.service-card:not(.expanded):hover .expand-icon{transform:translateX(5px)}
+.card-desc{color:rgba(255,255,255,.55);font-size:.95rem;line-height:1.65;word-break:keep-all;margin-bottom:14px}
+.card-tags2{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto}
+.card-tags2 span{font-size:11px;padding:5px 11px;border-radius:100px;border:1px solid rgba(255,255,255,.14);color:rgba(255,255,255,.55)}
+.card-details{max-height:0;opacity:0;overflow:hidden;transition:max-height .6s cubic-bezier(.4,0,.2,1),opacity .5s ease}
+.details-title{font-size:1.15rem;font-weight:700;margin:2rem 0 1.25rem;padding-top:1.75rem;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:.5rem;color:#fff}
+.details-title::before{content:'';display:block;width:20px;height:3px;background:var(--blue-bright)}
+.task-grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.task-item2{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);padding:1.25rem;border-radius:14px;transition:all .3s ease}
+.task-item2:hover{background:rgba(255,255,255,.07);border-color:rgba(61,143,212,.35);transform:translateY(-2px)}
+.task-ico2{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;background:rgba(61,143,212,.16);color:var(--blue-bright)}
+.task-ico2 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.task-title2{font-size:13.5px;font-weight:700;margin-bottom:6px;color:#fff}
+.task-body2{font-size:12px;line-height:1.65;color:rgba(255,255,255,.5)}
+.service-card.expanded{grid-column:1/-1;flex-direction:row;background:rgba(15,23,42,.85);border-color:rgba(148,163,184,.2);box-shadow:0 30px 60px rgba(0,0,0,.5);cursor:default}
+.service-card.expanded .close-btn{opacity:1;pointer-events:auto}
+.service-card.expanded .card-image-wrapper{width:38%;height:auto;min-height:460px}
+.service-card.expanded .card-image-overlay{background:linear-gradient(to right,rgba(11,26,46,0) 0%,rgba(11,26,46,.82) 100%)}
+.service-card.expanded .card-content{width:62%;padding:3.5rem;justify-content:center}
+.service-card.expanded .card-title{font-size:clamp(28px,3.2vw,40px);font-weight:900;margin-bottom:1.25rem;letter-spacing:-.02em}
+.service-card.expanded .expand-icon{display:none}
+.service-card.expanded .card-desc{font-size:1.02rem}
+.service-card.expanded .card-details{max-height:1200px;opacity:1;overflow:visible}
+.service-grid.has-expanded .service-card:not(.expanded){opacity:.45;transform:scale(.97);pointer-events:none}
+@media(max-width:1024px){
+  .service-card.expanded{flex-direction:column}
+  .service-card.expanded .card-image-wrapper{width:100%;height:260px;min-height:auto}
+  .service-card.expanded .card-image-overlay{background:linear-gradient(to bottom,rgba(11,26,46,0) 0%,rgba(11,26,46,.82) 100%)}
+  .service-card.expanded .card-content{width:100%;padding:2rem}
+}
+@media(max-width:768px){
+  .service-grid{grid-template-columns:1fr}
+  .service-card.expanded .card-title{font-size:1.5rem}
+  .task-grid2{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 
@@ -166,227 +221,127 @@ footer{padding:40px 5%;background:var(--dark);color:rgba(255,255,255,.4)}
   </div>
 </section>
 
-<!-- 01 NI -->
-<section class="svc-section dark" id="ni">
-  <div class="svc-inner">
-    <div class="svc-info" data-reveal-l>
-      <div class="sec-num">// 01 · NI</div>
-      <h2 class="svc-h2">네트워크 구축 <span class="svc-h2-en">Integration</span></h2>
-      <p class="svc-desc">고객의 요구시스템 분석을 통해 안정적이고 신뢰성이 검증된 솔루션 제안부터 최적의 성능을 갖는 네트워크 구축 및 운영 서비스를 제공합니다.</p>
-      <div class="svc-tags">
-        <span class="svc-tag">LAN / WAN</span>
-        <span class="svc-tag">국가정보통신망</span>
-        <span class="svc-tag">무선망(Wi-Fi)</span>
-        <span class="svc-tag">VPN</span>
-        <span class="svc-tag">SDN</span>
-      </div>
-    </div>
-    <div class="feat-grid" data-reveal-r>
-      <div class="feat">
-        <div class="feat-ico">🏗</div>
-        <div class="feat-title">설계 & 컨설팅</div>
-        <div class="feat-body">현장 분석 및 트래픽 예측을 기반으로 최적의 네트워크 구조를 설계합니다.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">⚡</div>
-        <div class="feat-title">스위칭 아키텍처 설계</div>
-        <div class="feat-body">Layer 2/3 스위칭 구조 설계, VLAN 분리 등 고객의 환경에 맞춘 안정적인 통신망 환경을 구축합니다.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">📡</div>
-        <div class="feat-title">무선 네트워크</div>
-        <div class="feat-body">Wi-Fi 6/6E 기반 고밀도 무선망 설계, 공공기관 스마트시티 무선 인프라 특화.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">🔒</div>
-        <div class="feat-title">보안 통합</div>
-        <div class="feat-body">방화벽, IDS/IPS, VPN 등 보안 장비를 네트워크 설계 단계부터 통합 반영합니다.</div>
-      </div>
-    </div>
+<!-- BUSINESS AREAS — Expanding Cards -->
+<section class="svc-cards-section">
+  <div class="svc-cards-header">
   </div>
-</section>
+  <div class="service-grid" id="grid">
 
-<!-- 02 SI -->
-<section class="svc-section" id="si">
-  <div class="svc-inner">
-    <div class="svc-info" data-reveal-l>
-      <div class="sec-num">// 02 · SI</div>
-      <h2 class="svc-h2">시스템 통합 <span class="svc-h2-en">Integration</span></h2>
-      <p class="svc-desc">기업 및 공공기관 분야에 축적된 노하우와 기술을 바탕으로 급변하는 환경에 대응할 수 있는 시스템 통합 서비스를 제공합니다.</p>
-      <div class="svc-tags">
-        <span class="svc-tag">서버 구축</span>
-        <span class="svc-tag">스토리지</span>
-        <span class="svc-tag">가상화</span>
-        <span class="svc-tag">클라우드 연계</span>
-        <span class="svc-tag">HPC</span>
+    <div class="service-card" id="ni" data-key="ni" onclick="expandCard(this, event)">
+      <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+      <div class="card-image-wrapper">
+        <img src="../uploads/NI이미지.jpg" alt="NI" class="card-image">
+        <div class="card-image-overlay"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-tag">// 01 · Network Integration</div>
+        <h3 class="card-title">네트워크 구축 <span class="expand-icon">→</span></h3>
+        <p class="card-desc">고객의 요구시스템 분석을 통해 안정적이고 신뢰성이 검증된 솔루션 제안부터 최적의 성능을 갖는 네트워크 구축 및 운영 서비스를 제공합니다.</p>
+        <div class="card-tags2"><span>LAN / WAN</span><span>국가정보통신망</span><span>무선망(Wi-Fi)</span><span>VPN</span><span>SDN</span></div>
+        <div class="card-details">
+          <h4 class="details-title">세부 수행 업무</h4>
+          <div class="task-grid2">
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg></div><div class="task-title2">설계 & 컨설팅</div><div class="task-body2">현장 분석 및 트래픽 예측을 기반으로 최적의 네트워크 구조를 설계합니다.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="6" rx="1.5"/><path d="M7 9V6M12 9V6M17 9V6M7 18v-3M12 18v-3M17 18v-3"/></svg></div><div class="task-title2">스위칭 아키텍처 설계</div><div class="task-body2">Layer 2/3 스위칭 구조 설계, VLAN 분리 등 고객의 환경에 맞춘 안정적인 통신망 환경을 구축합니다.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M12 20h.01"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M5 13a10 10 0 0 1 14 0"/><path d="M2 9.5a15 15 0 0 1 20 0"/></svg></div><div class="task-title2">무선 네트워크</div><div class="task-body2">Wi-Fi 6/6E 기반 고밀도 무선망 설계, 공공기관 스마트시티 무선 인프라 특화.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg></div><div class="task-title2">보안 통합</div><div class="task-body2">방화벽, IDS/IPS, VPN 등 보안 장비를 네트워크 설계 단계부터 통합 반영합니다.</div></div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="feat-grid" data-reveal-r>
-      <div class="feat">
-        <div class="feat-ico">🖥</div>
-        <div class="feat-title">서버 & 스토리지</div>
-        <div class="feat-body">고가용성 서버 클러스터 및 SAN/NAS 스토리지 환경 구축으로 데이터 안정성 확보.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">☁️</div>
-        <div class="feat-title">가상화 & 클라우드</div>
-        <div class="feat-body">VMware, KVM 기반 가상화 환경 구성 및 퍼블릭 클라우드 하이브리드 연계 지원.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">🔗</div>
-        <div class="feat-title">시스템 통합</div>
-        <div class="feat-body">이기종 시스템 간 연동 및 레거시 마이그레이션, 단계별 전환 전략을 지원합니다.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-ico">📊</div>
-        <div class="feat-title">HPC 인프라</div>
-        <div class="feat-body">슈퍼컴퓨터·연구 클러스터 특화 고성능 컴퓨팅 인프라 구축 및 유지보수.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- 03 O&M -->
-<section class="svc-section dark" id="om">
-  <div class="svc-inner">
-    <div class="svc-info" data-reveal-l>
-      <div class="sec-num">// 03 · O&amp;M</div>
-      <h2 class="svc-h2">유지보수 <span class="svc-h2-en">Operations &amp; Maintenance</span></h2>
-      <p class="svc-desc">다양한 장비와 시스템 환경에 대한 자체 전문인력을 통한 체계적인 통합 유지보수 서비스로 급변하는 IT 환경 변화에 안정적이고 효율적인 IT 자산운영을 지원합니다.</p>
-      <div class="svc-tags">
-        <span class="svc-tag">365일 장애대응</span>
-        <span class="svc-tag">원격 모니터링</span>
-        <span class="svc-tag">현장출동</span>
-        <span class="svc-tag">정기점검</span>
+    <div class="service-card" id="si" data-key="si" onclick="expandCard(this, event)">
+      <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+      <div class="card-image-wrapper">
+        <img src="../uploads/SI이미지.jpg" alt="SI" class="card-image">
+        <div class="card-image-overlay"></div>
       </div>
-    </div>
-    <div class="process" data-reveal-r>
-      <div class="proc-item">
-        <div class="proc-num">01</div>
-        <div class="proc-body">
-          <div class="proc-title">유지보수 고도화</div>
-          <div class="proc-desc">효율적·체계적 운영을 위한 NMS 커스텀 개발, 실시간 알람 체계 구축, 즉각적인 대응 프로세스까지 — 유지보수를 한 단계 더 고도화하여 고객의 IT 자산을 안정적으로 운영합니다.</div>
-        </div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">02</div>
-        <div class="proc-body">
-          <div class="proc-title">통합 모니터링</div>
-          <div class="proc-desc">네트워크·서버·보안 장비를 통합 관제 시스템으로 실시간 모니터링합니다.</div>
-        </div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">03</div>
-        <div class="proc-body">
-          <div class="proc-title">정기 점검 & 예방정비</div>
-          <div class="proc-desc">월 1회 이상 정기 현장 점검을 통해 장애를 사전에 예방하고 장비 수명을 연장합니다.</div>
-        </div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">04</div>
-        <div class="proc-body">
-          <div class="proc-title">장애 접수 & 즉시 대응</div>
-          <div class="proc-desc">장애 발생 시 원격 조치 우선, 현장 출동이 필요한 경우 신속하게 엔지니어를 파견합니다.</div>
+      <div class="card-content">
+        <div class="card-tag">// 02 · System Integration</div>
+        <h3 class="card-title">시스템 통합 <span class="expand-icon">→</span></h3>
+        <p class="card-desc">기업 및 공공기관 분야에 축적된 노하우와 기술을 바탕으로 급변하는 환경에 대응할 수 있는 시스템 통합 서비스를 제공합니다.</p>
+        <div class="card-tags2"><span>서버 구축</span><span>스토리지</span><span>가상화</span><span>클라우드 연계</span><span>HPC</span></div>
+        <div class="card-details">
+          <h4 class="details-title">세부 수행 업무</h4>
+          <div class="task-grid2">
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><circle cx="7" cy="7" r=".8" fill="currentColor" stroke="none"/><circle cx="7" cy="17" r=".8" fill="currentColor" stroke="none"/></svg></div><div class="task-title2">서버 & 스토리지</div><div class="task-body2">고가용성 서버 클러스터 및 SAN/NAS 스토리지 환경 구축으로 데이터 안정성 확보.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M17 17H7a4 4 0 0 1-1-7.87A5.5 5.5 0 0 1 16.5 8 4.5 4.5 0 0 1 17 17z"/></svg></div><div class="task-title2">가상화 & 클라우드</div><div class="task-body2">VMware, KVM 기반 가상화 환경 구성 및 퍼블릭 클라우드 하이브리드 연계 지원.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></div><div class="task-title2">HPC 인프라</div><div class="task-body2">슈퍼컴퓨터·연구 클러스터 특화 고성능 컴퓨팅 인프라 구축 및 유지보수.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></div><div class="task-title2">시스템 통합</div><div class="task-body2">이기종 시스템 간 연동 및 레거시 마이그레이션, 단계별 전환 전략을 지원합니다.</div></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- 04 기획/제안 -->
-<section class="svc-section tint" id="plan">
-  <div class="svc-inner">
-    <div class="svc-info" data-reveal-l>
-      <div class="sec-num">// 04 · Planning</div>
-      <h2 class="svc-h2">기획 / 제안 <span class="svc-h2-en">Proposal</span></h2>
-      <p class="svc-desc">공공 및 민간 ICT 사업의 기획 단계부터 제안서 작성, 입찰 전략 수립까지 전 과정을 지원합니다. 축적된 수주 경험을 바탕으로 차별화된 제안 경쟁력을 제공합니다.</p>
-      <div class="svc-tags">
-        <span class="svc-tag">사업 기획</span>
-        <span class="svc-tag">제안서 작성</span>
-        <span class="svc-tag">입찰 전략</span>
-        <span class="svc-tag">컨소시엄 구성</span>
-        <span class="svc-tag">원가 분석</span>
+    <div class="service-card" id="om" data-key="om" onclick="expandCard(this, event)">
+      <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+      <div class="card-image-wrapper">
+        <img src="../uploads/om-image.jpg" alt="O&amp;M" class="card-image">
+        <div class="card-image-overlay"></div>
       </div>
-    </div>
-    <div class="process" data-reveal-r>
-      <div class="proc-item">
-        <div class="proc-num">01</div>
-        <div class="proc-body">
-          <div class="proc-title">사업 타당성 분석</div>
-          <div class="proc-desc">공고 분석, 경쟁사 동향, 예산 구조 검토를 통해 참여 타당성을 판단합니다.</div>
-        </div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">02</div>
-        <div class="proc-body">
-          <div class="proc-title">제안서 전략 수립</div>
-          <div class="proc-desc">발주처 요구사항 분석을 기반으로 핵심 차별화 전략과 평가 점수 극대화 방안을 도출합니다.</div>
-        </div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">03</div>
-        <div class="proc-body">
-          <div class="proc-title">제안서 작성 & 검수</div>
-          <div class="proc-desc">기술 제안서, 가격 입찰, 발표 자료 등 전 문서를 전문인력이 작성·검수합니다.</div>
-        </div>
-      </div>
-      <div class="proc-item">
-        <div class="proc-num">04</div>
-        <div class="proc-body">
-          <div class="proc-title">발표 평가 컨설팅</div>
-          <div class="proc-desc">스크립트 작성부터 Q&amp;A 대응 전략, 프레젠테이션 코칭까지 — 발표 평가에서 차별화된 인상을 만들어 드립니다.</div>
+      <div class="card-content">
+        <div class="card-tag">// 03 · Quality &amp; Maintenance</div>
+        <h3 class="card-title">유지보수 <span class="expand-icon">→</span></h3>
+        <p class="card-desc">다양한 장비와 시스템 환경에 대한 자체 전문인력을 통한 체계적인 통합 유지보수 서비스로 급변하는 IT 환경 변화에 안정적이고 효율적인 IT 자산운영을 지원합니다.</p>
+        <div class="card-tags2"><span>365일 장애대응</span><span>원격 모니터링</span><span>현장출동</span><span>정기점검</span></div>
+        <div class="card-details">
+          <h4 class="details-title">수행 프로세스</h4>
+          <div class="process">
+            <div class="proc-item"><div class="proc-num">01</div><div class="proc-body"><div class="proc-title">유지보수 고도화</div><div class="proc-desc">효율적·체계적 운영을 위한 NMS 커스텀 개발, 실시간 알람 체계 구축, 즉각적인 대응 프로세스까지 — 유지보수를 한 단계 더 고도화하여 고객의 IT 자산을 안정적으로 운영합니다.</div></div></div>
+            <div class="proc-item"><div class="proc-num">02</div><div class="proc-body"><div class="proc-title">통합 모니터링</div><div class="proc-desc">네트워크·서버·보안 장비를 통합 관제 시스템으로 실시간 모니터링합니다.</div></div></div>
+            <div class="proc-item"><div class="proc-num">03</div><div class="proc-body"><div class="proc-title">정기 점검 &amp; 예방정비</div><div class="proc-desc">월 1회 이상 정기 현장 점검을 통해 장애를 사전에 예방하고 장비 수명을 연장합니다.</div></div></div>
+            <div class="proc-item"><div class="proc-num">04</div><div class="proc-body"><div class="proc-title">장애 접수 &amp; 즉시 대응</div><div class="proc-desc">장애 발생 시 원격 조치 우선, 현장 출동이 필요한 경우 신속하게 엔지니어를 파견합니다.</div></div></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- 05 KT SA 대리점 -->
-<section class="svc-section dark" id="kt">
-  <div class="svc-inner">
-    <div class="svc-info" data-reveal-l>
-      <div class="sec-num">// 05 · Partnership</div>
-      <h2 class="svc-h2">KT SA <span class="svc-h2-en">대리점</span></h2>
-      <p class="svc-desc">KT의 공식 서비스 대리점(SA)으로서 기업·공공기관에 최적화된 KT 통신 솔루션을 공급합니다. KT와의 긴밀한 파트너십을 통해 고객에게 신속하고 안정적인 서비스를 제공합니다.</p>
-      <div class="svc-tags">
-        <span class="svc-tag">인터넷 전용회선</span>
-        <span class="svc-tag">기업 모바일</span>
-        <span class="svc-tag">클라우드(KT Cloud)</span>
-        <span class="svc-tag">AI·IoT 솔루션</span>
+    <div class="service-card" id="plan" data-key="plan" onclick="expandCard(this, event)">
+      <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+      <div class="card-image-wrapper">
+        <img src="../uploads/기획제안.jpg" alt="기획/제안" class="card-image">
+        <div class="card-image-overlay"></div>
       </div>
-    </div>
-    <div data-reveal-r>
-      <div class="kt-box">
-        <div class="kt-logo-wrap">KT</div>
-        <div class="kt-info">
-          <div class="kt-badge">Official SA Partner</div>
-          <div class="kt-name">KT 공식 서비스 대리점</div>
-          <div class="kt-desc">기업 전용회선, 클라우드, 모바일 등 KT 법인 상품 전 라인업을 공급·지원합니다. 별도 대리점 방문 없이 ESNET을 통해 계약·개통·AS 원스톱 처리 가능합니다.</div>
-        </div>
-      </div>
-      <div class="feat-grid">
-        <div class="feat">
-          <div class="feat-ico">🌐</div>
-          <div class="feat-title">인터넷 전용회선</div>
-          <div class="feat-body">기업·공공기관용 고속 전용 인터넷회선 공급 및 개통 지원.</div>
-        </div>
-        <div class="feat">
-          <div class="feat-ico">📱</div>
-          <div class="feat-title">기업 모바일</div>
-          <div class="feat-body">법인 단말기·회선 일괄 계약, 대수 관계없이 편리하게 관리.</div>
-        </div>
-        <div class="feat">
-          <div class="feat-ico">☁️</div>
-          <div class="feat-title">KT Cloud</div>
-          <div class="feat-body">KT 클라우드 도입 컨설팅 및 마이그레이션 지원 서비스.</div>
-        </div>
-        <div class="feat">
-          <div class="feat-ico">🤝</div>
-          <div class="feat-title">원스톱 처리</div>
-          <div class="feat-body">계약·개통·장애·AS까지 ESNET 담당자를 통해 원스톱 처리.</div>
+      <div class="card-content">
+        <div class="card-tag">// 04 · Planning &amp; Proposal</div>
+        <h3 class="card-title">기획 / 제안 <span class="expand-icon">→</span></h3>
+        <p class="card-desc">공공 및 민간 ICT 사업의 기획 단계부터 제안서 작성, 입찰 전략 수립까지 전 과정을 지원합니다. 축적된 수주 경험을 바탕으로 차별화된 제안 경쟁력을 제공합니다.</p>
+        <div class="card-tags2"><span>사업 기획</span><span>제안서 작성</span><span>입찰 전략</span><span>컨소시엄 구성</span><span>원가 분석</span></div>
+        <div class="card-details">
+          <h4 class="details-title">수행 프로세스</h4>
+          <div class="process">
+            <div class="proc-item"><div class="proc-num">01</div><div class="proc-body"><div class="proc-title">사업 타당성 분석</div><div class="proc-desc">공고 분석, 경쟁사 동향, 예산 구조 검토를 통해 참여 타당성을 판단합니다.</div></div></div>
+            <div class="proc-item"><div class="proc-num">02</div><div class="proc-body"><div class="proc-title">제안서 전략 수립</div><div class="proc-desc">발주처 요구사항 분석을 기반으로 핵심 차별화 전략과 평가 점수 극대화 방안을 도출합니다.</div></div></div>
+            <div class="proc-item"><div class="proc-num">03</div><div class="proc-body"><div class="proc-title">제안서 작성 &amp; 검수</div><div class="proc-desc">기술 제안서, 가격 입찰, 발표 자료 등 전 문서를 전문인력이 작성·검수합니다.</div></div></div>
+            <div class="proc-item"><div class="proc-num">04</div><div class="proc-body"><div class="proc-title">발표 평가 컨설팅</div><div class="proc-desc">스크립트 작성부터 Q&amp;A 대응 전략, 프레젠테이션 코칭까지 — 발표 평가에서 차별화된 인상을 만들어 드립니다.</div></div></div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="service-card" id="kt" data-key="kt" onclick="expandCard(this, event)">
+      <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+      <div class="card-image-wrapper">
+        <img src="../uploads/KTSA대리점.jpg" alt="KT SA" class="card-image">
+        <div class="card-image-overlay"></div>
+      </div>
+      <div class="card-content">
+        <div class="card-tag">// 05 · KT Official SA Partner</div>
+        <h3 class="card-title">KT SA 대리점 <span class="expand-icon">→</span></h3>
+        <p class="card-desc">KT의 공식 서비스 대리점(SA)으로서 기업·공공기관에 최적화된 KT 통신 솔루션을 공급합니다. KT와의 긴밀한 파트너십을 통해 고객에게 신속하고 안정적인 서비스를 제공합니다.</p>
+        <div class="card-tags2"><span>인터넷 전용회선</span><span>기업 모바일</span><span>클라우드(KT Cloud)</span><span>AI·IoT 솔루션</span></div>
+        <div class="card-details">
+          <h4 class="details-title">세부 수행 업무</h4>
+          <div class="task-grid2">
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg></div><div class="task-title2">인터넷 전용회선</div><div class="task-body2">기업·공공기관용 고속 전용 인터넷회선 공급 및 개통 지원.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div><div class="task-title2">기업 모바일</div><div class="task-body2">법인 단말기·회선 일괄 계약, 대수 관계없이 편리하게 관리.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M17 17H7a4 4 0 0 1-1-7.87A5.5 5.5 0 0 1 16.5 8 4.5 4.5 0 0 1 17 17z"/></svg></div><div class="task-title2">KT Cloud</div><div class="task-body2">KT 클라우드 도입 컨설팅 및 마이그레이션 지원 서비스.</div></div>
+            <div class="task-item2"><div class="task-ico2"><svg viewBox="0 0 24 24"><path d="M17 8l4 4-4 4"/><path d="M7 8l-4 4 4 4"/><path d="M14 4l-4 16"/></svg></div><div class="task-title2">원스톱 처리</div><div class="task-body2">계약·개통·장애·AS까지 ESNET 담당자를 통해 원스톱 처리.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -473,6 +428,37 @@ footer{padding:40px 5%;background:var(--dark);color:rgba(255,255,255,.4)}
     d.addEventListener('click',function(e){e.preventDefault();if(secs[i])window.scrollTo({top:secs[i].offsetTop-80,behavior:'smooth'});});
   });
   update();
+})();
+
+/* EXPANDING CARDS */
+(function(){
+  var gridContainer = document.getElementById('grid');
+  if(!gridContainer) return;
+  var allCards = gridContainer.querySelectorAll('.service-card');
+  window.expandCard = function(card, event){
+    if(card.classList.contains('expanded') || event.target.classList.contains('close-btn')) return;
+    allCards.forEach(function(c){ c.classList.remove('expanded'); });
+    gridContainer.classList.add('has-expanded');
+    card.classList.add('expanded');
+    setTimeout(function(){
+      var y = card.getBoundingClientRect().top + window.pageYOffset - 90;
+      window.scrollTo({top:y, behavior:'smooth'});
+    }, 300);
+  };
+  window.closeCard = function(btn, event){
+    event.stopPropagation();
+    var card = btn.closest('.service-card');
+    card.classList.remove('expanded');
+    gridContainer.classList.remove('has-expanded');
+  };
+  document.addEventListener('click', function(e){
+    var expanded = gridContainer.querySelector('.service-card.expanded');
+    if(!expanded) return;
+    if(!expanded.contains(e.target)){
+      expanded.classList.remove('expanded');
+      gridContainer.classList.remove('has-expanded');
+    }
+  });
 })();
 </script>
 <script src="../assets/js/effects.js"></script>
