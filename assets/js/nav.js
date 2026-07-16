@@ -123,7 +123,7 @@
   .nav-links{display:none}.nav-remote{display:none}.nav-burger{display:flex}
   .nav-burger span{background:#1d1d2c!important}
   .nav:not(.scrolled):not(.burger-open){background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(0,0,0,.06)}
-  .nav-logo{filter:none!important}
+  .nav-logo{filter:none!important;height:40px}
 }
 @media(min-width:961px){.nav-mobile-panel{display:none!important}}
   `;
