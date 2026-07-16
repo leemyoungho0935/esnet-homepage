@@ -275,4 +275,21 @@
     drop.addEventListener('mouseleave', function(){ hide(80); });
   });
 
+  /* ── Email assembly (Cloudflare-obfuscation proof) ── */
+  function buildEmails(){
+    var els = document.querySelectorAll('span.eml');
+    els.forEach(function(el){
+      var u = el.getAttribute('data-u'), d = el.getAttribute('data-d');
+      if(!u || !d) return;
+      var addr = u + String.fromCharCode(64) + d;
+      var a = document.createElement('a');
+      a.href = 'mailto:' + addr;
+      a.textContent = addr;
+      a.style.color = 'inherit';
+      el.replaceWith(a);
+    });
+  }
+  if(document.readyState !== 'loading') buildEmails();
+  else document.addEventListener('DOMContentLoaded', buildEmails);
+
 })();
