@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — 정보통신설비 유지보수·관리 & 성능점검, 지금 준비해야 하는 이유 | 인사이트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2668A3;--blue-bright:#3d8fd4;--dark:#0B1A2E;--text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;--bg:#fff;--tint:#f6f9fc;--radius:12px}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg)}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:var(--blue)}
+a:hover{color:var(--blue-bright)}
+[data-reveal]:not(.revealed){opacity:0;transform:translateY(24px)}
+[data-reveal]{transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+[data-reveal].revealed{opacity:1;transform:none}
+
+/* HERO */
+.hero{background:var(--dark);padding:160px 5% 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 70% 20%,rgba(38,104,163,.2),transparent)}
+.hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1}
+.hero-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--blue-bright);margin-bottom:18px;text-transform:uppercase}
+.hero-h1{font-size:clamp(30px,5vw,48px);font-weight:900;color:#fff;line-height:1.3;letter-spacing:-.02em;margin-bottom:16px;word-break:keep-all}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:28px;word-break:keep-all}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.hero-tags span{font-size:12px;padding:6px 14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:100px;color:rgba(255,255,255,.6)}
+.hero-meta{display:flex;gap:16px;font-size:12px;color:rgba(255,255,255,.35);font-family:'Space Grotesk',sans-serif}
+
+/* ARTICLE */
+.article{padding:64px 5% 20px;background:var(--bg)}
+.article-inner{max-width:760px;margin:0 auto}
+.article-inner section{margin-bottom:64px}
+.article-inner p{font-size:16px;line-height:1.9;color:#3a3f4d;margin-bottom:18px;word-break:keep-all}
+.article-inner p:last-child{margin-bottom:0}
+.article-inner strong{color:var(--text);font-weight:700}
+.sec-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px}
+.sec-h2{font-size:clamp(22px,3vw,30px);font-weight:900;line-height:1.35;margin-bottom:24px;word-break:keep-all}
+.sec-h3{font-size:18px;font-weight:700;margin:32px 0 14px;color:var(--text);word-break:keep-all}
+.sec-h3:first-child{margin-top:0}
+.lead{font-size:18px!important;color:var(--text)!important;font-weight:500}
+.callout{background:var(--tint);border-left:3px solid var(--blue);border-radius:0 var(--radius) var(--radius) 0;padding:22px 28px;margin:28px 0}
+.callout p{font-size:16px!important;font-weight:700;color:var(--text)!important;margin-bottom:0!important}
+
+/* STEP DIAGRAM */
+.diagram-box{background:var(--tint);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px;margin:28px 0}
+.diagram-title{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.05em;margin-bottom:20px;text-align:center}
+.step-flow{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0}
+.step-chip{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;width:108px}
+.step-chip .n{width:38px;height:38px;border-radius:50%;background:#fff;border:2px solid var(--blue);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--blue);font-size:13px}
+.step-chip.final .n{background:var(--blue);color:#fff}
+.step-chip .lbl{font-size:12px;font-weight:700;color:var(--text)}
+.step-chip .en{font-family:'Space Grotesk',sans-serif;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.step-arrow{color:var(--blue);font-size:16px;opacity:.5;margin:0 -2px;flex-shrink:0}
+@media(max-width:640px){.step-flow{flex-direction:column;gap:10px}.step-arrow{transform:rotate(90deg);margin:0}}
+
+/* COMPARE TABLE */
+.compare-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:14px}
+.compare-table th{background:var(--dark);color:#fff;padding:12px 16px;text-align:left;font-weight:700;font-size:12px;letter-spacing:.04em}
+.compare-table th:first-child{width:36%;border-radius:8px 0 0 0}
+.compare-table th:last-child{border-radius:0 8px 0 0}
+.compare-table td{padding:14px 16px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.6}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table td:first-child{font-weight:700;color:var(--text);background:var(--tint)}
+.compare-table td.bad{color:#a44}
+.compare-table td.good{color:#1a7a4a}
+.compare-table .badge{display:inline-block;font-size:10px;font-weight:700;padding:3px 8px;border-radius:100px;margin-right:4px}
+.compare-table .badge.y{background:rgba(26,122,74,.1);color:#1a7a4a}
+.compare-table .badge.n{background:rgba(164,68,68,.1);color:#a44}
+
+/* CHECK LIST */
+.check-list{display:flex;flex-direction:column;gap:10px;margin:20px 0}
+.check-item{display:flex;align-items:flex-start;gap:12px;background:var(--tint);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+.check-item .icon{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.check-item .icon.law{background:rgba(38,104,163,.1);color:var(--blue)}
+.check-item .icon.warn{background:rgba(220,120,0,.1);color:#c97000}
+.check-item .icon.ok{background:rgba(26,122,74,.1);color:#1a7a4a}
+.check-item .body .ttl{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.check-item .body .desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* DIVIDER LIST + TAGS */
+.divider-list{display:flex;flex-direction:column}
+.divider-item{padding:0 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.divider-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.tag-item{display:flex;gap:14px;align-items:flex-start}
+.tag-chip{flex-shrink:0;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;letter-spacing:.03em;color:var(--blue);background:rgba(38,104,163,.08);border-radius:6px;padding:5px 10px;margin-top:2px;white-space:nowrap}
+@media(max-width:480px){.tag-item{flex-direction:column;gap:8px}.tag-chip{align-self:flex-start}}
+
+/* FLOW DIRECTION DIAGRAM */
+.flow-diagram{display:flex;flex-direction:column;gap:16px}
+.flow-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+.flow-node{background:#fff;border:1px solid var(--border);border-radius:10px;padding:16px 18px;text-align:center}
+.flow-node .t{font-size:13px;font-weight:700;color:var(--text)}
+.flow-node .s{font-size:11px;color:var(--muted);margin-top:2px}
+.flow-node.high{border-color:var(--blue);background:rgba(38,104,163,.05)}
+.flow-arrow-col{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:120px}
+.flow-arrow-col .line{width:100%;height:2px;background:var(--blue);position:relative;opacity:.6}
+.flow-arrow-col .line::after{content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);border:5px solid transparent;border-left-color:var(--blue)}
+.flow-arrow-col .cap{font-size:11px;font-weight:700;color:var(--blue);text-align:center}
+@media(max-width:640px){.flow-row{grid-template-columns:1fr}.flow-arrow-col{min-width:0}.flow-arrow-col .line{width:2px;height:28px}.flow-arrow-col .line::after{right:auto;left:50%;top:auto;bottom:0;transform:translateX(-50%);border-left-color:transparent;border-top-color:var(--blue);border-bottom:none}}
+
+/* TERM GRID */
+.term-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+.term-card{border:1px solid var(--border);border-radius:10px;padding:18px 20px;background:#fff}
+.term-name{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:700;color:var(--blue);margin-bottom:6px}
+.term-def{font-size:13px;line-height:1.7;color:var(--muted)}
+@media(max-width:640px){.term-grid{grid-template-columns:1fr}}
+
+/* FAQ */
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-item:last-child{border-bottom:none}
+.faq-item summary{list-style:none;cursor:pointer;padding:20px 0;display:flex;align-items:flex-start;gap:14px;font-size:15px;font-weight:700;color:var(--text)}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary .q{color:var(--blue);font-family:'Space Grotesk',sans-serif;flex-shrink:0}
+.faq-item summary .chev{margin-left:auto;flex-shrink:0;transition:transform .25s;opacity:.4}
+.faq-item[open] summary .chev{transform:rotate(180deg)}
+.faq-a{padding:0 0 22px 30px;font-size:14px;line-height:1.85;color:var(--muted);word-break:keep-all}
+
+/* CTA */
+.cta{background:var(--dark);padding:72px 5%;text-align:center;position:relative;overflow:hidden}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 0%,rgba(38,104,163,.22),transparent)}
+.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta h3{font-size:clamp(22px,3vw,30px);font-weight:900;color:#fff;margin-bottom:14px;word-break:keep-all}
+.cta p{font-size:15px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:32px;word-break:keep-all}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-size:15px;font-weight:700;border-radius:10px;transition:all .3s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(38,104,163,.4);color:#fff}
+
+/* PENALTY TABLE */
+.penalty-table{width:100%;border-collapse:collapse;margin:24px 0;font-size:13px}
+.penalty-table th{background:rgba(38,104,163,.08);color:var(--blue);padding:10px 14px;text-align:left;font-weight:700;font-size:11px;letter-spacing:.04em;border-bottom:2px solid var(--blue)}
+.penalty-table td{padding:12px 14px;border-bottom:1px solid var(--border);line-height:1.6;vertical-align:top}
+.penalty-table tr:last-child td{border-bottom:none}
+.penalty-table td:first-child{font-weight:700;color:var(--text)}
+.penalty-amt{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#a44}
+
+footer{padding:40px 5%;background:#070f1c;color:rgba(255,255,255,.4)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
+.footer-info,.footer-right{font-size:12px;line-height:2}
+.footer-right{text-align:right}
+</style>
+</head>
+<body>
+
+<nav id="mainNav"></nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label" data-reveal>// Insight · 기술자료실</div>
+    <h1 class="hero-h1" data-reveal>정보통신설비 유지보수·관리 &amp; 성능점검,<br>지금 준비해야 하는 이유</h1>
+    <p class="hero-sub" data-reveal>2025년 7월 시행된 법적 의무화 제도의 핵심과, 실무에서 놓치기 쉬운 지점들</p>
+    <div class="hero-tags" data-reveal>
+      <span>정보통신공사업법</span><span>유지보수·관리</span><span>성능점검</span><span>과기정통부고시</span>
+    </div>
+    <div class="hero-meta" data-reveal>2026.07 · 기술자료실</div>
+  </div>
+</section>
+
+<article class="article">
+  <div class="article-inner">
+
+    <section data-reveal>
+      <p class="lead">건물에 설치된 정보통신설비를 "설치하고 끝"으로 여겨온 시대가 끝났습니다. 2025년 7월 18일, 「정보통신공사업법」 개정과 함께 과학기술정보통신부 고시 제2025-48호가 시행되면서, 일정 규모 이상의 건축물 관리주체에게 정보통신설비의 유지보수·관리 및 성능점검이 <strong>법적 의무</strong>가 됐습니다.</p>
+      <p>이 제도는 단순한 행정 절차가 아닙니다. 설비 노후화로 인한 서비스 장애를 사전에 예방하고, 안정적인 통신 환경을 유지하기 위한 체계적 관리 기반을 마련하는 것입니다. 문제는 많은 건물 관리주체가 이 의무의 존재 자체를 아직 모르고 있다는 점입니다.</p>
+      <div class="callout"><p>"우리 건물 정보통신설비, 마지막으로 점검한 게 언제였습니까?"</p></div>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">제도 개요</div>
+      <h2 class="sec-h2">유지보수·관리와 성능점검, 무엇이 다른가</h2>
+      <p>이 제도는 <strong>유지보수·관리</strong>와 <strong>성능점검</strong> 두 가지 의무로 구성됩니다. 이름이 비슷해서 같은 것으로 오해하는 경우가 많지만, 목적과 주기, 수행 주체가 다릅니다.</p>
+
+      <div class="diagram-box">
+        <div class="diagram-title">유지보수·관리 vs 성능점검 — 핵심 비교</div>
+        <div class="flow-diagram">
+          <div class="flow-row">
+            <div class="flow-node high">
+              <div class="t">유지보수·관리</div>
+              <div class="s">반기별 1회 이상 · 육안 점검 중심</div>
+            </div>
+            <div class="flow-arrow-col" style="min-width:80px">
+              <div class="cap">+</div>
+              <div class="line" style="opacity:0"></div>
+            </div>
+            <div class="flow-node high">
+              <div class="t">성능점검</div>
+              <div class="s">연 1회 이상 · 계측장비 측정 포함</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr><th>구분</th><th>유지보수·관리</th><th>성능점검</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>목적</td><td>일상적 기능 유지, 이상 조기 발견</td><td>설비 성능의 정량적 적정성 확인</td></tr>
+          <tr><td>주기</td><td>반기별 1회 이상</td><td>연 1회 이상</td></tr>
+          <tr><td>점검 방법</td><td>외관·기능·안전 상태 육안 확인</td><td>계측장비 측정 포함, 성능점검표 작성</td></tr>
+          <tr><td>수행 주체</td><td>유지보수·관리자 (위탁 가능)</td><td>공사업자 또는 용역업자 대행 가능</td></tr>
+          <tr><td>결과 기록</td><td>별지 제2호 유지보수·관리 점검표</td><td>별지 제3호 성능점검표 (보존 5년)</td></tr>
+          <tr><td>법적 근거</td><td>법 제37조의2, 고시 제8조</td><td>법 제37조의3, 고시 제10조</td></tr>
+        </tbody>
+      </table>
+
+      <p>두 의무는 대체 관계가 아닙니다. 반기마다 유지보수·관리를 하면서도, 연 1회 성능점검을 별도로 실시해야 합니다.</p>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">의무 대상</div>
+      <h2 class="sec-h2">우리 건물도 해당될까 — 적용 대상 판단법</h2>
+      <p>의무 대상은 「정보통신공사업법 시행령」 별표 1에 규정된 정보통신설비가 설치된 건축물입니다. 연면적 기준으로 유지보수·관리자 선임 의무가 결정됩니다.</p>
+
+      <div class="check-list">
+        <div class="check-item">
+          <div class="icon law">📋</div>
+          <div class="body">
+            <div class="ttl">연면적 5천㎡ 이상 건축물</div>
+            <div class="desc">초급기술자 1명 이상 선임 의무. 공공시설, 업무용 빌딩, 대형 상업시설 등 대부분 해당됩니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon law">📋</div>
+          <div class="body">
+            <div class="ttl">연면적 1만5천㎡ 이상</div>
+            <div class="desc">중급기술자 1명 이상 선임. 대형 복합시설, 공공기관 청사, 병원 등이 주요 대상입니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon warn">⚠️</div>
+          <div class="body">
+            <div class="ttl">기존 건축물도 예외 없이 적용</div>
+            <div class="desc">고시 부칙 제2조에 따라 기존에 설치된 건축물도 적용됩니다. 연면적 규모에 따라 단계적 기준일이 적용됩니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon ok">✓</div>
+          <div class="body">
+            <div class="ttl">점검 대상 설비는 16개 유형</div>
+            <div class="desc">케이블, 배관, 국선인입, 이동통신 구내선로, 전화, 안테나, 유선방송, 방송음향, 네트워크, 출입통제, 주차관제, 비상벨, CCTV, 디지털사이니지, 통신용 전원, 통신접지 설비가 대상입니다.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">이행 절차</div>
+      <h2 class="sec-h2">계획 수립부터 결과 보존까지 — 5단계 절차</h2>
+      <p>제도를 이행하려면 단순히 점검을 실시하는 것 이상의 절차가 필요합니다. 법령은 계획 수립 단계부터 결과 보존까지 구체적인 사항을 요구합니다.</p>
+
+      <div class="diagram-box">
+        <div class="diagram-title">성능점검 이행 절차</div>
+        <div class="step-flow">
+          <div class="step-chip">
+            <div class="n">1</div>
+            <div class="lbl">자료 구비</div>
+            <div class="en">Documents</div>
+          </div>
+          <div class="step-arrow">›</div>
+          <div class="step-chip">
+            <div class="n">2</div>
+            <div class="lbl">계획 수립</div>
+            <div class="en">Planning</div>
+          </div>
+          <div class="step-arrow">›</div>
+          <div class="step-chip">
+            <div class="n">3</div>
+            <div class="lbl">점검 실시</div>
+            <div class="en">Inspection</div>
+          </div>
+          <div class="step-arrow">›</div>
+          <div class="step-chip">
+            <div class="n">4</div>
+            <div class="lbl">결과 보고</div>
+            <div class="en">Reporting</div>
+          </div>
+          <div class="step-arrow">›</div>
+          <div class="step-chip final">
+            <div class="n">5</div>
+            <div class="lbl">기록 보존</div>
+            <div class="en">Archiving</div>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="sec-h3">계획서에 반드시 포함해야 할 6가지</h3>
+      <p>고시 제7조는 점검 실시 전 수립해야 하는 계획서의 내용을 구체적으로 규정합니다. 단순 일정표가 아닙니다.</p>
+
+      <div class="divider-list">
+        <div class="divider-item tag-item"><span class="tag-chip">필수 ①</span><p style="margin-bottom:0">별지 제1호서식의 <strong>정보통신설비 유지보수·관리 및 성능점검 대상 현황표</strong></p></div>
+        <div class="divider-item tag-item"><span class="tag-chip">필수 ②</span><p style="margin-bottom:0">점검대상 설비의 <strong>유지보수·관리 및 성능점검 절차</strong></p></div>
+        <div class="divider-item tag-item"><span class="tag-chip">필수 ③</span><p style="margin-bottom:0"><strong>산업재해방지 대책</strong> — 맨홀 진입, 고소 작업, 감전 위험 등 작업 유형별 안전 기준</p></div>
+        <div class="divider-item tag-item"><span class="tag-chip">필수 ④</span><p style="margin-bottom:0"><strong>긴급 상황 매뉴얼</strong> — 점검 중 설비 이상 발생 시 원상복구 절차 및 제조사 비상연락처</p></div>
+        <div class="divider-item tag-item"><span class="tag-chip">필수 ⑤</span><p style="margin-bottom:0">점검 후 <strong>이상 상황 발생 시 조치 방법</strong></p></div>
+        <div class="divider-item tag-item"><span class="tag-chip">필수 ⑥</span><p style="margin-bottom:0"><strong>사고 재발방지 대책</strong> (사고 이력이 있는 경우에 한함)</p></div>
+      </div>
+
+      <div class="callout"><p>계획서는 점검 실시 전 관리주체의 검토·승인을 받아야 하며, 내용이 변경될 경우 갱신 의무가 있습니다. "양식만 채운 계획서"는 제도의 취지를 충족하지 못합니다.</p></div>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">계획의 질이 결과를 결정한다</div>
+      <h2 class="sec-h2">좋은 계획서가 좋은 점검을 만듭니다</h2>
+      <p>고시가 요구하는 6가지 항목 중 <strong>③ 산업재해방지 대책</strong>과 <strong>④ 긴급 상황 매뉴얼</strong>은 대부분의 관리주체가 가장 소홀히 여기는 부분입니다. 동시에 점검 현장에서 가장 실질적인 역할을 하는 항목이기도 합니다.</p>
+      <p>정보통신설비 점검 작업은 생각보다 다양한 위험에 노출됩니다. 국선인입설비 점검을 위한 맨홀 진입, 안테나 점검을 위한 옥상 고소 작업, 전원설비 점검 시의 감전 위험까지 — 이 모든 상황에 대한 구체적인 안전 계획이 문서화되어 있어야 합니다.</p>
+
+      <h3 class="sec-h3">안전 계획서에 담겨야 할 핵심 내용</h3>
+
+      <div class="check-list">
+        <div class="check-item">
+          <div class="icon warn">⚠️</div>
+          <div class="body">
+            <div class="ttl">작업 유형별 위험 요소 사전 평가</div>
+            <div class="desc">옥상·고소 작업(추락), 맨홀·수공 진입(질식·산소결핍), 전원설비 점검(감전), 케이블 작업(협착) 등 작업 유형별 위험도를 사전에 분류하고 대응 기준을 명시합니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon warn">⚠️</div>
+          <div class="body">
+            <div class="ttl">밀폐공간(맨홀) 진입 안전 기준</div>
+            <div class="desc">진입 전 산소도·유해가스 측정 의무화(O₂ 19.5~23.5%), 3인 체계(진입자·감시자·구조자) 구성, 강제환기 절차, 긴급 인양 방법까지 단계별로 규정합니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon warn">⚠️</div>
+          <div class="body">
+            <div class="ttl">기상 조건별 작업 중단 기준</div>
+            <div class="desc">풍속 10m/s 이상 시 고소 작업 금지, 강우 시 맨홀 작업 금지, 뇌우 경보 시 옥상 작업 금지 등 기상 상황에 따른 명확한 중단 기준을 사전에 정합니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon ok">✓</div>
+          <div class="body">
+            <div class="ttl">점검 전·후 사진 기록 의무화</div>
+            <div class="desc">유지보수·관리 점검은 육안 점검이 원칙입니다. 점검 전 현장 상태를 촬영하고, 점검 후 동일 앵글로 재촬영하여 변화 여부를 비교합니다. 이것이 원상복구의 유일한 근거가 됩니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon ok">✓</div>
+          <div class="body">
+            <div class="ttl">설비별 제조사·유지보수사 긴급 연락처 사전 확보</div>
+            <div class="desc">점검 중 복구 불가능한 이상이 발생했을 때 즉시 호출할 수 있는 네트워크 장비, 영상 시스템, 전원 설비 등 설비별 기술 지원 연락처를 계획서에 명시해두어야 합니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon law">📋</div>
+          <div class="body">
+            <div class="ttl">인력별 역할과 안전교육 이수 확인</div>
+            <div class="desc">점검자, 감시자, 구조자 역할을 명확히 배분하고, 응급처치(CPR) 교육 이수 여부를 계획서에 기재합니다. 투입 인력 변경 시에는 관리주체의 사전 서면 승인이 필요합니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>이 수준의 안전 계획이 담긴 계획서는 관리주체에게 두 가지를 증명합니다. 하나는 법적 의무를 충실히 이행한다는 것, 다른 하나는 점검 과정에서 발생할 수 있는 모든 위험을 사전에 통제할 수 있다는 전문성입니다.</p>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">실무에서 놓치기 쉬운 지점</div>
+      <h2 class="sec-h2">"점검 했습니다"만으로는 부족합니다</h2>
+      <p>제도를 이행하는 과정에서 가장 많이 발생하는 실수는, 점검을 실시하고도 법령이 요구하는 방식으로 기록·보존하지 않는 것입니다. 점검 자체보다 <strong>적법한 형식의 산출물</strong>이 중요합니다.</p>
+
+      <h3 class="sec-h3">유지보수·관리는 "육안 점검"이 원칙입니다</h3>
+      <p>많은 담당자가 유지보수·관리 점검 중 설비를 직접 만지거나 조작하다가 예기치 않은 서비스 중단을 일으킵니다. 고시가 규정하는 유지보수·관리는 <strong>외관·기능·안전 상태의 육안 확인</strong>이 기본입니다. 점검 전후 현장 촬영을 의무화하고, 변화가 생겼을 때만 원상복구 조치를 취하는 것이 올바른 절차입니다.</p>
+
+      <h3 class="sec-h3">성능점검은 계측장비 측정이 포함됩니다</h3>
+      <p>유지보수·관리와 달리 성능점검은 <strong>정량적 측정</strong>이 요구됩니다. 접지저항 측정(100Ω 이하 기준), 신호레벨 측정, 광케이블 손실률 측정 등 설비 유형에 따라 적합한 계측장비를 준비해야 합니다. "이상 없음"으로만 작성된 점검표는 부적합 판정의 근거가 될 수 있습니다.</p>
+
+      <div class="callout"><p>성능점검표는 완료 후 5년간 보존해야 하며, 지자체장 요청 시 즉시 제출할 수 있는 상태를 유지해야 합니다.</p></div>
+
+      <h3 class="sec-h3">유지보수·관리자 선임 신고도 별도 의무입니다</h3>
+      <p>유지보수·관리자를 선임하거나 해임할 때는 관할 지자체(특별자치시장·시장·군수·구청장)에 신고해야 합니다. 해임 시에는 30일 이내 신규 선임이 필요합니다. 이 신고 절차를 빠뜨리는 경우가 실무에서 빈번합니다.</p>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">위반 시 제재</div>
+      <h2 class="sec-h2">의무를 이행하지 않으면 어떻게 되나</h2>
+      <p>이 제도는 권고가 아닙니다. 유지보수·관리자 미선임, 유지보수·관리 및 성능점검 미실시, 점검기록 미보존 등 의무를 이행하지 않은 경우 <strong>「정보통신공사업법」 제78조에 따라 과태료 최대 300만원</strong>이 부과됩니다.</p>
+
+      <div class="check-list">
+        <div class="check-item">
+          <div class="icon warn">⚠️</div>
+          <div class="body">
+            <div class="ttl">과태료 부과 유예기간 종료 — 2026.7.18.</div>
+            <div class="desc">유지보수·관리자 선임, 유지보수·관리 점검, 성능점검 등 전반에 걸쳐 부과 유예가 적용되어 왔으나, 2026년 7월 18일부로 유예기간이 종료되었습니다. 지금 이 시점부터 위반 사항에 대해 과태료가 실제로 부과됩니다.</div>
+          </div>
+        </div>
+        <div class="check-item">
+          <div class="icon law">📋</div>
+          <div class="body">
+            <div class="ttl">지자체 점검 대상이 됩니다</div>
+            <div class="desc">특별자치시장·시장·군수·구청장은 관할 건축물의 점검기록 제출을 요청할 수 있으며, 관리주체는 이에 응해야 합니다. 준비되지 않은 상태에서 지자체 점검을 받는 상황이 오기 전에 체계를 갖춰두어야 합니다.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout"><p>유예기간은 끝났습니다. 지금 이행하지 않으면 과태료 부과 대상입니다.</p></div>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">용어 정리</div>
+      <h2 class="sec-h2">알아두면 유용한 제도 핵심 용어</h2>
+      <p>이 제도를 처음 접하는 담당자를 위해 자주 등장하는 용어를 정리했습니다.</p>
+      <div class="term-grid">
+        <div class="term-card">
+          <div class="term-name">관리주체</div>
+          <div class="term-def">정보통신설비의 소유자 또는 관리자. 건물주, 관리사무소, 공공기관 등이 해당합니다. 유지보수·관리 및 성능점검의 최종 의무자입니다.</div>
+        </div>
+        <div class="term-card">
+          <div class="term-name">유지보수·관리자</div>
+          <div class="term-def">과기정통부장관이 정한 인정교육(20시간 이상)을 이수한 기술계 정보통신기술자. 관리주체가 선임하거나 공사업자에게 위탁할 수 있습니다.</div>
+        </div>
+        <div class="term-card">
+          <div class="term-name">성능점검 대행자</div>
+          <div class="term-def">정보통신설비의 성능점검을 대행하는 공사업자 또는 용역업자. 관리주체가 직접 점검하거나, 자격을 갖춘 업체에 위탁할 수 있습니다.</div>
+        </div>
+        <div class="term-card">
+          <div class="term-name">별지 제2·3호서식</div>
+          <div class="term-def">법령이 지정한 공식 점검 양식입니다. 제2호는 유지보수·관리 점검표, 제3호는 성능점검표로, 이 서식에 따라 결과를 기록·보존해야 합니다.</div>
+        </div>
+        <div class="term-card">
+          <div class="term-name">별표 2 검토사항</div>
+          <div class="term-def">성능점검 시 설비별로 검토해야 할 항목을 규정한 고시 별표. 정보통신설비 시스템 검토와 성능개선 계획 수립 두 축으로 구성됩니다.</div>
+        </div>
+        <div class="term-card">
+          <div class="term-name">완공일 기준일</div>
+          <div class="term-def">성능점검 주기 산정의 기준이 되는 날짜. 「건축법」상 사용승인 또는 준공인가를 받은 날로, 이를 기준으로 매년 1회 이상 점검해야 합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <section data-reveal>
+      <div class="sec-label">FAQ</div>
+      <h2 class="sec-h2">자주 묻는 질문</h2>
+
+      <details class="faq-item" open>
+        <summary><span class="q">Q</span>유지보수·관리와 성능점검을 같은 날 동시에 해도 되나요?<span class="chev">⌄</span></summary>
+        <div class="faq-a">둘은 별개의 의무이므로 목적과 점검 방법이 다릅니다. 같은 날 진행할 수는 있지만, 산출물(점검표)은 반드시 별지 제2호(유지보수·관리)와 제3호(성능점검)로 분리 작성해야 합니다. 하나로 합쳐서 제출하면 미이행으로 간주될 수 있습니다.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>유지보수·관리자를 직접 고용해야 하나요, 위탁도 되나요?<span class="chev">⌄</span></summary>
+        <div class="faq-a">관리주체가 직접 선임하거나, 정보통신공사업자에게 위탁할 수 있습니다. 위탁 시에는 위탁받은 공사업자가 유지보수·관리자를 선임해야 합니다. 어느 방식이든 지자체 선임 신고 의무는 동일하게 적용됩니다.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>성능점검은 반드시 외부 업체에 맡겨야 하나요?<span class="chev">⌄</span></summary>
+        <div class="faq-a">관리주체가 직접 실시하는 것도 가능합니다. 다만 이 경우 연면적 규모에 적합한 등급의 정보통신기술자를 고용해야 합니다. 현실적으로는 계측장비와 전문인력이 필요하기 때문에 공사업자 또는 용역업자에게 대행을 맡기는 경우가 많습니다.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>점검 결과 부적합 설비가 나오면 즉시 교체해야 하나요?<span class="chev">⌄</span></summary>
+        <div class="faq-a">성능점검 대행자는 부적합 설비에 대한 개선·보수·교체 등의 조치를 관리주체에게 요청할 수 있습니다. 실제 조치 여부와 비용 부담은 관리주체의 판단에 따릅니다. 다만 조치 권고 내역과 관리주체의 대응 결과는 결과보고서에 기록해두는 것이 바람직합니다.</div>
+      </details>
+      <details class="faq-item">
+        <summary><span class="q">Q</span>소규모 건물은 이 제도 적용을 받지 않나요?<span class="chev">⌄</span></summary>
+        <div class="faq-a">현재 의무 적용은 연면적 5천㎡ 이상을 기준으로 하지만, 이 기준은 향후 개정될 수 있습니다. 또한 의무 대상이 아니더라도 설비 성능 유지와 장애 예방을 위해 자발적 점검이 권장됩니다.</div>
+      </details>
+    </section>
+
+  </div>
+</article>
+
+<section class="cta" data-reveal>
+  <div class="cta-inner">
+    <h3>준비는 서류가 아니라 체계입니다</h3>
+    <p>유지보수·관리 및 성능점검 제도는 단순한 서류 작업이 아닙니다. 계획 수립부터 현장 점검, 결과 기록, 부적합 설비 조치까지 — ESNET은 정보통신설비 전문 시공 경험을 바탕으로 이 모든 과정을 체계적으로 지원합니다.</p>
+    <a href="../contact.html" class="cta-btn">문의하기 →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../uploads/pasted-1781487699647-0.png" alt="ESNET" class="footer-logo">
+      <div class="footer-info">
+        (주)이에스넷 · 대표자 : 최명수<br>
+        사업자등록번호 : 398-87-00795<br>
+        충북 청주시 상당구 용암북로 156, 401호
+      </div>
+    </div>
+    <div class="footer-right">
+      Tel: 043-292-1800 · Fax: 043-292-1900<br>
+      Email: <span class="eml" data-u="tech" data-d="esnet.co.kr"></span><br>
+      © 2026 ESNET. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const els = document.querySelectorAll('[data-reveal]');
+  const ob = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); ob.unobserve(e.target); } });
+  },{threshold:.12});
+  els.forEach(el=>ob.observe(el));
+})();
+</script>
+<script src="../assets/js/effects.js"></script>
+<script src="../assets/js/nav.js?v=4"></script>
+</body>
+</html>

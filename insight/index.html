@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET — 인사이트 | 기술자료실</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2668A3;--blue-bright:#3d8fd4;--dark:#0B1A2E;--text:#1d1d2c;--muted:#6b7185;--border:#e2e5ea;--bg:#fff;--tint:#f6f9fc;--radius:12px}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;color:var(--text);background:var(--bg)}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:var(--blue)}
+a:hover{color:var(--blue-bright)}
+[data-reveal]:not(.revealed){opacity:0;transform:translateY(24px)}
+[data-reveal]{transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+[data-reveal].revealed{opacity:1;transform:none}
+.nav.scrolled .nav-logo{filter:none}
+.nav.scrolled .nav-links{color:var(--muted)}
+.nav.scrolled .nav-links a:hover{color:var(--blue)}
+.mega-desc-title{font-size:20px;font-weight:700;color:var(--text);margin-bottom:8px}
+.mega-desc-text{font-size:14px;line-height:1.75;color:var(--muted)}
+.mega-desc-link{display:inline-flex;margin-top:16px;font-size:13px;font-weight:600;padding:10px 20px;border-radius:8px;background:rgba(38,104,163,.08);color:var(--blue)}
+
+/* HERO — minimal */
+.hero{background:var(--dark);padding:128px 5% 44px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 70% 20%,rgba(38,104,163,.2),transparent)}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1}
+.hero-label{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.2em;color:var(--blue-bright);margin-bottom:14px;text-transform:uppercase}
+.hero-h1{font-size:clamp(24px,3vw,32px);font-weight:900;color:#fff;line-height:1.3;letter-spacing:-.02em;margin-bottom:10px;word-break:keep-all}
+.hero-sub{font-size:14px;color:rgba(255,255,255,.5);line-height:1.7;word-break:keep-all;max-width:560px}
+
+/* LIST — card grid */
+.list{padding:72px 5% 100px;background:var(--tint)}
+.list-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+.post-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s}
+.post-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(11,26,46,.12)}
+.post-thumb{width:100%;aspect-ratio:16/10;overflow:hidden;background:var(--dark);position:relative}
+.post-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.post-card:hover .post-thumb img{transform:scale(1.06)}
+.post-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(11,26,46,.55),transparent 55%)}
+.post-body{flex:1;display:flex;flex-direction:column;padding:26px 28px 28px}
+.post-meta{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.post-title{font-size:clamp(18px,2vw,21px);font-weight:900;color:var(--text);line-height:1.4;margin-bottom:10px;word-break:keep-all;transition:color .2s}
+.post-card:hover .post-title{color:var(--blue)}
+.post-excerpt{font-size:14px;color:var(--muted);line-height:1.75;word-break:keep-all;margin-bottom:18px}
+.post-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto}
+.post-tags span{font-size:11px;padding:4px 11px;background:var(--tint);border:1px solid var(--border);border-radius:100px;color:var(--muted)}
+.post-card:hover .post-tags span{border-color:rgba(38,104,163,.3)}
+@media(max-width:760px){.list-inner{grid-template-columns:1fr}}
+
+.empty-note{padding:20px 0;font-size:13px;color:var(--muted);text-align:center}
+.post-card.soon{cursor:default;opacity:.6}
+.post-card.soon:hover{transform:none;box-shadow:none}
+.post-card.soon .post-thumb{background:var(--tint);display:flex;align-items:center;justify-content:center}
+.post-card.soon .post-thumb::after{display:none}
+.post-card.soon .post-thumb-icon{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.post-card.soon:hover .post-title{color:var(--text)}
+.post-card.soon:hover .post-thumb img{transform:none}
+
+footer{padding:40px 5%;background:#070f1c;color:rgba(255,255,255,.4)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
+.footer-logo{height:22px;filter:brightness(0) invert(1);margin-bottom:12px}
+.footer-info,.footer-right{font-size:12px;line-height:2}
+.footer-right{text-align:right}
+.footer-right a{color:rgba(255,255,255,.4)}
+</style>
+</head>
+<body>
+
+<nav id="mainNav"></nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label" data-reveal>// Insight · 기술자료실</div>
+    <h1 class="hero-h1" data-reveal>인사이트</h1>
+    <p class="hero-sub" data-reveal>네트워크·보안·제도 이슈를 현장 엔지니어의 시각으로 정리합니다.</p>
+  </div>
+</section>
+
+<section class="list">
+  <div class="list-inner">
+
+    <a class="post-card" href="n2sf.html" data-reveal>
+      <div class="post-thumb"><img src="img/n2sf-book-final.png" alt="N2SF 보안가이드라인"></div>
+      <div class="post-body">
+        <div class="post-meta">2026.07</div>
+        <div class="post-title">망분리, 이제 다르게 설계해야 할 때</div>
+        <p class="post-excerpt">국가 망 보안체계(N2SF)가 그리는 새로운 네트워크 구조 — 획일적 차단에서 등급별 차등 통제로 전환하는 흐름과 실무 쟁점을 정리했습니다.</p>
+        <div class="post-tags"><span>N2SF</span><span>망분리</span><span>제로트러스트</span></div>
+      </div>
+    </a>
+
+    <a class="post-card" href="maintenance.html" data-reveal>
+      <div class="post-thumb"><img src="img/maintenance-worker.png" alt="정보통신설비 유지보수·관리"></div>
+      <div class="post-body">
+        <div class="post-meta">2026.07</div>
+        <div class="post-title">정보통신설비 유지보수·관리 &amp; 성능점검, 지금 준비해야 하는 이유</div>
+        <p class="post-excerpt">2025년 7월 시행된 법적 의무화 제도의 핵심과, 계획 수립부터 기록 보존까지 실무에서 놓치기 쉬운 지점들을 정리했습니다.</p>
+        <div class="post-tags"><span>정보통신공사업법</span><span>유지보수·관리</span><span>성능점검</span></div>
+      </div>
+    </a>
+
+    <a class="post-card" href="ppp-zone.html" data-reveal>
+      <div class="post-thumb"><img src="img/ppp-datacenter.jpg" alt="PPP Zone 국가데이터센터"></div>
+      <div class="post-body">
+        <div class="post-meta">2026.07</div>
+        <div class="post-title">PPP Zone, 업무망에 AI를 들이기 위한 인프라 협력</div>
+        <p class="post-excerpt">담장 안에 민간이 들어왔다는 사실보다, 그 위에서 AI가 업무망에 안전하게 연결된다는 사실이 더 중요합니다.</p>
+        <div class="post-tags"><span>PPP Zone</span><span>민관협력</span><span>클라우드</span></div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <img src="../uploads/pasted-1781487699647-0.png" alt="ESNET" class="footer-logo">
+      <div class="footer-info">
+        (주)이에스넷 · 대표자 : 최명수<br>
+        사업자등록번호 : 398-87-00795<br>
+        충북 청주시 상당구 용암북로 156, 401호
+      </div>
+    </div>
+    <div class="footer-right">
+      Tel: 043-292-1800 · Fax: 043-292-1900<br>
+      Email: <span class="eml" data-u="tech" data-d="esnet.co.kr"></span><br>
+      © 2026 ESNET. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const els = document.querySelectorAll('[data-reveal]');
+  const ob = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); ob.unobserve(e.target); } });
+  },{threshold:.12});
+  els.forEach(el=>ob.observe(el));
+})();
+</script>
+<script src="../assets/js/effects.js"></script>
+<script src="../assets/js/nav.js?v=4"></script>
+</body>
+</html>

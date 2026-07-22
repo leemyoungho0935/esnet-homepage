@@ -7,7 +7,7 @@
 
   /* ── Path detection ── */
   var path = window.location.pathname;
-  var inSub = path.indexOf('/about/') > -1 || path.indexOf('/service/') > -1;
+  var inSub = path.indexOf('/about/') > -1 || path.indexOf('/service/') > -1 || path.indexOf('/insight/') > -1;
   var base  = inSub ? '..' : '.';
 
   /* ── Arrow SVG ── */
@@ -184,6 +184,19 @@
           '</div></div>' +
         '</div>' +
 
+        /* 인사이트 */
+        '<div class="nav-item">' +
+          '<a href="' + base + '/insight/index.html">인사이트' + arrowSvg + '</a>' +
+          '<div class="mega-drop"><div class="mega-inner">' +
+            '<div class="mega-cat">Insight</div>' +
+            '<div class="mega-desc">' +
+              '<div class="mega-desc-title">기술자료실</div>' +
+              '<div class="mega-desc-text">네트워크·보안·제도 이슈를<br>현장 엔지니어의 시각으로 정리합니다.</div>' +
+              '<a href="' + base + '/insight/index.html" class="mega-desc-link">인사이트 보기 →</a>' +
+            '</div>' +
+          '</div></div>' +
+        '</div>' +
+
         /* 문의 */
         '<div class="nav-item">' +
           '<a href="' + base + '/contact.html">문의' + arrowSvg + '</a>' +
@@ -205,6 +218,7 @@
       '<a href="' + base + '/about/index.html" class="mob-link">회사소개' + arrowSvg + '</a>' +
       '<a href="' + base + '/service/index.html" class="mob-link">사업영역' + arrowSvg + '</a>' +
       '<a href="' + base + '/reference.html" class="mob-link">레퍼런스' + arrowSvg + '</a>' +
+      '<a href="' + base + '/insight/index.html" class="mob-link">인사이트' + arrowSvg + '</a>' +
       '<a href="' + base + '/contact.html" class="mob-link">문의' + arrowSvg + '</a>' +
       '<a href="' + base + '/remote.html" class="mob-remote">' + remoteIcon + '원격지원</a>' +
     '</div>';

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET 사업영역 - UI 개선 시안</title>
+<style>
+    /* 기본 테마 설정 */
+    :root {
+        --bg-color: #0f172a; /* 신뢰감을 주는 깊은 네이비 톤 */
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --accent: #3b82f6; 
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.6;
+    }
+
+    .service-section {
+        padding: 6rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* 섹션 헤더 */
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* 카드 그리드 레이아웃 */
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 2.5rem;
+    }
+
+    /* 개별 카드 스타일링 (글래스모피즘 적용) */
+    .service-card {
+        background: var(--card-bg);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 카드 호버(Hover) 효과 */
+    .service-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(59, 130, 246, 0.4);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    /* 상단 이미지 영역 */
+    .card-image-wrapper {
+        position: relative;
+        width: 100%;
+        height: 240px;
+        overflow: hidden;
+    }
+
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease;
+    }
+
+    .service-card:hover .card-image {
+        transform: scale(1.08);
+    }
+
+    /* 텍스트 가독성을 위한 그라데이션 오버레이 */
+    .image-overlay {
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(to bottom, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.95) 100%);
+    }
+
+    /* 카드 내용 영역 */
+    .card-content {
+        padding: 2rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin-top: -30px; /* 이미지와 자연스럽게 이어지도록 설계 */
+        z-index: 2;
+    }
+
+    .card-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin: 0 0 1rem 0;
+        color: var(--text-main);
+    }
+
+    .card-desc {
+        color: var(--text-muted);
+        font-size: 1rem;
+        margin: 0;
+        line-height: 1.6;
+        word-break: keep-all;
+    }
+
+    /* 타이틀 위 디자인 포인트 라인 */
+    .card-title::before {
+        content: '';
+        display: block;
+        width: 32px;
+        height: 3px;
+        background-color: var(--accent);
+        margin-bottom: 1rem;
+        border-radius: 2px;
+    }
+</style>
+</head>
+<body>
+
+<section class="service-section">
+    <div class="section-header">
+        <h2>Business Areas</h2>
+        <p>신뢰할 수 있는 정보통신 인프라와 혁신적인 기술로 미래를 선도합니다.</p>
+    </div>
+
+    <div class="service-grid">
+        <div class="service-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" alt="정보통신망 구축" class="card-image">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">정보통신망 구축</h3>
+                <p class="card-desc">공공 및 기업 환경에 최적화된 안전하고 효율적인 네트워크 인프라 설계 및 구축 사업을 수행합니다.</p>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80" alt="정보통신 유지관리" class="card-image">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">정보통신 유지관리</h3>
+                <p class="card-desc">단순한 물리적 장비 관리를 넘어, 서비스의 완벽한 연속성을 보장하고 체계적인 대응 지식망을 운용합니다.</p>
+            </div>
+        </div>
+
+        <div class="service-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80" alt="AI Transformation" class="card-image">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="card-content">
+                <h3 class="card-title">AI Transformation</h3>
+                <p class="card-desc">기업 내부 데이터를 활용한 생성형 AI 솔루션 및 실무 밀착형 업무 자동화 시스템을 기획하고 개발합니다.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
