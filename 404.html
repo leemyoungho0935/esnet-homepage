@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',sans-serif;background:#0B1A2E;color:#fff;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
+.box p{color:rgba(255,255,255,.55);font-size:14px;margin-top:10px}
+.box a{color:#3d8fd4;text-decoration:none;font-size:14px}
+.box h1{font-size:20px;font-weight:700}
+</style>
+<script>
+(function(){
+  var map = {
+    '/': '/index.html',
+    '/bz-areas': '/service/index.html',
+    '/reference': '/reference.html',
+    '/blog': '/insight/index.html',
+    '/receipt': '/contact.html',
+    '/about-3': '/about/index.html',
+    '/help': '/remote.html'
+  };
+  var path = location.pathname.replace(/\/$/, '') || '/';
+  var target = map[path];
+  if (!target) {
+    for (var k in map) { if (k !== '/' && path.indexOf(k) === 0) { target = map[k]; break; } }
+  }
+  target = target || '/index.html';
+  setTimeout(function(){ location.replace(target); }, 1500);
+})();
+</script>
+</head>
+<body>
+<div class="box">
+<h1>페이지 위치가 변경되었습니다</h1>
+<p>잠시 후 자동으로 이동합니다. 이동하지 않으면 <a href="/index.html">여기를 클릭</a>하세요.</p>
+</div>
+</body>
+</html>
