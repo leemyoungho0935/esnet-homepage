@@ -1,0 +1,450 @@
+html_content = """<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESNET 사업영역 - Expanding Cards UI</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" />
+<style>
+    :root {
+        --bg-color: #0b1120;
+        --card-bg: rgba(30, 41, 59, 0.5);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --accent: #3b82f6;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.6;
+        overflow-x: hidden;
+    }
+
+    .header-section {
+        text-align: center;
+        padding: 5rem 2rem 3rem;
+    }
+
+    .header-section h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #ffffff 0%, #93c5fd 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.02em;
+    }
+
+    .header-section p {
+        font-size: 1.15rem;
+        color: var(--text-muted);
+        max-width: 700px;
+        margin: 0 auto;
+        word-break: keep-all;
+    }
+
+    /* 카드 그리드 컨테이너 */
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 1300px;
+        margin: 0 auto 6rem;
+        padding: 0 2rem;
+        align-items: start;
+    }
+
+    /* 카드 기본 스타일 */
+    .service-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 24px;
+        overflow: hidden;
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        cursor: pointer;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* 닫기 버튼 (확장 시에만 노출) */
+    .close-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #fff;
+        width: 40px; height: 40px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        opacity: 0; pointer-events: none;
+        z-index: 10;
+        transition: opacity 0.3s ease, background 0.3s ease;
+    }
+    
+    .close-btn:hover { background: var(--accent); }
+
+    /* 호버 효과 (기본 상태일 때만) */
+    .service-card:not(.expanded):hover {
+        transform: translateY(-8px);
+        border-color: rgba(148, 163, 184, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-image-wrapper {
+        width: 100%;
+        height: 280px;
+        position: relative;
+        overflow: hidden;
+        transition: height 0.5s cubic-bezier(0.4, 0, 0.2, 1), width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+
+    .service-card:not(.expanded):hover .card-image { transform: scale(1.08); }
+
+    .image-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to bottom, rgba(11,17,32,0) 0%, rgba(11,17,32,0.8) 100%);
+    }
+
+    .card-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        transition: padding 0.5s ease;
+    }
+
+    .card-tag {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #93c5fd;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 1rem;
+        display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .expand-icon {
+        font-weight: 300;
+        color: var(--accent);
+        transition: transform 0.3s;
+    }
+    .service-card:not(.expanded):hover .expand-icon { transform: translateX(5px); }
+
+    .card-desc {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        word-break: keep-all;
+    }
+
+    /* 숨겨진 세부 내용 영역 (기본 상태) */
+    .card-details {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+    }
+
+    .details-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 2.5rem 0 1.5rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--card-border);
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .details-title::before {
+        content: ''; display: block; width: 20px; height: 3px; background: var(--accent);
+    }
+
+    /* 큼직하고 시원한 세부 업무 리스트 */
+    .task-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.25rem;
+    }
+
+    .task-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        font-size: 1.05rem;
+        color: #cbd5e1;
+        line-height: 1.5;
+        word-break: keep-all;
+        transition: all 0.3s ease;
+    }
+
+    .task-item:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(59, 130, 246, 0.4);
+        transform: translateY(-3px);
+    }
+
+    .task-icon {
+        color: var(--accent);
+        font-size: 1.2rem;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+
+    /* ====== 확장 상태 (Expanded State) ====== */
+    .service-card.expanded {
+        grid-column: 1 / -1; /* 전체 너비 사용 */
+        flex-direction: row; /* 가로 배치로 변경 */
+        background: rgba(15, 23, 42, 0.7);
+        border-color: rgba(148, 163, 184, 0.2);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        cursor: default;
+    }
+
+    .service-card.expanded .close-btn {
+        opacity: 1; pointer-events: auto;
+    }
+
+    .service-card.expanded .card-image-wrapper {
+        width: 40%;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .service-card.expanded .image-overlay {
+        background: linear-gradient(to right, rgba(11,17,32,0) 0%, rgba(11,17,32,0.8) 100%);
+    }
+
+    .service-card.expanded .card-content {
+        width: 60%;
+        padding: 4rem;
+        justify-content: center;
+    }
+
+    .service-card.expanded .card-title {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-card.expanded .expand-icon { display: none; }
+
+    .service-card.expanded .card-desc {
+        font-size: 1.15rem;
+    }
+
+    .service-card.expanded .card-details {
+        max-height: 1000px; /* 충분히 큰 값으로 열리게 함 */
+        opacity: 1;
+        overflow: visible;
+    }
+
+    /* 흐려지는 비활성 카드 */
+    .service-grid.has-expanded .service-card:not(.expanded) {
+        opacity: 0.5;
+        transform: scale(0.98);
+        pointer-events: none; /* 확장 중에는 다른 카드 클릭 방지 */
+    }
+
+    /* 반응형 처리 */
+    @media (max-width: 1024px) {
+        .service-card.expanded {
+            flex-direction: column; /* 태블릿 이하는 세로 배치 유지 */
+        }
+        .service-card.expanded .card-image-wrapper {
+            width: 100%;
+            height: 300px;
+            min-height: auto;
+        }
+        .service-card.expanded .image-overlay {
+            background: linear-gradient(to bottom, rgba(11,17,32,0) 0%, rgba(11,17,32,0.8) 100%);
+        }
+        .service-card.expanded .card-content {
+            width: 100%;
+            padding: 2.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .service-grid { grid-template-columns: 1fr; }
+        .service-card.expanded .card-title { font-size: 1.8rem; }
+        .service-card.expanded .card-content { padding: 1.5rem; }
+        .task-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<div class="header-section">
+    <h1>Our Services</h1>
+    <p>신뢰할 수 있는 정보통신 인프라와 혁신적인 기술로 미래를 선도합니다.<br>카드를 클릭하면 <strong>상세한 전문 역량</strong>이 시원하게 펼쳐집니다.</p>
+</div>
+
+<div class="service-grid" id="grid-container">
+
+    <!-- 카드 1: NI -->
+    <div class="service-card" onclick="expandCard(this, event)">
+        <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+        <div class="card-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1000&q=80" alt="NI" class="card-image">
+            <div class="image-overlay"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-tag">Network Integration</div>
+            <h3 class="card-title">정보통신망 구축 <span class="expand-icon">→</span></h3>
+            <p class="card-desc">고객의 요구시스템 분석을 통해 안정적이고 신뢰성이 검증된 솔루션 제안부터 최적의 성능을 갖는 네트워크 구축 및 운영 서비스를 제공합니다.</p>
+            
+            <div class="card-details">
+                <h4 class="details-title">세부 수행 업무</h4>
+                <div class="task-grid">
+                    <div class="task-item"><span class="task-icon">✓</span><span>고객 요구사항에 적합한 맞춤형 네트워크 서비스 제공</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>안정성, 보안성, 호환성 등 검증된 장비/솔루션을 통한 네트워크 구축</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>고객 비즈니스 가치에 부합한 가치 창출 파트너십 서비스</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>고객 환경에 최적화된 IT 인프라 디자인 및 융합 IT 구성</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 2: SI -->
+    <div class="service-card" onclick="expandCard(this, event)">
+        <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+        <div class="card-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=80" alt="SI" class="card-image">
+            <div class="image-overlay"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-tag">System Integration</div>
+            <h3 class="card-title">시스템 통합 <span class="expand-icon">→</span></h3>
+            <p class="card-desc">기업 및 공공기관 분야에서 축적된 노하우와 기술을 바탕으로 급변하는 환경에 대응할 수 있는 시스템 통합 서비스를 제공합니다.</p>
+            
+            <div class="card-details">
+                <h4 class="details-title">세부 수행 업무</h4>
+                <div class="task-grid">
+                    <div class="task-item"><span class="task-icon">✓</span><span>고객 시스템 환경 분석 및 맞춤형 컨설팅 서비스 제공</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>IT 서비스 SLA 아웃소싱으로 통합 운영 환경 설계 One-Stop 제공</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>H/W, S/W 운영 및 안정적인 기반시설 이전 구축</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>정보시스템 기반 응용체계 설계 및 솔루션 개발</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 3: QM -->
+    <div class="service-card" onclick="expandCard(this, event)">
+        <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+        <div class="card-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1000&q=80" alt="QM" class="card-image">
+            <div class="image-overlay"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-tag">Quality & Maintenance</div>
+            <h3 class="card-title">정보통신 유지관리 <span class="expand-icon">→</span></h3>
+            <p class="card-desc">단순한 물리적 장비 관리를 넘어, 서비스의 완벽한 연속성을 보장하고 체계적인 대응 지식망을 운용하여 안정적인 IT 자산운영을 지원합니다.</p>
+            
+            <div class="card-details">
+                <h4 class="details-title">세부 수행 업무</h4>
+                <div class="task-grid">
+                    <div class="task-item"><span class="task-icon">✓</span><span>통합 유지보수 서비스 (SLA 아웃소싱 체계 구축)</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>장애 예방정비, 긴급 정비 및 정밀 장애진단 분석/복구</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>H/W, S/W 제조사 및 개발사 간 유기적 연계 지원</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>정기/비정기 인프라 점검, 실무 교육 및 보안 취약점 점검</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 카드 4: AX -->
+    <div class="service-card" onclick="expandCard(this, event)">
+        <button class="close-btn" onclick="closeCard(this, event)">✕</button>
+        <div class="card-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1000&q=80" alt="AX" class="card-image">
+            <div class="image-overlay"></div>
+        </div>
+        <div class="card-content">
+            <div class="card-tag">AI Transformation</div>
+            <h3 class="card-title">AI 혁신 솔루션 <span class="expand-icon">→</span></h3>
+            <p class="card-desc">기업 내부 데이터를 활용한 실무 밀착형 생성형 AI 솔루션 및 RAG 기반 업무 자동화 시스템을 기획하고 개발합니다.</p>
+            
+            <div class="card-details">
+                <h4 class="details-title">세부 수행 업무</h4>
+                <div class="task-grid">
+                    <div class="task-item"><span class="task-icon">✓</span><span>제안서(RFP) 분석 및 초안 작성 자동화 시스템 구축</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>RAG 및 로컬 LLM 기반 기업 맞춤형 지식 데이터베이스 운용</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>공공기관 및 엔터프라이즈 특화 프라이빗 AI 모델 구축</span></div>
+                    <div class="task-item"><span class="task-icon">✓</span><span>사내 AI 역량 강화 교육 및 실무 프로세스 혁신 주도</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const gridContainer = document.getElementById('grid-container');
+    const allCards = document.querySelectorAll('.service-card');
+
+    function expandCard(card, event) {
+        // 이미 열려있거나 닫기 버튼을 클릭한 경우 리턴
+        if(card.classList.contains('expanded') || event.target.classList.contains('close-btn')) return;
+
+        // 다른 모든 카드 닫기
+        allCards.forEach(c => c.classList.remove('expanded'));
+        
+        // 그리드 컨테이너에 확장 상태 클래스 추가 (다른 카드들 블러/축소 처리용)
+        gridContainer.classList.add('has-expanded');
+        
+        // 현재 카드 확장
+        card.classList.add('expanded');
+
+        // 확장 애니메이션 후 스크롤을 부드럽게 조정하여 화면 중앙(상단)에 맞춤
+        setTimeout(() => {
+            const yOffset = -50; 
+            const y = card.getBoundingClientRect().top + window.pageYOffset + yOffset;
+            window.scrollTo({top: y, behavior: 'smooth'});
+        }, 300);
+    }
+
+    function closeCard(btn, event) {
+        event.stopPropagation(); // 카드 클릭 이벤트로 전파되는 것 방지
+        const card = btn.closest('.service-card');
+        card.classList.remove('expanded');
+        gridContainer.classList.remove('has-expanded');
+    }
+</script>
+
+</body>
+</html>
+"""
+
+with open("/mnt/data/ESNET_Expanding_Cards_UI.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("File generated successfully.")
